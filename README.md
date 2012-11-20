@@ -23,11 +23,18 @@ This is for MySql data type SET
 
 ```php
 // in constructor define all set with translate, whose show on web
-$gps = new GPS(array('car' => 'Auto', 'house' => 'Dům', 'notebook' => 'Notebook', 'bike' => 'Kolo'));
-$gps->setValue('car,house');
-// this is for form
-$gps->getValues(); // array('car' => 'Auto', 'house' => 'Dům');
+$set = new Set(array('car' => 'Auto', 'house' => 'Dům', 'notebook' => 'Notebook', 'bike' => 'Kolo'));
+$set->setValue('car,house');
+// this is for checkbox list
+$set->getSet(); // array defined in constructor
 
-$gps->getValues(TRUE); // array('car', 'house');
+// this is for fill form
+$set->getValues(); // array('car' => 'Auto', 'house' => 'Dům');
+
+$set->getValues(TRUE); // array('car', 'house');
+
+$set->getValue(); // 'car,house'
+// same is
+echo $set;
 
 ```
