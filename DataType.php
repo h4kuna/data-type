@@ -39,7 +39,7 @@ abstract class DataType extends Object {
     }
 
     public function __toString() {
-        return $this->getValue();
+        return (string)$this->getValue();
     }
 
 }
