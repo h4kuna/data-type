@@ -1,5 +1,16 @@
 ## Data type
 
+### Float
+
+```php
+$float = new Float();
+$float->setValue('1'); // 1.0
+$float->setValue('foo- 1,5 foo'); // -1.5
+//time
+$float->setValue('0:30'); // 0.5
+$float->setValue('0:90'); // 1.5
+```
+
 ### GPS
 
 ```php
@@ -14,6 +25,13 @@ foreach($coordinate as $value){
 If you want change key of returned array, use
 ```php
 $gps->setUp(6, 'x', 'y');
+```
+
+### Int (under construction)
+
+```php
+$int = new Int();
+$float->setValue('foo- 1,5 foo'); // -1
 ```
 
 
