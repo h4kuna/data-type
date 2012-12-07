@@ -16,6 +16,11 @@ class Float extends DataType {
             $this->value = $v;
         } elseif (is_numeric($v)) {
             $this->value = floatval($v);
+        } elseif (strstr($v, ':')) {
+            $this->value = 0.0;
+            foreach(explode(':', $v) as $i => $v) {
+                $this->value += ($v / pow(60, $i));
+            }
         } else {
             $negative = substr($v, 0, 1) == '-';
             preg_match('~[\.,]\d*$~', $v, $found);
