@@ -18,7 +18,7 @@ class Int extends DataType {
             $this->value = intval($v);
         } else {
             $negative = substr($v, 0, 1) == '-';
-            $v = preg_replace('~\W\d{2}$|\W~', '', $v);
+            $v = preg_replace('~\W~', '', $v);
             if ($negative) {
                 $v *= -1;
             }
