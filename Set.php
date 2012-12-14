@@ -2,17 +2,30 @@
 
 namespace h4kuna;
 
+require_once 'DataType.php';
+
 class Set extends DataType {
 
     private $values = array();
     private $set = array();
 
-    public function __construct(array $set) {
+    /**
+     *
+     * @param array $set
+     */
+    public function __construct($set = array()) {
         $this->set = $set;
     }
 
-    public function getSet() {
+    public function getSet($keys = FALSE) {
+        if ($keys) {
+            return array_keys($this->set);
+        }
         return $this->set;
+    }
+
+    public function intersect() {
+        return array_intersect_key($this->set, $this->getValues());
     }
 
     /**
@@ -33,7 +46,7 @@ class Set extends DataType {
      */
     public function setValue($value) {
         $this->clean();
-        if ($value === NULL) {
+        if (!$value) {
             return $this;
         }
 
@@ -47,7 +60,7 @@ class Set extends DataType {
                         $this->value .= ',';
                     }
                     $this->value .= $k;
-                    $this->values[$k] = $this->set[$k];
+                    $this->values[$k] = TRUE;
                 }
             }
         }
