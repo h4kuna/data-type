@@ -13,7 +13,7 @@ class Set extends DataType {
      *
      * @param array $set
      */
-    public function __construct($set = array()) {
+    public function __construct(array $set = array()) {
         $this->set = $set;
     }
 
