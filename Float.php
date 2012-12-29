@@ -18,7 +18,7 @@ class Float extends DataType {
             $this->value = floatval($v);
         } elseif (strstr($v, ':')) {
             $this->value = 0.0;
-            foreach(explode(':', $v) as $i => $v) {
+            foreach (explode(':', $v) as $i => $v) {
                 $this->value += ($v / pow(60, $i));
             }
         } else {

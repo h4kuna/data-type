@@ -31,7 +31,6 @@ class Formating extends \Nette\Object {
         return implode($this->delimiter, preg_split('/^' . $this->mask . '$/', $s, -1, \PREG_SPLIT_DELIM_CAPTURE | \PREG_SPLIT_NO_EMPTY));
     }
 
-
     //-------------macros
     public function setPhone($mask = '(.*)(.{3})(.{3})(.{3})', $delimiter = ' ') {
         $this->setUp('(?!^\+)[^\d]', $mask, $delimiter);
