@@ -17,6 +17,7 @@ abstract class DataType extends Object {
 
     protected $value;
     protected $flags = 0;
+    protected $inValue;
 
     public function __construct($value = NULL) {
         $this->setValue($value);
@@ -25,6 +26,10 @@ abstract class DataType extends Object {
     abstract public function setValue($v);
 
     abstract protected function emptyValue();
+
+    public function getInValue() {
+        return $this->inValue;
+    }
 
     public function getValue() {
         if ($this->flags & self::EMPTY_IS_NULL && $this->value == $this->emptyValue()) {

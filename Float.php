@@ -12,6 +12,7 @@ require_once 'DataType.php';
 class Float extends DataType {
 
     public function setValue($v) {
+        $this->inValue = $v;
         if (is_float($v)) {
             $this->value = $v;
         } elseif (is_numeric($v)) {

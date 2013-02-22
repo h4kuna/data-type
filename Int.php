@@ -12,6 +12,7 @@ require_once 'DataType.php';
 class Int extends DataType {
 
     public function setValue($v) {
+        $this->inValue = $v;
         if (is_int($v)) {
             $this->value = $v;
         } elseif (is_numeric($v) && $v == intval($v)) {

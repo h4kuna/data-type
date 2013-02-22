@@ -45,6 +45,7 @@ class Set extends DataType {
      * @return \h4kuna\Set
      */
     public function setValue($value) {
+        $this->inValue = $value;
         $this->clean();
         if (!$value) {
             return $this;
