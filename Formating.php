@@ -43,6 +43,9 @@ class Formating extends \Nette\Object {
     }
 
     public function url($s) {
+        if (!$s) {
+            return NULL;
+        }
         $url = new \Nette\Http\Url($s);
         if (!$url->getScheme()) {
             $url->setScheme('http');
