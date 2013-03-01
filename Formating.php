@@ -1,5 +1,7 @@
 <?php
 
+namespace h4kuna;
+
 /**
  * @example
  * $format = new Formating();
