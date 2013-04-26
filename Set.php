@@ -6,22 +6,22 @@ require_once 'DataType.php';
 
 class Set extends DataType {
 
-    private $values = array();
     private $set = array();
+
+    const KEYS = 1;
+    const AS_STRING = 3;
 
     /**
      *
      * @param array $set
      */
     public function __construct(array $set = array()) {
+        $this->clean();
         $this->set = $set;
     }
 
-    public function getSet($keys = FALSE) {
-        if ($keys) {
-            return array_keys($this->set);
-        }
-        return $this->set;
+    public function getSet($flag = 0) {
+        return $this->arraySetString($this->set, $flag);
     }
 
     public function intersect() {
@@ -29,14 +29,34 @@ class Set extends DataType {
     }
 
     /**
-     * množina jako pole
-     * @return array
+     * transform array to string as set in mysql
+     * @param array $data
+     * @param type $flag
+     * @return type
      */
-    public function getValues($keys = FALSE) {
-        if ($keys) {
-            return array_keys($this->values);
+    private function arraySetString(array $data, $flag) {
+        if ($flag & self::KEYS) {
+            $data = array_keys($data);
+            if ($flag & 2) {
+                return implode(',', $data);
+            }
         }
-        return $this->values;
+        return $data;
+    }
+
+    public function getValues() {
+        return $this->getValue(0);
+    }
+
+    public function getValue($flag = self::AS_STRING) {
+        $array = $this->value;
+        $out = $this->arraySetString($this->value, $flag);
+        if ($flag == self::AS_STRING) {
+            $this->value = $out;
+            $out = parent::getValue();
+            $this->value = $array;
+        }
+        return $out;
     }
 
     /**
@@ -52,16 +72,11 @@ class Set extends DataType {
         }
 
         if (is_string($value)) {
-            $this->values = array_fill_keys(explode(',', $value), TRUE);
-            $this->value = $value;
+            $this->value = array_fill_keys(explode(',', $value), TRUE);
         } elseif (is_array($value)) {
             foreach ($value as $k => $v) {
                 if ($v) {
-                    if ($this->value) {
-                        $this->value .= ',';
-                    }
-                    $this->value .= $k;
-                    $this->values[$k] = TRUE;
+                    $this->value[$k] = TRUE;
                 }
             }
         }
@@ -73,8 +88,7 @@ class Set extends DataType {
     }
 
     private function clean() {
-        $this->value = $this->emptyValue();
-        $this->values = array();
+        $this->value = array();
     }
 
 }
