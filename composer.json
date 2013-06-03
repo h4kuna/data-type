@@ -1,19 +1,19 @@
 {
     "name": "h4kuna/data-type",
     "type": "library",
-    "description": "GPS transformer",
+    "description": "Basic data type, int, float, string, set, gps",
     "homepage": "https://github.com/h4kuna/data-type",
     "license": "MIT",
     "authors": [
-    {
-        "name": "Milan Matějček",
-        "email": "milan.matejcek@gmail.com",
-        "role": "Developer"
-    }
+        {
+            "name": "Milan Matějček",
+            "email": "milan.matejcek@gmail.com",
+            "role": "Developer"
+        }
     ],
     "require": {
-        "php" : ">=5.3.2",
-        "nette/nette": "2.0.*"
+        "php": ">=5.3.0",
+        "nette/nette": "*"
     },
     "require-dev": {
         "nette/nette": "@dev"

@@ -49,7 +49,7 @@ $set->getSet(); // array defined in constructor
 // this is for fill form
 $set->getValues(); // array('car' => 'Auto', 'house' => 'Dům');
 
-$set->getValues(TRUE); // array('car', 'house');
+$set->getValues($set::KEYS); // array('car', 'house');
 
 $set->getValue(); // 'car,house'
 // same is
