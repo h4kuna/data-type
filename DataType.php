@@ -44,6 +44,11 @@ abstract class DataType extends Object {
     }
 
     public function setFlags($v) {
+        if ($v === NULL) {
+            $v = self::EMPTY_IS_NULL;
+        } elseif (!is_int($v)) {
+            $v = 0;
+        }
         $this->flags = $v;
         return $this;
     }
