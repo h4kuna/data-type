@@ -16,11 +16,16 @@ abstract class DataType extends Object {
     const TRIM = 4;
 
     protected $value;
-    protected $flags = 0;
+    protected $flags;
     protected $inValue;
 
-    public function __construct($value = NULL) {
+    /**
+     * @param mixed $value
+     * @param int $flag
+     */
+    public function __construct($value = NULL, $flag = 0) {
         $this->setValue($value);
+        $this->setFlags($flag);
     }
 
     abstract public function setValue($v);
