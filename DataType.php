@@ -24,7 +24,9 @@ abstract class DataType extends Object {
      * @param int $flag
      */
     public function __construct($value = NULL, $flag = 0) {
-        $this->setValue($value);
+        if ($value !== NULL) {
+            $this->setValue($value);
+        }
         $this->setFlags($flag);
     }
 
