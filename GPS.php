@@ -2,19 +2,18 @@
 
 namespace h4kuna;
 
-use Nette\Object;
-
 /**
  * transform GPS to lat/lng array
  * @author Milan Matějček
  */
-class GPS extends Object {
+class GPS extends DataType {
 
     //Latitude [y] and Longitude [x]
-    private $coordinate = array();
     private static $xKey = 'x';
     private static $yKey = 'y';
     private static $round = 6;
+
+    const AS_STRING = 3;
 
     public function setUp($round, $xKey, $yKey) {
         self::$round = $round;
@@ -23,7 +22,8 @@ class GPS extends Object {
         return $this;
     }
 
-    public function match($gps) {
+    public function setValue($gps) {
+        $this->inValue = $gps;
         $found = array();
         if (preg_match('~^(\d{1,3}\.\d+?)(N|S), ?(\d{1,3}\.\d+?)(E|W)$~i', $gps, $found)) {
             //50.4113628N, 14.9032000E
@@ -37,21 +37,17 @@ class GPS extends Object {
         } elseif (preg_match('~^(\d{1,3})°(\d{1,2})\'(\d{1,2}\.\d+?)"(N|S), ?(\d{1,3})°(\d{1,2})\'(\d{1,2}\.\d+?)"(W|E)$~i', $gps, $found)) {
             //50°24'40.906"N, 14°54'11.520"E
             $this->setCoordinate(self::checkCoordinate(self::degToDec($found[5], $found[6], $found[7]), $found[8]), self::checkCoordinate(self::degToDec($found[1], $found[2], $found[3]), $found[4]));
-        } elseif (preg_match('~^(N|S)(\d{1,3}\.\d+?)° ?(E|W)(\d{1,3}\.\d+?)°$~i', $gps, $found)){
+        } elseif (preg_match('~^(N|S)(\d{1,3}\.\d+?)° ?(E|W)(\d{1,3}\.\d+?)°$~i', $gps, $found)) {
             //N49.20811° E19.04247°
             $this->setCoordinate(self::checkCoordinate($found[4], $found[3]), self::checkCoordinate($found[2], $found[1]));
         } else {
             throw new GPSException('Unsupported coordinate. ' . $gps);
         }
-        return $this->coordinate;
-    }
-
-    public function getCoordinate() {
-        return $this->coordinate;
+        return $this;
     }
 
     private function setCoordinate($x, $y) {
-        $this->coordinate = array(
+        $this->value = array(
             self::$xKey => round($x, self::$round),
             self::$yKey => round($y, self::$round)
         );
@@ -82,8 +78,27 @@ class GPS extends Object {
         return $num;
     }
 
+    public function getValue() {
+        $v = parent::getValue();
+        if ($this->flags & self::AS_STRING) {
+            return implode(',', array_reverse($v));
+        }
+        return $v;
+    }
+
+    /**
+     * transform to float
+     * @param float $degrees
+     * @param float $minutes
+     * @param float $seconds
+     * @return float
+     */
     public static function degToDec($degrees, $minutes, $seconds = 0) {
         return $degrees + $minutes / 60 + $seconds / 3600;
+    }
+
+    protected function emptyValue() {
+        return NULL;
     }
 
 }
