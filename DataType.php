@@ -15,8 +15,13 @@ abstract class DataType extends Object {
     const UNSIGNED = 2;
     const TRIM = 4;
 
+    /** @var mixed */
     protected $value;
+
+    /** @var int */
     protected $flags;
+
+    /** @var mixed */
     protected $inValue;
 
     /**
@@ -30,14 +35,27 @@ abstract class DataType extends Object {
         $this->setFlags($flag);
     }
 
+    /**
+     * @param mixed $v
+     * @return this
+     */
     abstract public function setValue($v);
 
+    /**
+     * return default emtpy value
+     * @return mixed
+     */
     abstract protected function emptyValue();
 
+    /**
+     * original value
+     * @return mixed
+     */
     public function getInValue() {
         return $this->inValue;
     }
 
+    /** @return NULL|mixed */
     public function getValue() {
         if ($this->flags & self::EMPTY_IS_NULL && $this->value == $this->emptyValue()) {
             return NULL;
@@ -45,6 +63,10 @@ abstract class DataType extends Object {
         return $this->value;
     }
 
+    /**
+     * @param int $v
+     * @return this
+     */
     public function setFlags($v) {
         if ($v === NULL) {
             $v = self::EMPTY_IS_NULL;
@@ -55,6 +77,10 @@ abstract class DataType extends Object {
         return $this;
     }
 
+    /**
+     * magic call
+     * @return string
+     */
     public function __toString() {
         return (string) $this->getValue();
     }

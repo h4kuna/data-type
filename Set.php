@@ -2,8 +2,6 @@
 
 namespace h4kuna;
 
-require_once 'DataType.php';
-
 class Set extends DataType {
 
     private $set = array();
@@ -12,7 +10,6 @@ class Set extends DataType {
     const AS_STRING = 3;
 
     /**
-     *
      * @param array $set
      */
     public function __construct(array $set = array()) {
@@ -20,10 +17,15 @@ class Set extends DataType {
         $this->set = $set;
     }
 
+    /**
+     * @param int $flag
+     * @return string|array
+     */
     public function getSet($flag = 0) {
         return $this->arraySetString($this->set, $flag);
     }
 
+    /** @return array */
     public function intersect() {
         return array_intersect_key($this->set, $this->getValues());
     }
@@ -31,8 +33,8 @@ class Set extends DataType {
     /**
      * transform array to string as set in mysql
      * @param array $data
-     * @param type $flag
-     * @return type
+     * @param int $flag
+     * @return string
      */
     private function arraySetString(array $data, $flag) {
         if ($flag & self::KEYS) {
@@ -44,10 +46,17 @@ class Set extends DataType {
         return $data;
     }
 
+    /**
+     * @return array
+     */
     public function getValues() {
         return $this->getValue(0);
     }
 
+    /**
+     * @param int $flag
+     * @return string|array
+     */
     public function getValue($flag = self::AS_STRING) {
         $array = $this->value;
         $out = $this->arraySetString($this->value, $flag);
@@ -62,7 +71,7 @@ class Set extends DataType {
     /**
      *
      * @param string|array $value
-     * @return \h4kuna\Set
+     * @return this
      */
     public function setValue($value) {
         $this->inValue = $value;
@@ -83,6 +92,7 @@ class Set extends DataType {
         return $this;
     }
 
+    /** @return string */
     protected function emptyValue() {
         return '';
     }

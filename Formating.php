@@ -22,26 +22,32 @@ class Formating extends \Nette\Object {
         $this->setPhone();
     }
 
+    /**
+     * @param string $regexp
+     * @param string $mask
+     * @param string $delimiter
+     */
     public function setUp($regexp, $mask, $delimiter = '') {
         $this->regexp = $regexp;
         $this->mask = $mask;
         $this->delimiter = $delimiter;
     }
 
+    /**
+     * working method
+     * @param string $s
+     * @return string
+     */
     public function format($s) {
         $s = preg_replace('/' . $this->regexp . '/', '', $s);
         return implode($this->delimiter, preg_split('/^' . $this->mask . '$/', $s, -1, \PREG_SPLIT_DELIM_CAPTURE | \PREG_SPLIT_NO_EMPTY));
     }
 
-    //-------------macros
-    public function setPhone($mask = '(.*)(.{3})(.{3})(.{3})', $delimiter = ' ') {
-        $this->setUp('(?!^\+)[^\d]', $mask, $delimiter);
-    }
-
-    public function setZip($mask = '(.{3})(.{2})', $delimiter = ' ') {
-        $this->setUp('[^\d]', $mask, $delimiter);
-    }
-
+    /**
+     * add http:// to url
+     * @param string $s
+     * @return string|NULL
+     */
     public function url($s) {
         if (!$s) {
             return NULL;
@@ -51,6 +57,27 @@ class Formating extends \Nette\Object {
             $url->setScheme('http');
         }
         return $url->absoluteUrl;
+    }
+
+    /**
+     * MACROS ******************************************************************
+     * *************************************************************************
+     */
+
+    /**
+     * @param string $mask
+     * @param string $delimiter
+     */
+    public function setPhone($mask = '(.*)(.{3})(.{3})(.{3})', $delimiter = ' ') {
+        $this->setUp('(?!^\+)[^\d]', $mask, $delimiter);
+    }
+
+    /**
+     * @param string $mask
+     * @param string $delimiter
+     */
+    public function setZip($mask = '(.{3})(.{2})', $delimiter = ' ') {
+        $this->setUp('[^\d]', $mask, $delimiter);
     }
 
 }

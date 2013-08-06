@@ -2,8 +2,6 @@
 
 namespace h4kuna;
 
-require_once 'DataType.php';
-
 /**
  * Description of String
  *

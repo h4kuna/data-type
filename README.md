@@ -18,7 +18,8 @@ $gps = new GPS();
 // in array coordinate are same
 $coordinate = array('50.4113628N, 14.9032000E', '50.4113628, 14.9032000', 'N 50°24.68177\', E 14°54.19200\'', '50°24\'40.906"N, 14°54\'11.520"E');
 foreach($coordinate as $value){
-    $gps->match($value);// array('lat' => 14.903200, 'lng' => 50.411363);
+    $gps->setValue($value)->getValue();// array('lat' => 14.903200, 'lng' => 50.411363);
+    $gps->getValue($gps::AS_STRING); // 50.411363,14.903200
 }
 ```
 

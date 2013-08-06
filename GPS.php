@@ -15,6 +15,13 @@ class GPS extends DataType {
 
     const AS_STRING = 3;
 
+    /**
+     * global setup
+     * @param int $round
+     * @param string $xKey
+     * @param string $yKey
+     * @return this
+     */
     public function setUp($round, $xKey, $yKey) {
         self::$round = $round;
         self::$xKey = $xKey;
@@ -22,6 +29,11 @@ class GPS extends DataType {
         return $this;
     }
 
+    /**
+     * @param string $gps
+     * @return this
+     * @throws GPSException
+     */
     public function setValue($gps) {
         $this->inValue = $gps;
         $found = array();
@@ -46,6 +58,10 @@ class GPS extends DataType {
         return $this;
     }
 
+    /**
+     * @param float $x
+     * @param float $y
+     */
     private function setCoordinate($x, $y) {
         $this->value = array(
             self::$xKey => round($x, self::$round),
@@ -53,6 +69,13 @@ class GPS extends DataType {
         );
     }
 
+    /**
+     * transform coordinate
+     * @param float $num
+     * @param string $pole
+     * @return float
+     * @throws GPSException
+     */
     private static function checkCoordinate($num, $pole) {
         switch (strtoupper($pole)) {
             case 'W':
@@ -78,6 +101,9 @@ class GPS extends DataType {
         return $num;
     }
 
+    /**
+     * @return string
+     */
     public function getValue() {
         $v = parent::getValue();
         if ($this->flags & self::AS_STRING) {
@@ -97,6 +123,7 @@ class GPS extends DataType {
         return $degrees + $minutes / 60 + $seconds / 3600;
     }
 
+    /** @return null */
     protected function emptyValue() {
         return NULL;
     }

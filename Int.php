@@ -2,15 +2,17 @@
 
 namespace h4kuna;
 
-require_once 'DataType.php';
-
 /**
- * Description of Int
+ * Base type integer as object
  *
- * @author milan
+ * @author Milan Matějček
  */
 class Int extends DataType {
 
+    /**
+     * @param string|float|int $v
+     * @return this
+     */
     public function setValue($v) {
         $this->inValue = $v;
         if (is_int($v)) {
@@ -33,6 +35,7 @@ class Int extends DataType {
         return $this;
     }
 
+    /** @return int */
     protected function emptyValue() {
         return 0;
     }

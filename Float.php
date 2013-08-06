@@ -2,8 +2,6 @@
 
 namespace h4kuna;
 
-require_once 'DataType.php';
-
 /**
  * Description of Float
  *
@@ -11,6 +9,11 @@ require_once 'DataType.php';
  */
 class Float extends DataType {
 
+    /**
+     *
+     * @param string|int|float $v
+     * @return this
+     */
     public function setValue($v) {
         $this->inValue = $v;
         if (is_float($v)) {
@@ -42,6 +45,10 @@ class Float extends DataType {
         return $this;
     }
 
+    /**
+     * @see DataType
+     * @return real
+     */
     protected function emptyValue() {
         return 0.0;
     }
