@@ -43,7 +43,7 @@ class GPS extends DataType {
         } elseif (preg_match('~(-?\d{1,3}\.\d+), ?(-?\d{1,3}\.\d+)$~', $gps, $found)) {
             //50.4113628, 14.9032000
             $this->setCoordinate($found[2], $found[1]);
-        } elseif (preg_match('~^(N|S) ?(\d{1,3})°(\d{1,2}\.\d+?)\', ?(W|E) ?(\d{1,3})°(\d{1,2}\.\d+?)\'$~i', $gps, $found)) {
+        } elseif (preg_match('~^(N|S) ?(\d{1,3})°(\d{1,2}\.\d+?)\',? ?(W|E) ?(\d{1,3})°(\d{1,2}\.\d+?)\'$~i', $gps, $found)) {
             //N 50°24.68177', E 14°54.19200'
             $this->setCoordinate(self::checkCoordinate(self::degToDec($found[5], $found[6]), $found[4]), self::checkCoordinate(self::degToDec($found[2], $found[3]), $found[1]));
         } elseif (preg_match('~^(\d{1,3})°(\d{1,2})\'(\d{1,2}\.\d+?)"(N|S), ?(\d{1,3})°(\d{1,2})\'(\d{1,2}\.\d+?)"(W|E)$~i', $gps, $found)) {
