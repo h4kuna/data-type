@@ -70,7 +70,8 @@ class GPS extends DataType {
     }
 
     /**
-     * transform coordinate
+     * Transform coordinate
+     *
      * @param float $num
      * @param string $pole
      * @return float
@@ -113,7 +114,8 @@ class GPS extends DataType {
     }
 
     /**
-     * transform to float
+     * Transform to float
+     * 
      * @param float $degrees
      * @param float $minutes
      * @param float $seconds

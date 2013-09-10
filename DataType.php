@@ -48,7 +48,8 @@ abstract class DataType extends Object {
     abstract protected function emptyValue();
 
     /**
-     * original value
+     * Original value
+     * 
      * @return mixed
      */
     public function getInValue() {
@@ -78,7 +79,8 @@ abstract class DataType extends Object {
     }
 
     /**
-     * magic call
+     * Magic call
+     *
      * @return string
      */
     public function __toString() {

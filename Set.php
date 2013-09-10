@@ -31,7 +31,8 @@ class Set extends DataType {
     }
 
     /**
-     * transform array to string as set in mysql
+     * Transform array to string as set in mysql
+     *
      * @param array $data
      * @param int $flag
      * @return string
