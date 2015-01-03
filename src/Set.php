@@ -1,8 +1,12 @@
 <?php
 
-namespace h4kuna;
+namespace h4kuna\DataType;
 
-class Set extends DataType {
+/**
+ * @author Milan Matějček
+ */
+class Set extends DataType
+{
 
     private $set = array();
 
@@ -12,7 +16,8 @@ class Set extends DataType {
     /**
      * @param array $set
      */
-    public function __construct(array $set = array()) {
+    public function __construct(array $set = array())
+    {
         $this->clean();
         $this->set = $set;
     }
@@ -21,12 +26,14 @@ class Set extends DataType {
      * @param int $flag
      * @return string|array
      */
-    public function getSet($flag = 0) {
+    public function getSet($flag = 0)
+    {
         return $this->arraySetString($this->set, $flag);
     }
 
     /** @return array */
-    public function intersect() {
+    public function intersect()
+    {
         return array_intersect_key($this->set, $this->getValues());
     }
 
@@ -37,7 +44,8 @@ class Set extends DataType {
      * @param int $flag
      * @return string
      */
-    private function arraySetString(array $data, $flag) {
+    private function arraySetString(array $data, $flag)
+    {
         if ($flag & self::KEYS) {
             $data = array_keys($data);
             if ($flag & 2) {
@@ -50,7 +58,8 @@ class Set extends DataType {
     /**
      * @return array
      */
-    public function getValues() {
+    public function getValues()
+    {
         return $this->getValue(0);
     }
 
@@ -58,7 +67,8 @@ class Set extends DataType {
      * @param int $flag
      * @return string|array
      */
-    public function getValue($flag = self::AS_STRING) {
+    public function getValue($flag = self::AS_STRING)
+    {
         $array = $this->value;
         $out = $this->arraySetString($this->value, $flag);
         if ($flag == self::AS_STRING) {
@@ -72,9 +82,10 @@ class Set extends DataType {
     /**
      *
      * @param string|array $value
-     * @return this
+     * @return self
      */
-    public function setValue($value) {
+    public function setValue($value)
+    {
         $this->inValue = $value;
         $this->clean();
         if (!$value) {
@@ -94,13 +105,14 @@ class Set extends DataType {
     }
 
     /** @return string */
-    protected function emptyValue() {
+    protected function emptyValue()
+    {
         return '';
     }
 
-    private function clean() {
+    private function clean()
+    {
         $this->value = array();
     }
 
 }
-

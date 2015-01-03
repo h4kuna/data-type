@@ -1,28 +1,30 @@
 <?php
 
-namespace h4kuna;
+namespace h4kuna\DataType;
 
 /**
- * transform GPS to lat/lng array
+ * Transform GPS to lat/lng array
  * @author Milan Matějček
  */
-class GPS extends DataType {
+class GPS extends DataType
+{
 
     //Latitude [y] and Longitude [x]
     private static $xKey = 'x';
     private static $yKey = 'y';
     private static $round = 6;
 
-    const AS_STRING = 3;
+    
 
     /**
      * global setup
      * @param int $round
      * @param string $xKey
      * @param string $yKey
-     * @return this
+     * @return self
      */
-    public function setUp($round, $xKey, $yKey) {
+    public function setUp($round, $xKey, $yKey)
+    {
         self::$round = $round;
         self::$xKey = $xKey;
         self::$yKey = $yKey;
@@ -31,10 +33,11 @@ class GPS extends DataType {
 
     /**
      * @param string $gps
-     * @return this
-     * @throws GPSException
+     * @return self
+     * @throws DataTypeException
      */
-    public function setValue($gps) {
+    public function setValue($gps)
+    {
         $this->inValue = $gps;
         $found = array();
         if (preg_match('~^(\d{1,3}\.\d+?)(N|S), ?(\d{1,3}\.\d+?)(E|W)$~i', $gps, $found)) {
@@ -53,7 +56,7 @@ class GPS extends DataType {
             //N49.20811° E19.04247°
             $this->setCoordinate(self::checkCoordinate($found[4], $found[3]), self::checkCoordinate($found[2], $found[1]));
         } else {
-            throw new GPSException('Unsupported coordinate. ' . $gps);
+            throw new DataTypeException('Unsupported coordinate. ' . $gps);
         }
         return $this;
     }
@@ -62,7 +65,8 @@ class GPS extends DataType {
      * @param float $x
      * @param float $y
      */
-    private function setCoordinate($x, $y) {
+    private function setCoordinate($x, $y)
+    {
         $this->value = array(
             self::$xKey => round($x, self::$round),
             self::$yKey => round($y, self::$round)
@@ -75,9 +79,10 @@ class GPS extends DataType {
      * @param float $num
      * @param string $pole
      * @return float
-     * @throws GPSException
+     * @throws DataTypeException
      */
-    private static function checkCoordinate($num, $pole) {
+    private static function checkCoordinate($num, $pole)
+    {
         switch (strtoupper($pole)) {
             case 'W':
             case 'S':
@@ -92,11 +97,11 @@ class GPS extends DataType {
                 }
                 break;
             default :
-                throw new GPSException('Unsupported pole ' . $pole);
+                throw new DataTypeException('Unsupported pole ' . $pole);
         }
 
         if ($num > 180) {
-            throw new GPSException('Coordinate can be higher then 180 ' . $num);
+            throw new DataTypeException('Coordinate can be higher then 180 ' . $num);
         }
 
         return $num;
@@ -105,9 +110,10 @@ class GPS extends DataType {
     /**
      * @return string
      */
-    public function getValue() {
+    public function getValue()
+    {
         $v = parent::getValue();
-        if ($this->flags & self::AS_STRING) {
+        if ($this->getFlags() & self::AS_STRING) {
             return implode(',', array_reverse($v));
         }
         return $v;
@@ -121,17 +127,14 @@ class GPS extends DataType {
      * @param float $seconds
      * @return float
      */
-    public static function degToDec($degrees, $minutes, $seconds = 0) {
+    public static function degToDec($degrees, $minutes, $seconds = 0)
+    {
         return $degrees + $minutes / 60 + $seconds / 3600;
     }
 
-    /** @return null */
-    protected function emptyValue() {
-        return NULL;
+    protected function getEmptyValue()
+    {
+        return array();
     }
-
-}
-
-class GPSException extends \RuntimeException {
 
 }

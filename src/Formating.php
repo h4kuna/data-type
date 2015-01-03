@@ -1,6 +1,8 @@
 <?php
 
-namespace h4kuna;
+namespace h4kuna\DataType;
+
+use Nette\Object;
 
 /**
  * @example
@@ -12,13 +14,15 @@ namespace h4kuna;
  *
  * @author Milan Matějček
  */
-class Formating extends \Nette\Object {
+class Formating extends Object
+{
 
     private $mask;
     private $regexp;
     private $delimiter;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->setPhone();
     }
 
@@ -27,7 +31,8 @@ class Formating extends \Nette\Object {
      * @param string $mask
      * @param string $delimiter
      */
-    public function setUp($regexp, $mask, $delimiter = '') {
+    public function setUp($regexp, $mask, $delimiter = '')
+    {
         $this->regexp = $regexp;
         $this->mask = $mask;
         $this->delimiter = $delimiter;
@@ -38,9 +43,10 @@ class Formating extends \Nette\Object {
      * @param string $s
      * @return string
      */
-    public function format($s) {
+    public function format($s)
+    {
         $s = preg_replace('/' . $this->regexp . '/', '', $s);
-        return implode($this->delimiter, preg_split('/^' . $this->mask . '$/', $s, -1, \PREG_SPLIT_DELIM_CAPTURE | \PREG_SPLIT_NO_EMPTY));
+        return implode($this->delimiter, preg_split('/^' . $this->mask . '$/', $s, -1, PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY));
     }
 
     /**
@@ -48,7 +54,8 @@ class Formating extends \Nette\Object {
      * @param string $s
      * @return string|NULL
      */
-    public function url($s) {
+    public function url($s)
+    {
         if (!$s) {
             return NULL;
         }
@@ -68,7 +75,8 @@ class Formating extends \Nette\Object {
      * @param string $mask
      * @param string $delimiter
      */
-    public function setPhone($mask = '(.*)(.{3})(.{3})(.{3})', $delimiter = ' ') {
+    public function setPhone($mask = '(.*)(.{3})(.{3})(.{3})', $delimiter = ' ')
+    {
         $this->setUp('(?!^\+)[^\d]', $mask, $delimiter);
     }
 
@@ -76,9 +84,9 @@ class Formating extends \Nette\Object {
      * @param string $mask
      * @param string $delimiter
      */
-    public function setZip($mask = '(.{3})(.{2})', $delimiter = ' ') {
+    public function setZip($mask = '(.{3})(.{2})', $delimiter = ' ')
+    {
         $this->setUp('[^\d]', $mask, $delimiter);
     }
 
 }
-
