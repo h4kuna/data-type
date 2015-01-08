@@ -1,13 +1,11 @@
 <?php
 
-namespace h4kuna\DataType\Scalar;
-
-use h4kuna\DataType\DataType;
+namespace h4kuna\DataType\Object;
 
 /**
  * @author Milan Matějček
  */
-class String extends DataType
+class String extends Type
 {
 
     protected function getEmptyValue()
@@ -15,13 +13,13 @@ class String extends DataType
         return '';
     }
 
-    protected function prepareValue($value)
+    protected function setValue($value)
     {
         $out = (string) $value;
         if ($this->getFlags() & self::TRIM) {
             return trim($out);
         }
-        return $out;
+        return parent::setValue($out);
     }
 
 }

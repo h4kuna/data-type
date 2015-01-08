@@ -1,13 +1,13 @@
 <?php
 
-namespace h4kuna\DataType;
+namespace h4kuna\DataType\Object;
 
 /**
  * Immutable type
  *
  * @author Milan Matějček
  */
-interface IDataType
+interface IType
 {
 
     const EMPTY_IS_NULL = 1;
@@ -18,8 +18,18 @@ interface IDataType
     /** @return self */
     public function setFlags($flag);
 
+    /** @return int */
+    public function getFlags();
+
+    /** @return mixed */
     public function getValue();
 
-    /** @return self new object */
+    /** @see self::getValue() */
     public function setValue($value);
+
+    /**
+     * @param mixed $value
+     * @return self new object
+     */
+    public function createValue($value);
 }
