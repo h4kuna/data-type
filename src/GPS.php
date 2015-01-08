@@ -6,46 +6,28 @@ namespace h4kuna\DataType;
  * Transform GPS to lat/lng array
  * @author Milan Matějček
  */
-class GPS  
+class GPS
 {
 
-    //Latitude [y] and Longitude [x]
-    private static $xKey = 'x';
-    private static $yKey = 'y';
-    private static $round = 6;
+    /** @var GpsSetup */
+    private static $_setup;
 
-    
+    /** @var GpsSetup */
+    private $setup;
 
-    /**
-     * global setup
-     * @param int $round
-     * @param string $xKey
-     * @param string $yKey
-     * @return self
-     */
-    public function setUp($round, $xKey, $yKey)
+    public function getSetup()
     {
-        self::$round = $round;
-        self::$xKey = $xKey;
-        self::$yKey = $yKey;
+        if ($this->setup === NULL) {
+            $this->setup = self::getGlobalSetup();
+        }
+        return $this->setup;
+    }
+
+    public function setSetup(GpsSetup $setup)
+    {
+        $this->setup = $setup;
         return $this;
     }
-
-    
-
-    /**
-     * @param float $x
-     * @param float $y
-     */
-    private function setCoordinate($x, $y)
-    {
-        $this->value = array(
-            self::$xKey => round($x, self::$round),
-            self::$yKey => round($y, self::$round)
-        );
-    }
-
-    
 
     /**
      * @return string
@@ -59,11 +41,61 @@ class GPS
         return $v;
     }
 
-    
+    public function setValue($value)
+    {
+        if (is_string($value)) {
+            $gps = Validator\Gps::fromString($value);
+        }
+    }
 
     protected function getEmptyValue()
     {
         return array();
+    }
+
+    /** @return GpsSetup */
+    private static function getGlobalSetup()
+    {
+        if (self::$_setup === NULL) {
+            self::$_setup = new GpsSetup;
+        }
+        return self::$_setup;
+    }
+
+    public function __toString()
+    {
+        ;
+    }
+
+}
+
+final class GpsSetup
+{
+
+    private $xName;
+    private $yName;
+    private $round;
+
+    public function __construct($xName = 'x', $yName = 'y', $round = 6)
+    {
+        $this->xName = $xName;
+        $this->yName = $yName;
+        $this->round = Validator\Int::fromString($round);
+    }
+
+    public function getXName()
+    {
+        return $this->xName;
+    }
+
+    public function getYName()
+    {
+        return $this->yName;
+    }
+
+    public function getRound()
+    {
+        return $this->round;
     }
 
 }

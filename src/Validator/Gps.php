@@ -90,4 +90,17 @@ final class Gps
         return $degrees + $minutes / 60 + $seconds / 3600;
     }
 
+    /**
+     * @param float $x
+     * @param float $y
+     */
+    private function setCoordinate($x, $y)
+    {
+        $setup = $this->getSetup();
+        return array(
+            $setup->getXName() => round($x, $setup->getRound()),
+            $setup->getYName() => round($y, $setup->getRound())
+        );
+    }
+
 }
