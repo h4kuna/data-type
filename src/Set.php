@@ -95,11 +95,7 @@ class Set extends DataType
         if (is_string($value)) {
             $this->value = array_fill_keys(explode(',', $value), TRUE);
         } elseif (is_array($value)) {
-            foreach ($value as $k => $v) {
-                if ($v) {
-                    $this->value[$k] = TRUE;
-                }
-            }
+            
         }
         return $this;
     }
