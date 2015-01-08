@@ -27,8 +27,8 @@ final class Float
 
         if (is_numeric($value)) {
             return floatval($value);
-        } 
-        
+        }
+
         if (strstr($value, ':') !== FALSE) {
             return self::fromHour($value);
         }
@@ -61,7 +61,7 @@ final class Float
     {
         $out = 0.0;
         foreach (explode(':', $value) as $i => $v) {
-            $out += ($v / pow(60, $i));
+            $out += (Int::fromString($v) / pow(60, $i));
         }
         return $out;
     }
