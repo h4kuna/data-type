@@ -19,22 +19,7 @@ class Int extends DataType
      */
     protected function prepareValue($value)
     {
-        if (is_int($value)) {
-            $out = $value;
-        } elseif (is_numeric($value) && $value == intval($value)) {
-            $out = intval($value);
-        } else {
-            $out = preg_replace('~\W~', '', $value);
-            if ($out != intval($out)) {
-                throw new DataTypeException('Input value is not integer. ' . $out);
-            }
-        }
-
-        if ($this->getFlags() & self::UNSIGNED && $out < 0) {
-            throw new DataTypeException('Int is defined as unsigned. This is: ' . $out);
-        }
-
-        return $out;
+        
     }
 
     /** @return int */
