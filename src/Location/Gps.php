@@ -1,6 +1,6 @@
 <?php
 
-namespace h4kuna\DataType\Basic;
+namespace h4kuna\DataType\Location;
 
 use h4kuna\DataType\DataTypeException;
 
