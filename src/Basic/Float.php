@@ -1,6 +1,8 @@
 <?php
 
-namespace h4kuna\DataType\Validator;
+namespace h4kuna\DataType\Basic;
+
+use h4kuna\DataType\DataTypeException;
 
 /**
  * @author Milan Matějček
@@ -33,9 +35,9 @@ final class Float
             return self::fromHour($value);
         }
 
-        $out = preg_replace_callback('/(?:^-?)|([^\,\.\d]+|,)/', function ($found) {
+        $out = preg_replace_callback('/(?:^\s?-?)|([^\,\.\w]+|,)/i', function ($found) {
             if (!isset($found[1])) {
-                return $found[0];
+                return trim($found[0]);
             }
             if (isset($found[1]) && $found[1] === ',') {
                 return '.';
@@ -44,11 +46,11 @@ final class Float
         }, $value);
 
 
-        if (!is_numeric($value)) {
+        if (!is_numeric($out)) {
             throw new DataTypeException('This value is not float: ' . $value);
         }
 
-        return floatval($value);
+        return floatval($out);
     }
 
     /**

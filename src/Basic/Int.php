@@ -1,6 +1,8 @@
 <?php
 
-namespace h4kuna\DataType\Validator;
+namespace h4kuna\DataType\Basic;
+
+use h4kuna\DataType\DataTypeException;
 
 /**
  * @author Milan Matějček
@@ -28,7 +30,7 @@ final class Int
         if (is_numeric($value) && $value == intval($value)) {
             return intval($value);
         }
-        $out = preg_replace('~\W~', '', $value);
+        $out = preg_replace('~\s~', '', $value);
         $int = intval($out);
         if ($out != $int) {
             throw new DataTypeException('Input value is not integer. ' . $out);
