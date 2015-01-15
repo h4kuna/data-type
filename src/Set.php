@@ -8,18 +8,25 @@ namespace h4kuna\DataType;
 class Set extends DataType
 {
 
-    private $set = array();
+    /** @var array */
+    private $list = array();
 
     const KEYS = 1;
     const AS_STRING = 3;
 
-    /**
-     * @param array $set
-     */
-    public function __construct(array $set = array())
+    public function __construct($list = array())
     {
-        $this->clean();
-        $this->set = $set;
+        if ($list !== array()) {
+            $this->setList($list);
+        }
+    }
+
+    public function setList($list)
+    {
+        if ($this->lock) {
+            throw new DataTypeException('List is defined and you can\'t change.');
+        }
+        $this->lock = TRUE;
     }
 
     /**
