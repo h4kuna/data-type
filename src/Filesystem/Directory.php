@@ -22,17 +22,18 @@ final class Directory
      */
     public static function removeRecursive($path)
     {
+        
         foreach (new \DirectoryIterator($path) as $item) {
+            if($item->isDot()) {
+                continue;
+            }
             $p = $item->getPathname();
             if ($item->isDir()) {
-                self::cleanDirRecursive($p);
+                self::removeRecursive($p);
                 rmdir($p);
             } else {
                 unlink($p);
             }
-        }
-        if (substr($path, -1) !== '*') {
-            rmdir($path);
         }
     }
 
