@@ -29,6 +29,12 @@ class File
         return new SplFileInfo($pathName);
     }
 
+    /**
+     * 
+     * @param string $path
+     * @return boolean
+     * @throws DataTypeException
+     */
     public static function remove($path)
     {
         if (!is_file($path) || unlink($path)) {

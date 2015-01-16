@@ -70,7 +70,8 @@ class Pathnizer
         if (is_dir($dir)) {
             return $dir;
         }
-        $realPath = Directory::mkdir($dir, $perm);
+        Directory::mkdir($dir, $perm);
+        $realPath = Directory::realPath($dir);
         if ($this->isFile()) {
             $this->path = $realPath . DIRECTORY_SEPARATOR . basename($this->path);
         } else {
@@ -129,7 +130,7 @@ class Pathnizer
                 $pathName = $dir . $name;
                 $name = Random::generate(5) . $name;
             } while (is_file($pathName));
-            
+
             if ($i) {
                 $file = $file->createFileType($name);
             }
@@ -138,7 +139,7 @@ class Pathnizer
         } else {
             $file = $this->createFileType($name);
         }
-        
+
         $info = $file->create(); // lock place
         $uplod->move((string) $file);
         return $info;

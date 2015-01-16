@@ -2,4 +2,4 @@
 
 TESTS_PATH=`dirname $0`
 
-phpunit -c $TESTS_PATH/phpunit.xml $@
+$TESTS_PATH/../vendor/phpunit/phpunit/phpunit -c $TESTS_PATH/phpunit.xml $@
