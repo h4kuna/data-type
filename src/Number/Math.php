@@ -1,6 +1,8 @@
 <?php
 
-namespace h4kuna;
+namespace h4kuna\DataType\Number;
+
+use h4kuna\DataType\LogicalException;
 
 /**
  * @author Milan Matějček
@@ -20,62 +22,51 @@ final class Math
      * @param $max float
      * @param $min float
      * @return float
+     * @throws LogicException
      */
     public static function interval($number, $max, $min = 0)
     {
+        if ($max < $min) {
+            throw new LogicalException('Maximum is less than minimum.');
+        }
         return max($min, min($max, $number));
     }
 
     /**
-     * Zaokrouhlujici metoda na padesatniky
+     * Round method to zero point five.
+     * @example 1.24 -> 1.0, 1.25 -> 1.5, 1.74 -> 1.5, 1.75 -> 2.0
      * 
-     * @param number $num
-     * @param number $q
-     * @param fce $fce
-     * @return number
+     * @param float $num
+     * @return float
      */
-    public static function round($num, $q = 5, $fce = 'ceil')
+    public static function round5($num)
     {
-        return $fce($num / $q) * $q;
+        if ($num < 0) {
+            $floor = ceil($num);
+            $i = -1;
+        } else {
+            $floor = floor($num);
+            $i = 1;
+        }
+        $decimal = abs($num - $floor);
+        if ($decimal < 0.25) {
+            return $floor;
+        }
+
+        if (0.25 <= $decimal && $decimal < 0.75) {
+            return $floor + (0.5 * $i);
+        }
+        return $floor + (1 * $i);
     }
 
     /**
-     * Returns least common multiple of two numbers
-     *
-     * @param a number 1
-     * @param b number 2
-     * @return lcm(a, b)
+     * Safe division.
+     * 
+     * @param float $up
+     * @param float $down
+     * @return type
      */
-    static function lcm($a, $b)
-    {
-        if ($a == 0 || $b == 0) {
-            return 0;
-        }
-        return ($a * $b) / self::gcd($a, $b);
-    }
-
-    /**
-     * Returns greatest common divisor of the given numbers
-     *
-     * @param a number 1
-     * @param b number 2
-     * @return gcd(a, b)
-     */
-    static function gcd($a, $b)
-    {
-        if ($a < 1 || $b < 1) {
-            throw new RuntimeException("a or b is less than 1");
-        }
-        $remainder = 0;
-        do {
-            $remainder = $a % $b; //v tento okamzik v posledni iteraci plati ona podminka, ze zbytek == 0
-            $a = $b; //ale kvuli dalsi pripadne iteraci posunujeme promenne
-            $b = $remainder; //v b je proto 0, v a je gcd
-        } while ($b != 0);
-        return $a;
-    }
-
-    static function safeDivision($up, $down)
+    public static function safeDivision($up, $down)
     {
         if (!$down) {
             return NULL;
@@ -84,32 +75,20 @@ final class Math
     }
 
     /**
-     * spocita faktorial
+     * Factorial.
      * 
      * @param int $n
      * @return int
      */
-    static function factorial($n)
+    public static function factorial($n)
     {
         if ($n == 0) {
             return 1;
         }
         if ($n < 0) {
-            throw new LogicException("The number cann't negative number.");
+            throw new LogicalException('The number cann\'t negative number.');
         }
         return $n * self::factorial($n - 1);
-    }
-
-    /**
-     * zjistuje, zda je cislo delitelne
-     *
-     * @param int|float $delenec
-     * @param int|float $delitel
-     * @return bool
-     */
-    static public function isDivision($delenec, $delitel)
-    {
-        return ($delenec % $delitel) === 0;
     }
 
 }

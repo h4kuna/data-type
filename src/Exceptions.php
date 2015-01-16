@@ -16,3 +16,8 @@ class DirectoryNotFoundException extends RuntimeException
 {
     
 }
+
+class LogicalException extends RuntimeException
+{
+    
+}
