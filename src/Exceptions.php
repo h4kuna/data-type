@@ -11,3 +11,8 @@ class DataTypeException extends RuntimeException
 {
     
 }
+
+class DirectoryNotFoundException extends RuntimeException
+{
+    
+}
