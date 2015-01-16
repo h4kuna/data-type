@@ -104,7 +104,7 @@ final class Directory
         }
         $_path = implode(DIRECTORY_SEPARATOR, $path);
         if (!is_dir($_path)) {
-            throw new DirectoryNotFoundException($path);
+            throw new DirectoryNotFoundException($_path);
         }
         return $_path;
     }
