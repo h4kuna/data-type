@@ -7,23 +7,15 @@ class PathnizerTest extends \PHPUnit_Framework_TestCase
 
     public function testCreate()
     {
-        $directory = self::getTemp() . '/create/foo/../';
+        $directory = self::getTemp('create') . '/foo/../bar/foo/';
         $dir = new Pathnizer($directory, Pathnizer::TYPE_DIR);
         $dirInfo = $dir->create();
-        $this->assertSame(TRUE, is_dir($dirInfo->getPath()));
-        $this->assertSame(self::getTemp() . '/create', realpath($dirInfo->getRealPath()));
-    }
+        $this->assertTrue(is_dir($dirInfo->getPath()));
 
-    /**
-     * @covers h4kuna\DataType\Filesystem\Pathnizer::mkdir
-     * @todo   Implement testMkdir().
-     */
-    public function testMkdir()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+        $filePath = self::getTemp('create2') . '/foo/../bar/fooFile';
+        $file = new Pathnizer($filePath, Pathnizer::TYPE_FILE);
+        $fileInfo = $file->create();
+        $this->assertTrue(is_file($fileInfo->getPathname()));
     }
 
     /**
@@ -32,58 +24,12 @@ class PathnizerTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetPath()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
-    }
+        // non-exists path
+        $file = new Pathnizer('/foo/bar/file', Pathnizer::TYPE_FILE);
+        $this->assertSame('/foo/bar', (string) $file->getPath());
 
-    /**
-     * @covers h4kuna\DataType\Filesystem\Pathnizer::createFileType
-     * @todo   Implement testCreateFileType().
-     */
-    public function testCreateFileType()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers h4kuna\DataType\Filesystem\Pathnizer::isFile
-     * @todo   Implement testIsFile().
-     */
-    public function testIsFile()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers h4kuna\DataType\Filesystem\Pathnizer::remove
-     * @todo   Implement testRemove().
-     */
-    public function testRemove()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers h4kuna\DataType\Filesystem\Pathnizer::save
-     * @todo   Implement testSave().
-     */
-    public function testSave()
-    {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+        $dir = new Pathnizer('/foo/bar/file', Pathnizer::TYPE_DIR);
+        $this->assertSame('/foo/bar/file', (string) $dir->getPath());
     }
 
     /**
@@ -92,15 +38,18 @@ class PathnizerTest extends \PHPUnit_Framework_TestCase
      */
     public function test__toString()
     {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+        $file = new Pathnizer('/foo/bar/file', Pathnizer::TYPE_FILE);
+        $this->assertSame('/foo/bar/file', (string) $file);
     }
 
-    private static function getTemp()
+    private static function getTemp($path)
     {
-        return __DIR__ . '/../../temp';
+        $base = __DIR__ . '/../../temp/' . $path;
+        $baseReal = realpath($base);
+        if ($baseReal) {
+            Directory::removeRecursive($baseReal);
+        }
+        return $base;
     }
 
 }

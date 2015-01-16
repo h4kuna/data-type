@@ -18,7 +18,8 @@
     "autoload": {
         "psr-4": {
             "h4kuna\\DataType\\": "src/"
-        }
+        },
+        "files": ["src/Exceptions.php"]
     },
     "require-dev": {
         "phpunit/phpunit": "~4.4"

@@ -2,7 +2,9 @@
 
 namespace h4kuna\DataType\Filesystem;
 
-use Nette\DirectoryNotFoundException;
+use FilesystemIterator;
+use h4kuna\DataType\DataTypeException;
+use h4kuna\DataType\DirectoryNotFoundException;
 
 /**
  * @author Milan Matějček
@@ -16,24 +18,27 @@ final class Directory
     }
 
     /**
-     * Remove all files in directory recusively.
-     *
+     * @example /foo/bar/* - Remove all files in directory recusively. Directory bar is not deleted.
+     * @example /foo/bar - Remove all and bar directory.
+     * 
      * @param string $path
      */
     public static function removeRecursive($path)
     {
-        
-        foreach (new \DirectoryIterator($path) as $item) {
-            if($item->isDot()) {
-                continue;
+        try {
+
+            $removeRoot = TRUE;
+            if (substr($path, -1) === '*') {
+                $removeRoot = FALSE;
+                $path = substr($path, 0, -1);
             }
-            $p = $item->getPathname();
-            if ($item->isDir()) {
-                self::removeRecursive($p);
-                rmdir($p);
-            } else {
-                unlink($p);
+            $path = self::realPath($path);
+            self::recursiveRemove($path);
+            if ($removeRoot) {
+                rmdir($path);
             }
+        } catch (DirectoryNotFoundException $e) {
+            // path does not exists
         }
     }
 
@@ -51,11 +56,11 @@ final class Directory
     }
 
     /**
-     * Mkdir recusivly.
+     * Mkdir recusively.
      *
      * @param string $path
      * @param int $perm
-     * @return bool
+     * @return string - Created path.
      */
     public static function mkdir($path, $perm = 0755)
     {
@@ -64,12 +69,15 @@ final class Directory
         umask($old);
     }
 
-    public static function mkdirSafe($path, $perm = 0755)
+    /**
+     * Check slashes.
+     * 
+     * @param type $path
+     * @return type
+     */
+    public static function slashes($path)
     {
-        if (!is_dir($path)) {
-            self::mkdir($path, $perm);
-        }
-        return self::realPath($path);
+        return rtrim(preg_replace('~(\\\|/)+~', DIRECTORY_SEPARATOR, $path), '\/');
     }
 
     /**
@@ -81,11 +89,37 @@ final class Directory
      */
     static public function realPath($path)
     {
-        $_path = realpath($path);
-        if (!$_path) {
+        $path = explode(DIRECTORY_SEPARATOR, self::slashes($path));
+        $count = count($path);
+        for ($i = 0; $i < $count; ++$i) {
+            if ($path[$i] == '.') {
+                unset($path[$i]);
+            } elseif ($path[$i] == '..') {
+                $j = $i - 1;
+                while (!isset($path[$j])) {
+                    --$j;
+                }
+                unset($path[$j], $path[$i]);
+            }
+        }
+        $_path = implode(DIRECTORY_SEPARATOR, $path);
+        if (!is_dir($_path)) {
             throw new DirectoryNotFoundException($path);
         }
         return $_path;
+    }
+
+    private static function recursiveRemove($path)
+    {
+        foreach (new FilesystemIterator($path, FilesystemIterator::SKIP_DOTS) as $item) {
+            $p = $item->getPathname();
+            if ($item->isDir()) {
+                self::recursiveRemove($p);
+                rmdir($p);
+            } else {
+                unlink($p);
+            }
+        }
     }
 
 }

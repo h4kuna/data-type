@@ -36,7 +36,7 @@ class Pathnizer
             }
         }
 
-        $this->path = rtrim(preg_replace('~(\\\|/)+~', DIRECTORY_SEPARATOR, $path), '\/');
+        $this->path = Directory::slashes($path);
         $this->type = $type;
     }
 
@@ -44,7 +44,7 @@ class Pathnizer
      * Create directory or empty file.
      * 
      * @param int $perm
-     * @return SplFileInfo|DirectoryIterator
+     * @return SplFileInfo
      */
     public function create($perm = 0755)
     {
@@ -53,9 +53,8 @@ class Pathnizer
             if (!touch($this->path)) {
                 throw new DataTypeException('File "' . $this->path . '" can\'t delete because permision is not allowed.');
             }
-            return new SplFileInfo($this->path);
         }
-        return new DirectoryIterator($this->path);
+        return new SplFileInfo($this->path);
     }
 
     /**
@@ -67,17 +66,16 @@ class Pathnizer
     public function mkdir($perm = 0755)
     {
         $dir = (string) $this->getPath();
-        if (is_dir($dir)) {
-            return $dir;
+        if (!is_dir($dir)) {
+            Directory::mkdir($dir, $perm);
         }
-        Directory::mkdir($dir, $perm);
-        $realPath = Directory::realPath($dir);
+        $real = Directory::realPath($dir);
+        $file = '';
         if ($this->isFile()) {
-            $this->path = $realPath . DIRECTORY_SEPARATOR . basename($this->path);
-        } else {
-            $this->path = $realPath;
+            $file = DIRECTORY_SEPARATOR . basename($this->path);
         }
-        return $realPath;
+        $this->path = $real . $file;
+        return $real;
     }
 
     /**
