@@ -3,6 +3,7 @@
 namespace h4kuna\DataType\Date;
 
 use DateTime;
+use h4kuna\DataType\DataTypeException;
 use RuntimeException;
 
 /**
@@ -31,7 +32,7 @@ final class Calendar
     public static function getDays()
     {
         if (!isset(self::$date['days'])) {
-            self::$date['days'] = array(_('Pondělí'), _('Úterý'), _('Středa'), _('Čtvrtek'), _('Pátek'), _('Sobota'), _('Neděle'));
+            self::$date['days'] = array(1 => _('Pondělí'), _('Úterý'), _('Středa'), _('Čtvrtek'), _('Pátek'), _('Sobota'), _('Neděle'));
         }
         return self::$date['days'];
     }
@@ -52,76 +53,85 @@ final class Calendar
 
     /**
      * NULL - actual day.
+     * 0 (for Sunday) through 6 (for Saturday)
      *
-     * @param NULL|string $day
+     * @param NULL|int|DateTime $day
      * @return string
      * @throws RuntimeException
      */
     public static function nameOfDay($day = NULL)
     {
         $days = self::getDays();
-
         if ($day === NULL) {
             $day = (int) date('w');
-        } elseif (is_numeric($day) && $day < 8) {
-            if ($day == 7) {
-                $day = 0;
-            }
+        } elseif ($day instanceof DateTime) {
+            $day = (int) $day->format('w');
+        } elseif (is_numeric($day)) {
+            $day = (int) $day;
         } else {
-            if (!($day instanceof DateTime)) {
-                $day = new DateTime($day);
-            }
+            throw new DataTypeException('Input is allowed Datetime, int');
+        }
 
-            $day = $day->format('w');
+        if (!$day) {
+            $day = 7;
         }
 
         if (isset($days[$day])) {
             return $days[$day];
         }
 
-        throw new RuntimeException('Invalid number for day, interval is 0-6, 0 = Sunday');
+        throw new DataTypeException('Invalid number for day, interval is 0-6, 0 = Sunday');
     }
 
     /**
-     * NULL actual month
+     * Name of month.
      *
-     * @param NULL|int $month
+     * @param NULL|int|DateTime $month
      * @return string
      * @throws RuntimeException
      */
     public static function nameOfMonth($month = NULL)
     {
+        $months = self::getMonths();
+
         if ($month === NULL) {
             $month = (int) date('n');
         } elseif ($month instanceof DateTime) {
-            $month = $month->format('n');
-        }
-
-        $months = self::getMonths();
-
-        if ($month === FALSE) {
-            return $months;
+            $month = (int) $month->format('n');
+        } elseif (is_numeric($month)) {
+            $month = (int) $month;
+        } else {
+            throw new DataTypeException('Input is allowed Datetime, int');
         }
 
         if (isset($months[$month])) {
             return $months[$month];
         }
 
-        throw new DataType\DataTypeException('Invalid number for day, interval is 1-12.');
+        throw new DataTypeException('Invalid number for day, interval is 1-12.');
     }
 
     /**
      *
-     * @param string $date CZECH FORMAT DD.MM.YYYY
+     * @param string $date CZECH FORMAT DD.MM.YYYY[ HH:mm:SS]
      * @return DateTime
      */
     public static function czechDate2Sql($date)
     {
-        return date_create_from_format('d.m.Y H:i:s', $date);
+        if (!preg_match('/^(?P<d>[0-3]?\d)\.(?P<m>[0-1]?\d)\.(?P<y>\d{4})(?: +(?P<h>[0-6]?\d):(?P<i>[0-6]?\d)(?::(?P<s>[0-6]?\d))?)?$/', trim($date), $find)) {
+            throw new DataTypeException('Bad czech date format. ' . $date);
+        }
+
+        $dt = new DateTime($find['y'] . '-' . $find['m'] . '-' . $find['d'] . ' 00:00:00');
+        if (isset($find['h'])) {
+            $find += array('s' => 0);
+            $dt->setTime($find['h'], $find['i'], $find['s']);
+        }
+        return $dt;
     }
 
     /**
-     * Number days of February
+     * Number days of February.
      *
      * @param int $year
      * @return int
@@ -132,50 +142,40 @@ final class Calendar
     }
 
     /**
-     * Easter monday
+     * Easter monday.
      *
      * @param int $year 1970-2037
-     * @param bool $monday
      * @return DateTime
      */
-    public static function easter($year = NULL, $monday = TRUE)
+    public static function easter($year = NULL)
     {
         if ($year === NULL) {
             $year = date('Y');
         }
-        $dt = new DateTime(easter_date($year));
-        if ($monday) {
+        $dt = new DateTime;
+        $dt->setTimestamp(easter_date($year));
+        $dt->setTime(0, 0, 0);
+        while (intval($dt->format('w')) !== 1) {
             $dt->modify('+1 day');
         }
         return $dt;
     }
 
     /**
-     * Podle zadaneho data vraci kdo ma svatek
+     * Return czech name on name-day.
      *
-     * @param string|DateTime|int $day
-     * @param int $month
+     * @param DateTime $day
+     * @param int|NULL $month
      * @return string
      */
-    public static function getName($day = NULL, $month = NULL)
+    public static function getName(DateTime $date = NULL)
     {
-        if (is_string($day)) {
-            $day = new DateTime($day);
+        if ($date === NULL) {
+            $date = new DateTime;
         }
+        $day = $date->format('d');
 
-        if ($day === NULL && $month === NULL) {
-            $day = date('d');
-            $month = date('m');
-        } elseif ($day instanceof DateTime) {
-            $month = $day->format('m');
-            $day = $day->format('d');
-        } elseif ($day === NULL || $month === NULL) {
-            throw new \Exception('You must fill both param as int or not one.');
-        }
-
-        $FALSE = 0;
-
-        switch ($month) {
+        switch ($date->format('m')) {
             case 1:
                 switch ($day) {
                     case 1: return 'Nový rok';
@@ -209,8 +209,6 @@ final class Calendar
                     case 29: return 'Zdislava';
                     case 30: return 'Robin';
                     case 31: return 'Marika';
-                    default: $FALSE = 31;
-                        break;
                 };
                 break;
             case 2:
@@ -244,8 +242,6 @@ final class Calendar
                     case 27: return 'Alexandr';
                     case 28: return 'Lumír';
                     case 29: return '';
-                    default: $FALSE = 29;
-                        break;
                 };
                 break;
             case 3:
@@ -281,8 +277,6 @@ final class Calendar
                     case 29: return 'Taťána';
                     case 30: return 'Arnošt';
                     case 31: return 'Kvido';
-                    default: $FALSE = 31;
-                        break;
                 };
                 break;
             case 4:
@@ -317,8 +311,6 @@ final class Calendar
                     case 28: return 'Vlastislav';
                     case 29: return 'Robert';
                     case 30: return 'Blahoslav';
-                    default: $FALSE = 30;
-                        break;
                 };
                 break;
             case 5:
@@ -354,8 +346,6 @@ final class Calendar
                     case 29: return 'Maxmilián';
                     case 30: return 'Ferdinand';
                     case 31: return 'Kamila';
-                    default: $FALSE = 31;
-                        break;
                 };
                 break;
             case 6:
@@ -390,8 +380,6 @@ final class Calendar
                     case 28: return 'Lubomír';
                     case 29: return 'Petr a Pavel';
                     case 30: return 'Šárka';
-                    default: $FALSE = 30;
-                        break;
                 }
                 break;
             case 7:
@@ -427,8 +415,6 @@ final class Calendar
                     case 29: return 'Marta';
                     case 30: return 'Bořivoj';
                     case 31: return 'Ignác';
-                    default: $FALSE = 31;
-                        break;
                 };
                 break;
             case 8:
@@ -464,8 +450,6 @@ final class Calendar
                     case 29: return 'Evelína';
                     case 30: return 'Vladěna';
                     case 31: return 'Pavlína';
-                    default: $FALSE = 31;
-                        break;
                 };
                 break;
             case 9:
@@ -500,8 +484,6 @@ final class Calendar
                     case 28: return 'Václav';
                     case 29: return 'Michal';
                     case 30: return 'Jeroným';
-                    default: $FALSE = 30;
-                        break;
                 };
                 break;
             case 10:
@@ -537,8 +519,6 @@ final class Calendar
                     case 29: return 'Silvie';
                     case 30: return 'Tadeáš';
                     case 31: return 'Štěpánka';
-                    default: $FALSE = 31;
-                        break;
                 };
                 break;
             case 11:
@@ -574,8 +554,6 @@ final class Calendar
                     case 29: return 'Zina';
                     case 30: return 'Ondřej';
                     case 31: return 'Iva';
-                    default: $FALSE = 31;
-                        break;
                 };
                 break;
             case 12:
@@ -611,16 +589,10 @@ final class Calendar
                     case 29: return 'Judita';
                     case 30: return 'David';
                     case 31: return 'Silvestr';
-                    default: $FALSE = 31;
-                        break;
                 };
                 break;
-            default:
-                throw new \Exception('Month is out of range, $month = ' . $month);
-                break;
         }
-        if ($FALSE > 0)
-            throw new \Exception('$day is out of range, $day = ' . $day);
+        return '';
     }
 
 }
