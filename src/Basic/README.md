@@ -68,3 +68,44 @@ Arrays::keysUnset($array, 1, 2);
 Arrays::column
 --------------
 Is wrapper for [array_column](http://php.net/manual/en/function.array-column.php) useable for php < 5.5.
+
+Float
+=====
+This accept whitespace and comma. Nonnumeric value throw exception.
+```php
+Float::fromString(' - 1 , 0 ');
+// -1.0 (float)
+
+Float::fromHour('1:30');
+// 1.5
+```
+
+Int
+===
+This accept whitespace. Nonnumeric or float value throw exception.
+```php
+Int::fromString('- 1 000');
+// -1000
+```
+
+Set
+===
+Value transfer from array to string whose saved in database like MySql.
+```php
+Set::fromString('one,two');
+// array('one' => TRUE, 'two' => TRUE)
+
+Set::toString(array('one' => TRUE, 'two' => TRUE));
+// one,two
+
+Set::toString(array('one' => TRUE, 'two' => FALSE, 'three' => TRUE));
+// one,three
+```
+
+String
+======
+This class is only shortcut to another method.
+```php
+// String to int
+String::toInt('1'); // call Int::fromString('1');
+```
