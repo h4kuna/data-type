@@ -57,38 +57,38 @@ class CalendarTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers h4kuna\DataType\Date\Calendar::czechDate2Sql
+     * @covers h4kuna\DataType\Date\Calendar::czech2DateTime
      * @todo   Implement testCzechDate2Sql().
      */
-    public function testCzechDate2Sql()
+    public function testCzech2DateTime()
     {
         $format = 'Y-m-d';
-        $dt = Calendar::czechDate2Sql('1.1.1986');
+        $dt = Calendar::czech2DateTime('1.1.1986');
         $this->assertSame('1986-01-01', $dt->format($format));
 
-        $dt = Calendar::czechDate2Sql('01.1.1986');
+        $dt = Calendar::czech2DateTime('01.1.1986');
         $this->assertSame('1986-01-01', $dt->format($format));
 
-        $dt = Calendar::czechDate2Sql('01.01.1986');
+        $dt = Calendar::czech2DateTime('01.01.1986');
         $this->assertSame('1986-01-01', $dt->format($format));
 
-        $dt = Calendar::czechDate2Sql('30.12.1986');
+        $dt = Calendar::czech2DateTime('30.12.1986');
         $this->assertSame('1986-12-30', $dt->format($format));
 
         $format .= ' H:i:s';
-        $dt = Calendar::czechDate2Sql('01.01.1986 01:01:01');
+        $dt = Calendar::czech2DateTime('01.01.1986 01:01:01');
         $this->assertSame('1986-01-01 01:01:01', $dt->format($format));
 
-        $dt = Calendar::czechDate2Sql('01.01.1986 1:1:1');
+        $dt = Calendar::czech2DateTime('01.01.1986 1:1:1');
         $this->assertSame('1986-01-01 01:01:01', $dt->format($format));
 
-        $dt = Calendar::czechDate2Sql('01.01.1986 1:01:01');
+        $dt = Calendar::czech2DateTime('01.01.1986 1:01:01');
         $this->assertSame('1986-01-01 01:01:01', $dt->format($format));
 
-        $dt = Calendar::czechDate2Sql('30.12.1986 23:59:59');
+        $dt = Calendar::czech2DateTime('30.12.1986 23:59:59');
         $this->assertSame('1986-12-30 23:59:59', $dt->format($format));
 
-        $dt = Calendar::czechDate2Sql('30.12.1986 23:59');
+        $dt = Calendar::czech2DateTime('30.12.1986 23:59');
         $this->assertSame('1986-12-30 23:59:00', $dt->format($format));
     }
 
