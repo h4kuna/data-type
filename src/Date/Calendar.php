@@ -116,7 +116,7 @@ final class Calendar
      * @param string $date CZECH FORMAT DD.MM.YYYY[ HH:mm:SS]
      * @return DateTime
      */
-    public static function czechDate2Sql($date)
+    public static function czech2DateTime($date)
     {
         if (!preg_match('/^(?P<d>[0-3]?\d)\.(?P<m>[0-1]?\d)\.(?P<y>\d{4})(?: +(?P<h>[0-6]?\d):(?P<i>[0-6]?\d)(?::(?P<s>[0-6]?\d))?)?$/', trim($date), $find)) {
             throw new DataTypeException('Bad czech date format. ' . $date);
@@ -133,11 +133,14 @@ final class Calendar
     /**
      * Number days of February.
      *
-     * @param int $year
+     * @param int|DateTime $year
      * @return int
      */
     public static function februaryOfDay($year)
     {
+        if ($year instanceof DateTime) {
+            $year = $year->format('Y');
+        }
         return checkdate(2, 29, $year) ? 29 : 28;
     }
 
