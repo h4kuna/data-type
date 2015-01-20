@@ -5,6 +5,7 @@ namespace h4kuna\DataType\Filesystem;
 use FilesystemIterator;
 use h4kuna\DataType\DataTypeException;
 use h4kuna\DataType\DirectoryNotFoundException;
+use h4kuna\DataType\LogicalException;
 
 /**
  * @author Milan Matějček
@@ -65,8 +66,12 @@ final class Directory
     public static function mkdir($path, $perm = 0755)
     {
         $old = umask(0777 - $perm);
-        mkdir($path, $perm, TRUE);
+        $mkdir = @mkdir($path, $perm, TRUE);
         umask($old);
+        if (!$mkdir && !is_writeable($path)) {
+            throw new LogicalException('Is not writeable. ' . $path);
+        }
+        return self::realPath($path);
     }
 
     /**
