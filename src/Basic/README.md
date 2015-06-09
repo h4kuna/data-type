@@ -104,6 +104,15 @@ Set::toString(array('one' => TRUE, 'two' => FALSE, 'three' => TRUE));
 
 String
 ======
+Interesting methods are toCamel, toUnderscore, toPascal.
+
+```php
+String::toPascal('user_id'); // UserId
+String::toCamel('user_id'); // userId
+String::toUnderscore('userId') // user_id
+String::toUnderscore('UserId') // user_id
+```
+
 This class is only shortcut to another method.
 ```php
 // String to int
