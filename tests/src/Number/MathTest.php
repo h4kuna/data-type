@@ -21,7 +21,7 @@ class MathTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame(-5, Math::interval(-5, -4, -6));
 
-        $this->setExpectedException('h4kuna\DataType\LogicalException');
+        $this->setExpectedException('h4kuna\DataType\InvalidArgumentsException');
         Math::interval(2, 1, 3);
     }
 
@@ -78,7 +78,7 @@ class MathTest extends \PHPUnit_Framework_TestCase
     public function testFactorial()
     {
         $this->assertSame(120, Math::factorial(5));
-        $this->setExpectedException('h4kuna\DataType\LogicalException');
+        $this->setExpectedException('h4kuna\DataType\InvalidArgumentsException');
         Math::factorial(-1);
     }
 

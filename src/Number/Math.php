@@ -73,6 +73,7 @@ final class Math
 	 * Factorial.
 	 * @param int $n
 	 * @return int
+	 * @throws DataType\InvalidArgumentsException
 	 */
 	public static function factorial($n)
 	{
@@ -80,7 +81,7 @@ final class Math
 			return 1;
 		}
 		if ($n < 0) {
-			throw new LogicalException('The number cann\'t negative number.');
+			throw new DataType\InvalidArgumentsException('The number cann\'t negative number.');
 		}
 		return $n * self::factorial($n - 1);
 	}

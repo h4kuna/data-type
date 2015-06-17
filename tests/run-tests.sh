@@ -1,5 +1,8 @@
 #!/bin/bash
 
-TESTS_PATH=`dirname $0`
+DIR=`dirname $0`
 
-$TESTS_PATH/../vendor/phpunit/phpunit/phpunit -c $TESTS_PATH/phpunit.xml $@
+composer install
+rm -rf $DIR/temp/*
+
+$DIR/../vendor/phpunit/phpunit/phpunit -c $DIR/phpunit.xml $@

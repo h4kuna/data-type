@@ -29,15 +29,6 @@ class StringTest extends \PHPUnit_Framework_TestCase
 		$this->assertSame(array('foo' => TRUE, 'bar' => TRUE), String::toSet('foo,bar'));
 	}
 
-	public function testAutoUTF()
-	{
-		$str = 'Příliš žluťoučký kůň úpěl ďábelské ódy.';
-		$this->assertSame($str, String::autoUTF(iconv('UTF-8', 'ISO-8859-2', $str)));
-		$this->assertSame($str, String::autoUTF(iconv('UTF-8', 'CP1250', $str)));
-		$this->assertSame($str, String::autoUTF(iconv('UTF-8', 'UTF-8', $str)));
-		$this->assertSame($str, String::autoUTF($str));
-	}
-
 	public function testToUnderscore()
 	{
 		$tests = array(
