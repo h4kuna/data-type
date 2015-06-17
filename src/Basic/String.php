@@ -2,7 +2,8 @@
 
 namespace h4kuna\DataType\Basic;
 
-use h4kuna\DataType\Location;
+use h4kuna\DataType\Location,
+	Nette\Utils;
 
 /**
  * @author Milan Matějček
@@ -10,13 +11,9 @@ use h4kuna\DataType\Location;
 final class String
 {
 
-	private function __constructor()
-	{
-
-	}
+	private function __constructor() {}
 
 	/**
-	 *
 	 * @param string|int|float $value
 	 * @return float
 	 */
@@ -26,7 +23,6 @@ final class String
 	}
 
 	/**
-	 *
 	 * @param int|string $value
 	 * @return int
 	 */
@@ -36,7 +32,6 @@ final class String
 	}
 
 	/**
-	 *
 	 * @param string $value
 	 * @return float[]
 	 */
@@ -46,33 +41,12 @@ final class String
 	}
 
 	/**
-	 *
 	 * @param array|\Iterator|string $value
 	 * @return array
 	 */
 	public static function toSet($value)
 	{
 		return Set::fromString($value);
-	}
-
-	/**
-	 * Change engoding from 1250 or 8859-2 to UTF-8
-	 *
-	 * @param string $s
-	 * @return string
-	 */
-	public static function autoUTF($s)
-	{
-		// detect UTF-8
-		if (preg_match('#[\x80-\x{1FF}\x{2000}-\x{3FFF}]#u', $s))
-			return $s;
-
-		// detect WINDOWS-1250
-		if (preg_match('#[\x7F-\x9F\xBC]#', $s))
-			return iconv('WINDOWS-1250', 'UTF-8', $s);
-
-		// assume ISO-8859-2
-		return iconv('ISO-8859-2', 'UTF-8', $s);
 	}
 
 	/**
