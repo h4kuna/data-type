@@ -5,9 +5,10 @@ Number
 
 ## Interval
 ```php
+Math::interval(number, max, min = 0);
 Math::interva(10, 20, 5); // 10
 Math::interva(10, 9, 5); // 9
-Math::interva(10, 11, 15); // 11
+Math::interva(10, 15, 11); // 11
 ```
 
 ## Roud 5

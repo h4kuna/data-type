@@ -19,7 +19,7 @@
         "psr-4": {
             "h4kuna\\DataType\\": "src/"
         },
-        "files": ["src/Exceptions.php", "src/functions.php"]
+        "files": ["src/exceptions.php", "src/functions.php"]
     },
     "require-dev": {
         "phpunit/phpunit": "~4.4"

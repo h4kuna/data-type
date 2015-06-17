@@ -17,7 +17,7 @@ class ArraysTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame(array(1 => 'one', 2 => 'three', 3 => 'four', 4 => 'five'), Arrays::combine(array(1, 2, 3, 4), array('one', 'three', 'four'), 'five'));
 
-        $this->setExpectedException('h4kuna\DataType\DataTypeException');
+        $this->setExpectedException('h4kuna\DataType\InvalidArgumentsException');
         Arrays::combine(array(1, 2, 3, 4), array('one', 'two', 'three', 'four', 'five'));
     }
 
@@ -94,7 +94,7 @@ class ArraysTest extends \PHPUnit_Framework_TestCase
             2 => array('name' => 'Doe', 'id' => 2),
             3 => array('name' => 'Foo', 'id' => 3),
             4 => array('name' => 'Bar', 'id' => 4)), Arrays::column($array, NULL, 'id'));
-        
+
         $this->assertSame($array, Arrays::column($array));
     }
 

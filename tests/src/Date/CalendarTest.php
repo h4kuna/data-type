@@ -37,7 +37,7 @@ class CalendarTest extends PHPUnit_Framework_TestCase
         $this->assertSame($days[$today], Calendar::nameOfDay());
         $this->assertSame($days[$today], Calendar::nameOfDay(date('w')));
         $this->assertSame($days[5], Calendar::nameOfDay(new DateTime('2016-12-30')));
-        $this->setExpectedException('h4kuna\DataType\DataTypeException');
+        $this->setExpectedException('h4kuna\DataType\InvalidArgumentsException');
         Calendar::nameOfDay(8);
     }
 
@@ -52,7 +52,7 @@ class CalendarTest extends PHPUnit_Framework_TestCase
         $this->assertSame($days[$today], Calendar::nameOfMonth());
         $this->assertSame($days[$today], Calendar::nameOfMonth(date('n')));
         $this->assertSame($days[12], Calendar::nameOfMonth(new DateTime('2016-12-30')));
-        $this->setExpectedException('h4kuna\DataType\DataTypeException');
+        $this->setExpectedException('h4kuna\DataType\InvalidArgumentsException');
         Calendar::nameOfMonth(13);
     }
 
