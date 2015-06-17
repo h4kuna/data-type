@@ -17,3 +17,10 @@ function camelCallback($find)
 {
 	return strtoupper($find[1]);
 }
+
+if (!function_exists('_')) {
+	function _($message)
+	{
+		return $message;
+	}
+}

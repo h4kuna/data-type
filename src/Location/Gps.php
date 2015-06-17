@@ -10,17 +10,12 @@ use h4kuna\DataType;
 final class Gps
 {
 
-	private function __construct()
-	{
-
-	}
+	private function __construct() {}
 
 	/**
-	 *
 	 * @param string $value
 	 * @return float[]
-	 * @throws DataType\GpsCoordinateUnsupportException
-	 * @throws DataType\GpsoutOfRangeException
+	 * @throws DataType\InvalidArgumentsException
 	 */
 	public static function fromString($value)
 	{
@@ -41,18 +36,17 @@ final class Gps
 			// N49.20811° E19.04247°
 			$out = self::setCoordinate(self::checkCoordinate($found[2], $found[1]), self::checkCoordinate($found[4], $found[3]));
 		} else {
-			throw new DataType\GpsCoordinateUnsupportException('Unsupported coordinate. ' . $value);
+			throw new DataType\InvalidArgumentsException('Unsupported coordinate. ' . $value);
 		}
 		return $out;
 	}
 
 	/**
-	 * Transform coordinate
-	 *
+	 * Transform coordinate.
 	 * @param float $num
 	 * @param string $pole
 	 * @return float
-	 * @throws DataType\GpsoutOfRangeException
+	 * @throws DataType\InvalidArgumentsException
 	 */
 	private static function checkCoordinate($num, $pole)
 	{
@@ -70,19 +64,18 @@ final class Gps
 				}
 				break;
 			default :
-				throw new DataType\GpsoutOfRangeException('Unsupported pole ' . $pole);
+				throw new DataType\InvalidArgumentsException('Unsupported pole ' . $pole);
 		}
 
 		if ($num > 180) {
-			throw new DataType\GpsoutOfRangeException('Coordinate can be higher then 180 ' . $num);
+			throw new DataType\InvalidArgumentsException('Coordinate can be higher then 180 ' . $num);
 		}
 
 		return $num;
 	}
 
 	/**
-	 * Transform to float
-	 *
+	 * Transform to float.
 	 * @param float $degrees
 	 * @param float $minutes
 	 * @param float $seconds
