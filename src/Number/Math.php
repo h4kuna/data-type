@@ -59,7 +59,7 @@ final class Math
 	 * Safe division.
 	 * @param Floats $up
 	 * @param Floats $down
-	 * @return Floats|int|NULL
+	 * @return Floats|Ints|NULL
 	 */
 	public static function safeDivision($up, $down)
 	{
@@ -71,8 +71,8 @@ final class Math
 
 	/**
 	 * Factorial.
-	 * @param int $n
-	 * @return int
+	 * @param Ints $n
+	 * @return Ints
 	 * @throws DataType\InvalidArgumentsException
 	 */
 	public static function factorial($n)

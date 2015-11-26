@@ -7,14 +7,14 @@ use h4kuna\DataType;
 /**
  * @author Milan Matějček
  */
-final class Int
+final class Ints
 {
 
 	private function __construct() {}
 
 	/**
-	 * @param string|int $value
-	 * @return int
+	 * @param string|Ints $value
+	 * @return Ints
 	 * @throws DataType\InvalidArgumentsException
 	 */
 	public static function fromString($value)

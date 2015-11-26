@@ -2,7 +2,7 @@
 
 namespace h4kuna\DataType\Basic;
 
-class FloatTest extends \PHPUnit_Framework_TestCase
+class FloatsTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
@@ -23,7 +23,7 @@ class FloatTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(-1.0, Floats::fromString('-1.0'));
         $this->assertSame(-1.0, Floats::fromString('-1,0'));
         $this->assertSame(-1.0, Floats::fromString(' - 1 , 0 '));
-        
+
         $this->assertSame(1.5, Floats::fromString('1:30'));
     }
 

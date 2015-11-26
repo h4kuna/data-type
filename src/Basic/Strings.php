@@ -13,7 +13,7 @@ final class Strings
 	private function __constructor() {}
 
 	/**
-	 * @param string|int|Floats $value
+	 * @param string|Ints|Floats $value
 	 * @return Floats
 	 */
 	public static function toFloat($value)
@@ -22,12 +22,12 @@ final class Strings
 	}
 
 	/**
-	 * @param int|string $value
-	 * @return int
+	 * @param Ints|string $value
+	 * @return Ints
 	 */
 	public static function toInt($value)
 	{
-		return Int::fromString($value);
+		return Ints::fromString($value);
 	}
 
 	/**

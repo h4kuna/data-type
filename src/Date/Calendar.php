@@ -48,7 +48,7 @@ final class Calendar
 	 * NULL - actual day.
 	 * 0 (for Sunday) through 6 (for Saturday)
 	 *
-	 * @param NULL|int|DateTime $day
+	 * @param NULL|Ints|DateTime $day
 	 * @return string
 	 * @throws DataType\InvalidArgumentsException
 	 */
@@ -78,7 +78,7 @@ final class Calendar
 
 	/**
 	 * Name of month.
-	 * @param NULL|int|DateTime $month
+	 * @param NULL|Ints|DateTime $month
 	 * @return string
 	 * @throws DataType\InvalidArgumentsException
 	 */
@@ -124,8 +124,8 @@ final class Calendar
 
 	/**
 	 * Number days of February.
-	 * @param int|DateTime $year
-	 * @return int
+	 * @param Ints|DateTime $year
+	 * @return Ints
 	 */
 	public static function februaryOfDay($year)
 	{
@@ -137,7 +137,7 @@ final class Calendar
 
 	/**
 	 * Easter monday.
-	 * @param int $year 1970-2037
+	 * @param Ints $year 1970-2037
 	 * @return DateTime
 	 */
 	public static function easter($year = NULL)
@@ -155,7 +155,7 @@ final class Calendar
 	/**
 	 * Return czech name on name-day.
 	 * @param DateTime $day
-	 * @param int|NULL $month
+	 * @param Ints|NULL $month
 	 * @return string
 	 * @throws DataType\InvalidArgumentsException
 	 */

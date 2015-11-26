@@ -24,7 +24,7 @@ class RomeNumber extends NonObject
 
 	/**
 	 * Prevede cislo na arabske cislo
-	 * @param int $number
+	 * @param Ints $number
 	 * @return string
 	 */
 	public static function getRome($number)
@@ -40,7 +40,7 @@ class RomeNumber extends NonObject
 	/**
 	 * Prevede arabske cislo na rimnske
 	 * @param string $rome
-	 * @return int
+	 * @return Ints
 	 */
 	public static function getArabic($rome)
 	{

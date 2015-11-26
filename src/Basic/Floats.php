@@ -13,7 +13,7 @@ final class Floats
 	private function __construct() {}
 
 	/**
-	 * @param string|int|Floats $value
+	 * @param string|Ints|Floats $value
 	 * @return Floats
 	 * @throws DataType\InvalidArgumentsException
 	 */
@@ -58,7 +58,7 @@ final class Floats
 	{
 		$out = 0.0;
 		foreach (explode(':', $value) as $i => $v) {
-			$out += (Int::fromString($v) / pow(60, $i));
+			$out += (Ints::fromString($v) / pow(60, $i));
 		}
 		return $out;
 	}
