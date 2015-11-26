@@ -11,20 +11,20 @@ class FloatTest extends \PHPUnit_Framework_TestCase
      */
     public function testFromString()
     {
-        $this->assertSame(0.0, Float::fromString('0'));
-        $this->assertSame(0.0, Float::fromString('0.0'));
-        $this->assertSame(0.0, Float::fromString('-0.0'));
-        $this->assertSame(0.0, Float::fromString('-.0'));
-        $this->assertSame(0.0, Float::fromString('-0.'));
+        $this->assertSame(0.0, Floats::fromString('0'));
+        $this->assertSame(0.0, Floats::fromString('0.0'));
+        $this->assertSame(0.0, Floats::fromString('-0.0'));
+        $this->assertSame(0.0, Floats::fromString('-.0'));
+        $this->assertSame(0.0, Floats::fromString('-0.'));
 
-        $this->assertSame(-1.0, Float::fromString(-1));
-        $this->assertSame(-1.0, Float::fromString(-1.0));
-        $this->assertSame(-1.0, Float::fromString('-1'));
-        $this->assertSame(-1.0, Float::fromString('-1.0'));
-        $this->assertSame(-1.0, Float::fromString('-1,0'));
-        $this->assertSame(-1.0, Float::fromString(' - 1 , 0 '));
+        $this->assertSame(-1.0, Floats::fromString(-1));
+        $this->assertSame(-1.0, Floats::fromString(-1.0));
+        $this->assertSame(-1.0, Floats::fromString('-1'));
+        $this->assertSame(-1.0, Floats::fromString('-1.0'));
+        $this->assertSame(-1.0, Floats::fromString('-1,0'));
+        $this->assertSame(-1.0, Floats::fromString(' - 1 , 0 '));
         
-        $this->assertSame(1.5, Float::fromString('1:30'));
+        $this->assertSame(1.5, Floats::fromString('1:30'));
     }
 
     /**
@@ -32,7 +32,7 @@ class FloatTest extends \PHPUnit_Framework_TestCase
      */
     public function testExceptionFloatNull()
     {
-        Float::fromString(NULL);
+        Floats::fromString(NULL);
     }
 
     /**
@@ -40,7 +40,7 @@ class FloatTest extends \PHPUnit_Framework_TestCase
      */
     public function testExceptionFloatChar()
     {
-        $this->assertSame(-1.0, Float::fromString('-1,d0'));
+        $this->assertSame(-1.0, Floats::fromString('-1,d0'));
     }
 
     /**
@@ -49,10 +49,10 @@ class FloatTest extends \PHPUnit_Framework_TestCase
      */
     public function testFromHour()
     {
-        $this->assertSame(0.0, Float::fromHour('0:0:0'));
-        $this->assertSame(1.5, Float::fromHour('1:30'));
-        $this->assertSame(1.5, Float::fromHour('1:30:0'));
-        $this->assertSame(1.5083, round(Float::fromHour('1:30:30'), 4));
+        $this->assertSame(0.0, Floats::fromHour('0:0:0'));
+        $this->assertSame(1.5, Floats::fromHour('1:30'));
+        $this->assertSame(1.5, Floats::fromHour('1:30:0'));
+        $this->assertSame(1.5083, round(Floats::fromHour('1:30:30'), 4));
     }
 
 }

@@ -13,12 +13,12 @@ final class Strings
 	private function __constructor() {}
 
 	/**
-	 * @param string|int|float $value
-	 * @return float
+	 * @param string|int|Floats $value
+	 * @return Floats
 	 */
 	public static function toFloat($value)
 	{
-		return Float::fromString($value);
+		return Floats::fromString($value);
 	}
 
 	/**
@@ -32,7 +32,7 @@ final class Strings
 
 	/**
 	 * @param string $value
-	 * @return float[]
+	 * @return Floats[]
 	 */
 	public static function toGps($value)
 	{

@@ -7,14 +7,14 @@ use h4kuna\DataType;
 /**
  * @author Milan Matějček
  */
-final class Float
+final class Floats
 {
 
 	private function __construct() {}
 
 	/**
-	 * @param string|int|float $value
-	 * @return float
+	 * @param string|int|Floats $value
+	 * @return Floats
 	 * @throws DataType\InvalidArgumentsException
 	 */
 	public static function fromString($value)
@@ -52,7 +52,7 @@ final class Float
 	/**
 	 * Format HH:MM or HH:MM:SS
 	 * @param string $value
-	 * @return float
+	 * @return Floats
 	 */
 	public static function fromHour($value)
 	{

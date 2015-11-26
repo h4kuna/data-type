@@ -17,7 +17,7 @@ final class Math
 	 * @param $number
 	 * @param $max float
 	 * @param $min float
-	 * @return float
+	 * @return Floats
 	 * @throws DataType\InvalidArgumentsException
 	 */
 	public static function interval($number, $max, $min = 0)
@@ -32,8 +32,8 @@ final class Math
 	 * Round method to zero point five.
 	 * @example 1.24 -> 1.0, 1.25 -> 1.5, 1.74 -> 1.5, 1.75 -> 2.0
 	 *
-	 * @param float $num
-	 * @return float
+	 * @param Floats $num
+	 * @return Floats
 	 */
 	public static function round5($num)
 	{
@@ -57,9 +57,9 @@ final class Math
 
 	/**
 	 * Safe division.
-	 * @param float $up
-	 * @param float $down
-	 * @return float|int|NULL
+	 * @param Floats $up
+	 * @param Floats $down
+	 * @return Floats|int|NULL
 	 */
 	public static function safeDivision($up, $down)
 	{

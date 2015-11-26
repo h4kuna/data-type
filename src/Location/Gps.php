@@ -14,7 +14,7 @@ final class Gps
 
 	/**
 	 * @param string $value
-	 * @return float[]
+	 * @return Floats[]
 	 * @throws DataType\InvalidArgumentsException
 	 */
 	public static function fromString($value)
@@ -43,9 +43,9 @@ final class Gps
 
 	/**
 	 * Transform coordinate.
-	 * @param float $num
+	 * @param Floats $num
 	 * @param string $pole
-	 * @return float
+	 * @return Floats
 	 * @throws DataType\InvalidArgumentsException
 	 */
 	private static function checkCoordinate($num, $pole)
@@ -76,10 +76,10 @@ final class Gps
 
 	/**
 	 * Transform to float.
-	 * @param float $degrees
-	 * @param float $minutes
-	 * @param float $seconds
-	 * @return float
+	 * @param Floats $degrees
+	 * @param Floats $minutes
+	 * @param Floats $seconds
+	 * @return Floats
 	 */
 	private static function degToDec($degrees, $minutes, $seconds = 0)
 	{
@@ -87,9 +87,9 @@ final class Gps
 	}
 
 	/**
-	 * @param float $x
-	 * @param float $y
-	 * @return float[]
+	 * @param Floats $x
+	 * @param Floats $y
+	 * @return Floats[]
 	 */
 	private static function setCoordinate($x, $y)
 	{
