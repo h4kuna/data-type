@@ -2,13 +2,12 @@
 
 namespace h4kuna\DataType\Basic;
 
-use h4kuna\DataType\Location,
-	Nette\Utils;
+use h4kuna\DataType\Location;
 
 /**
  * @author Milan Matějček
  */
-final class String
+final class Strings
 {
 
 	private function __constructor() {}

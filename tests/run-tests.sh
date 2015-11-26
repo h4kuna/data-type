@@ -2,6 +2,7 @@
 
 DIR=`dirname $0`
 
+cd $DIR/..
 composer install
 rm -rf $DIR/temp/*
 

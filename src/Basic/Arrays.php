@@ -79,11 +79,11 @@ final class Arrays
 
 	/**
 	 * Unset keys from array.
-	 * @param array $array
+	 * @param array|\ArrayAccess $array
 	 * @param string $key
 	 * @return array Removed keys
 	 */
-	static function keysUnset(array & $array, $key /* , ... keys */)
+	static function keysUnset(& $array, $key /* , ... keys */)
 	{
 		$out = array();
 		$args = array_slice(func_get_args(), 1);

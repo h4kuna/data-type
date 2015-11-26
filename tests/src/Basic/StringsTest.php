@@ -2,22 +2,22 @@
 
 namespace h4kuna\DataType\Basic;
 
-class StringTest extends \PHPUnit_Framework_TestCase
+class StringsTest extends \PHPUnit_Framework_TestCase
 {
 
 	public function testToFloat()
 	{
-		$this->assertSame(1.1, String::toFloat('1.1'));
+		$this->assertSame(1.1, Strings::toFloat('1.1'));
 	}
 
 	public function testToInt()
 	{
-		$this->assertSame(1, String::toInt('1'));
+		$this->assertSame(1, Strings::toInt('1'));
 	}
 
 	public function testToGps()
 	{
-		$coordinate = String::toGps('51.1, 14.1');
+		$coordinate = Strings::toGps('51.1, 14.1');
 		array_walk($coordinate, function(&$v) {
 			$v = (string) round($v, 1);
 		});
@@ -26,7 +26,7 @@ class StringTest extends \PHPUnit_Framework_TestCase
 
 	public function testToSet()
 	{
-		$this->assertSame(array('foo' => TRUE, 'bar' => TRUE), String::toSet('foo,bar'));
+		$this->assertSame(array('foo' => TRUE, 'bar' => TRUE), Strings::toSet('foo,bar'));
 	}
 
 	public function testToUnderscore()
@@ -43,7 +43,7 @@ class StringTest extends \PHPUnit_Framework_TestCase
 			'TEST123String' => 'test123_string',
 		);
 		foreach ($tests as $value => $expeted) {
-			$this->assertSame($expeted, String::toUnderscore($value));
+			$this->assertSame($expeted, Strings::toUnderscore($value));
 		}
 	}
 
@@ -61,7 +61,7 @@ class StringTest extends \PHPUnit_Framework_TestCase
 			'test123_string' => 'test123String',
 		);
 		foreach ($tests as $value => $expeted) {
-			$this->assertSame($expeted, String::toCamel($value));
+			$this->assertSame($expeted, Strings::toCamel($value));
 		}
 	}
 

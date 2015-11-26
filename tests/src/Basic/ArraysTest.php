@@ -63,6 +63,11 @@ class ArraysTest extends \PHPUnit_Framework_TestCase
 
         $newArray = Arrays::keysUnset($array, 'foo');
         $this->assertSame(array(), $newArray);
+
+		$arrayObject = new \ArrayIterator(array(1 => 0, 2 => NULL, 3 => 'three', 4 => FALSE, 5 => 'five', 6 => '', 7 => '0'));
+		$newArray = Arrays::keysUnset($arrayObject, 1, 2);
+		$this->assertSame(array(1 => 0, 2 => NULL), $newArray);
+		$this->assertSame(array(3 => 'three', 4 => FALSE, 5 => 'five', 6 => '', 7 => '0'), (array) $arrayObject);
     }
 
     /**
