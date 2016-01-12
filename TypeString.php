@@ -7,7 +7,7 @@ namespace h4kuna;
  *
  * @author milan
  */
-class String extends BasicDataType {
+class TypeString extends BasicDataType {
 
     public function setValue($v) {
         $this->inValue = $v;
