@@ -7,7 +7,7 @@ namespace h4kuna;
  *
  * @author milan
  */
-class Float extends DataType {
+class TypeFloat extends DataType {
 
     /**
      *
