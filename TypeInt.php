@@ -7,7 +7,7 @@ namespace h4kuna;
  *
  * @author Milan Matějček
  */
-class Int extends DataType {
+class TypeInt extends DataType {
 
     /**
      * @param string|float|int $v
