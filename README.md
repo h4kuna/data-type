@@ -3,7 +3,7 @@
 ### Float
 
 ```php
-$float = new Float();
+$float = new TypeFloat();
 $float->setValue('1'); // 1.0
 $float->setValue('foo- 1,5 foo'); // -1.5
 //time
@@ -31,7 +31,7 @@ $gps->setUp(6, 'x', 'y');
 ### Int (under construction)
 
 ```php
-$int = new Int();
+$int = new TypeInt();
 $float->setValue('foo- 1,5 foo'); // -1
 ```
 
