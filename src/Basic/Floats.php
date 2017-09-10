@@ -13,8 +13,8 @@ final class Floats
 	private function __construct() {}
 
 	/**
-	 * @param string|Ints|Floats $value
-	 * @return Floats
+	 * @param string|int|float $value
+	 * @return float
 	 * @throws DataType\InvalidArgumentsException
 	 */
 	public static function fromString($value)
@@ -52,7 +52,7 @@ final class Floats
 	/**
 	 * Format HH:MM or HH:MM:SS
 	 * @param string $value
-	 * @return Floats
+	 * @return float
 	 */
 	public static function fromHour($value)
 	{

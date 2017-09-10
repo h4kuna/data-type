@@ -8,17 +8,14 @@ use Iterator,
 /**
  * Transform set from string to array and vice versa
  * MySQL data type SET to checkboxlist
- *
  * @example
  * array(
  *  foo => TRUE,
  *  bar => TRUE,
  *  joe => FALSE
  * )
- *
  * string: foo,bar
  * array: [foo => TRUE, bar => TRUE]
- *
  * @author Milan Matějček
  */
 final class Set
@@ -40,7 +37,6 @@ final class Set
 	}
 
 	/**
-	 *
 	 * @param array|Iterator $set
 	 * @return string
 	 */

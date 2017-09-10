@@ -4,9 +4,6 @@ namespace h4kuna\DataType\Location;
 
 use h4kuna\DataType;
 
-/**
- * @author Milan Matějček
- */
 final class Gps
 {
 
@@ -14,12 +11,12 @@ final class Gps
 
 	/**
 	 * @param string $value
-	 * @return Floats[]
+	 * @return float[]
 	 * @throws DataType\InvalidArgumentsException
 	 */
 	public static function fromString($value)
 	{
-		$out = $found = array();
+		$out = $found = [];
 		if (preg_match('~^(\d{1,3}\.\d+?)(N|S), ?(\d{1,3}\.\d+?)(E|W)$~i', $value, $found)) {
 			// 50.4113628N, 14.9032000E
 			$out = self::setCoordinate(self::checkCoordinate($found[1], $found[2]), self::checkCoordinate($found[3], $found[4]));
@@ -43,9 +40,9 @@ final class Gps
 
 	/**
 	 * Transform coordinate.
-	 * @param Floats $num
+	 * @param float $num
 	 * @param string $pole
-	 * @return Floats
+	 * @return float
 	 * @throws DataType\InvalidArgumentsException
 	 */
 	private static function checkCoordinate($num, $pole)
@@ -76,10 +73,10 @@ final class Gps
 
 	/**
 	 * Transform to float.
-	 * @param Floats $degrees
-	 * @param Floats $minutes
-	 * @param Floats $seconds
-	 * @return Floats
+	 * @param float $degrees
+	 * @param float $minutes
+	 * @param float $seconds
+	 * @return float
 	 */
 	private static function degToDec($degrees, $minutes, $seconds = 0)
 	{
@@ -87,13 +84,13 @@ final class Gps
 	}
 
 	/**
-	 * @param Floats $x
-	 * @param Floats $y
-	 * @return Floats[]
+	 * @param float $x
+	 * @param float $y
+	 * @return float[]
 	 */
 	private static function setCoordinate($x, $y)
 	{
-		return array($x, $y);
+		return [$x, $y];
 	}
 
 }

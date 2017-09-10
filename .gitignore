@@ -1,3 +1,5 @@
+/.idea/
+coveralls.phar
 /nbproject/
 /vendor/
 composer.lock

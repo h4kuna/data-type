@@ -6,25 +6,30 @@ namespace h4kuna\DataType\Number;
  * @example
  * echo RomeNumber::getRome(1968); // MCMLXVIII
  * echo RomeNumber::getArabic('MCMLXVIII'); // 1968
- *
  * @see http://php.vrana.cz/rimske-cislice.php
  */
-class RomeNumber extends NonObject
+class RomeNumber
 {
 
-	static private $numbers = array(
-		"M" => 1000, "CM" => 900,
-		"D" => 500, "CD" => 400,
-		"C" => 100, "XC" => 90,
-		"L" => 50, "XL" => 40,
-		"X" => 10, "IX" => 9,
-		"V" => 5, "IV" => 4,
+	static private $numbers = [
+		"M" => 1000,
+		"CM" => 900,
+		"D" => 500,
+		"CD" => 400,
+		"C" => 100,
+		"XC" => 90,
+		"L" => 50,
+		"XL" => 40,
+		"X" => 10,
+		"IX" => 9,
+		"V" => 5,
+		"IV" => 4,
 		"I" => 1
-	);
+	];
 
 	/**
-	 * Prevede cislo na arabske cislo
-	 * @param Ints $number
+	 * Transform from arabic to rome
+	 * @param int $number
 	 * @return string
 	 */
 	public static function getRome($number)
@@ -38,9 +43,9 @@ class RomeNumber extends NonObject
 	}
 
 	/**
-	 * Prevede arabske cislo na rimnske
+	 * Transform form rome to arabic
 	 * @param string $rome
-	 * @return Ints
+	 * @return int
 	 */
 	public static function getArabic($rome)
 	{

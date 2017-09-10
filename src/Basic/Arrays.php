@@ -10,7 +10,7 @@ use h4kuna\DataType;
 final class Arrays
 {
 
-	private function __construct() {}
+	private function __construct() { }
 
 	/**
 	 * Better array_combine where values array does not need same size.
@@ -42,7 +42,7 @@ final class Arrays
 	 */
 	static function concatWs($glue, $array /* , ... keys */)
 	{
-		$keys = array();
+		$keys = [];
 		if (func_num_args() > 2) {
 			$keys = array_slice(func_get_args(), 2);
 		}
@@ -85,7 +85,7 @@ final class Arrays
 	 */
 	static function keysUnset(& $array, $key /* , ... keys */)
 	{
-		$out = array();
+		$out = [];
 		$args = array_slice(func_get_args(), 1);
 		foreach ($args as $key) {
 			if (array_key_exists($key, $array)) {
@@ -99,37 +99,6 @@ final class Arrays
 	public static function intesectKeys(array $values, array $keys)
 	{
 		return array_intersect_key($values, array_flip($keys));
-	}
-
-	/**
-	 * @see http://php.net/manual/en/function.array-column.php
-	 * @param array $array
-	 * @param string $columnName
-	 * @param string $key
-	 * @return array
-	 */
-	static function column($array, $columnName = NULL, $key = NULL)
-	{
-		if (PHP_VERSION_ID >= 50500) {
-			return array_column($array, $columnName, $key);
-		} elseif ($key === NULL && $key === $columnName) {
-			return $array;
-		}
-		$out = array();
-		if ($columnName !== NULL && $key !== NULL) {
-			foreach ($array as $v) {
-				$out[$v[$key]] = $v[$columnName];
-			}
-		} elseif ($columnName !== NULL) {
-			foreach ($array as $v) {
-				$out[] = $v[$columnName];
-			}
-		} else {
-			foreach ($array as $v) {
-				$out[$v[$key]] = $v;
-			}
-		}
-		return $out;
 	}
 
 }
