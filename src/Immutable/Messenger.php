@@ -94,15 +94,14 @@ class Messenger implements \ArrayAccess, \Iterator, \Serializable, \JsonSerializ
 		$this->data = unserialize($serialized);
 	}
 
-	final public function jsonSerialize()
-	{
-		return $this->data;
-	}
-
 	final public function count()
 	{
 		return count($this->data);
 	}
 
+	public function jsonSerialize()
+	{
+		return $this->data;
+	}
 }
 

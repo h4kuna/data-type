@@ -17,5 +17,6 @@ $ composer require h4kuna/data-type
 
 - [Basic](src/Basic)
 - czech [Date](src/Date)
+- [Immutable](src/Immutable)
 - [GPS](src/Location)
 - [Number](src/Number)
