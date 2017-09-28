@@ -41,6 +41,15 @@ class Messenger implements \ArrayAccess, \Iterator, \Serializable, \JsonSerializ
 	}
 
 
+	final public function get($key, $default = null)
+	{
+		if ($this->offsetExists($key)) {
+			return $this->offsetGet($key);
+		}
+		return $default;
+	}
+
+
 	final public function getData()
 	{
 		return $this->data;
