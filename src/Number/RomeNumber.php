@@ -27,6 +27,7 @@ class RomeNumber
 		"I" => 1
 	];
 
+
 	/**
 	 * Transform from arabic to rome
 	 * @param int $number
@@ -34,13 +35,14 @@ class RomeNumber
 	 */
 	public static function getRome($number)
 	{
-		$return = NULL;
+		$return = null;
 		foreach (self::$numbers as $key => $val) {
 			$return .= str_repeat($key, floor($number / $val));
 			$number %= $val;
 		}
 		return $return;
 	}
+
 
 	/**
 	 * Transform form rome to arabic
@@ -50,17 +52,17 @@ class RomeNumber
 	public static function getArabic($rome)
 	{
 		$return = 0;
-		$move = FALSE;
+		$move = false;
 		$rome = str_split(strtoupper((string) $rome));
 		foreach ($rome as $key => $val) {
-			if ($move === TRUE) {
-				$move = FALSE;
+			if ($move === true) {
+				$move = false;
 				continue;
 			}
 
 			if (isset($rome[$key + 1]) && isset(self::$numbers[$val . $rome[$key + 1]])) {
 				$return += self::$numbers[$val . $rome[$key + 1]];
-				$move = TRUE;
+				$move = true;
 			} else {
 				$return += self::$numbers[$val];
 			}

@@ -9,10 +9,12 @@ include __DIR__ . '/../../bootstrap.php';
 
 class RomeNumberTest extends \Tester\TestCase
 {
+
 	public function testArabic()
 	{
 		Assert::same(1090, RomeNumber::getArabic('MXC'));
 	}
+
 
 	public function testRome()
 	{

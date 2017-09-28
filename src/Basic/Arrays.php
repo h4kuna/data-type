@@ -12,6 +12,7 @@ final class Arrays
 
 	private function __construct() { }
 
+
 	/**
 	 * Better array_combine where values array does not need same size.
 	 * @param array $keys
@@ -20,7 +21,7 @@ final class Arrays
 	 * @return array
 	 * @throws DataType\InvalidArgumentsException
 	 */
-	static function combine(array $keys, array $values, $value = NULL)
+	public static function combine(array $keys, array $values, $value = null)
 	{
 		$diff = count($keys) - count($values);
 
@@ -33,21 +34,18 @@ final class Arrays
 		return array_combine($keys, $values);
 	}
 
+
 	/**
 	 * Implode only values where strlen > 0 and you can define keys.
 	 * @param string $glue
 	 * @param array $array
-	 * @param string $keys
+	 * @param string[] $keys
 	 * @return string
 	 */
-	static function concatWs($glue, $array /* , ... keys */)
+	public static function concatWs($glue, $array, ...$keys)
 	{
-		$keys = [];
-		if (func_num_args() > 2) {
-			$keys = array_slice(func_get_args(), 2);
-		}
 		$out = '';
-		foreach ($keys ? self::intesectKeys($array, $keys) : $array as $value) {
+		foreach ($keys ? self::intersectKeys($array, $keys) : $array as $value) {
 			if (!strlen($value)) {
 				continue;
 			} elseif ($out !== '') {
@@ -58,36 +56,37 @@ final class Arrays
 		return $out;
 	}
 
+
 	/**
 	 * COALESCE similar behavior database.
 	 * @param array $array
-	 * @return string|NULL
+	 * @param string[] $keys
+	 * @return string|null
 	 */
-	static function coalesce($array /* , $keys, ... */)
+	public static function coalesce($array, ...$keys)
 	{
-		if (func_num_args() > 1) {
-			$keys = array_slice(func_get_args(), 1);
-			$array = self::intesectKeys($array, $keys);
+		if ($keys !== []) {
+			$array = self::intersectKeys($array, $keys);
 		}
 		foreach ($array as $v) {
-			if (strlen($v)) {
+			if (!empty($v)) {
 				return $v;
 			}
 		}
-		return NULL;
+		return null;
 	}
+
 
 	/**
 	 * Unset keys from array.
 	 * @param array|\ArrayAccess $array
-	 * @param string $key
+	 * @param string[] $keys
 	 * @return array Removed keys
 	 */
-	static function keysUnset(& $array, $key /* , ... keys */)
+	public static function keysUnset(& $array, ...$keys)
 	{
 		$out = [];
-		$args = array_slice(func_get_args(), 1);
-		foreach ($args as $key) {
+		foreach ($keys as $key) {
 			if (array_key_exists($key, $array)) {
 				$out[$key] = $array[$key];
 				unset($array[$key]);
@@ -96,7 +95,8 @@ final class Arrays
 		return $out;
 	}
 
-	public static function intesectKeys(array $values, array $keys)
+
+	public static function intersectKeys(array $values, array $keys)
 	{
 		return array_intersect_key($values, array_flip($keys));
 	}

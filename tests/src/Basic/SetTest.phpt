@@ -11,17 +11,18 @@ class SetTest extends \Tester\TestCase
 
 	public function testFromString()
 	{
-		$set = ['one' => TRUE, 'two' => TRUE, 'three' => TRUE, 'four' => TRUE, 'five' => TRUE];
+		$set = ['one' => true, 'two' => true, 'three' => true, 'four' => true, 'five' => true];
 		$setString = implode(',', array_keys($set));
 
 		Assert::same($set, Set::fromString($setString));
 		Assert::same($setString, Set::toString($set));
 
-		$set['three'] = FALSE;
+		$set['three'] = false;
 		Assert::same('one,two,four,five', Set::toString($set));
 		unset($set['three']);
 		Assert::same($set, Set::fromString('one,two,four,five'));
 	}
+
 
 	/**
 	 * @throws \h4kuna\DataType\InvalidArgumentsException

@@ -37,6 +37,7 @@ class GpsTest extends \Tester\TestCase
 		Assert::same($expected, self::round7(Gps::fromString('50.0835494S, 14.4341414W')));
 	}
 
+
 	/**
 	 * @throws h4kuna\DataType\InvalidArgumentsException
 	 */
@@ -45,6 +46,7 @@ class GpsTest extends \Tester\TestCase
 		Gps::fromString('Hello fail');
 	}
 
+
 	/**
 	 * @throws h4kuna\DataType\InvalidArgumentsException
 	 */
@@ -52,6 +54,7 @@ class GpsTest extends \Tester\TestCase
 	{
 		Gps::fromString('50.0835494A, 14.4341414W');
 	}
+
 
 	private static function round7(array $coordinate)
 	{

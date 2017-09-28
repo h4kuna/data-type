@@ -10,11 +10,12 @@ use h4kuna\DataType;
 final class Ints
 {
 
-	private function __construct() {}
+	private function __construct() { }
+
 
 	/**
-	 * @param string|Ints $value
-	 * @return Ints
+	 * @param string|int $value
+	 * @return int
 	 * @throws DataType\InvalidArgumentsException
 	 */
 	public static function fromString($value)

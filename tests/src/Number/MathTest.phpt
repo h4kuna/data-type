@@ -22,6 +22,7 @@ class MathTest extends \Tester\TestCase
 		Assert::same(-5, Math::interval(-5, -4, -6));
 	}
 
+
 	/**
 	 * @throws h4kuna\DataType\InvalidArgumentsException
 	 */
@@ -29,6 +30,7 @@ class MathTest extends \Tester\TestCase
 	{
 		Math::interval(2, 1, 3);
 	}
+
 
 	public function testRound5()
 	{
@@ -61,17 +63,20 @@ class MathTest extends \Tester\TestCase
 		Assert::same(-2.0, Math::round5(-2));
 	}
 
+
 	public function testSafeDivision()
 	{
 		Assert::same(0, Math::safeDivision(0, 1));
-		Assert::same(NULL, Math::safeDivision(1, 0));
+		Assert::same(null, Math::safeDivision(1, 0));
 		Assert::same(1, Math::safeDivision(1, 1));
 	}
+
 
 	public function testFactorial()
 	{
 		Assert::same(120, Math::factorial(5));
 	}
+
 
 	/**
 	 * @throws h4kuna\DataType\InvalidArgumentsException

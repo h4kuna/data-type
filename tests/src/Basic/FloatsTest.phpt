@@ -28,13 +28,15 @@ class FloatsTest extends \Tester\TestCase
 		Assert::same(1.5, Floats::fromString('1:30'));
 	}
 
+
 	/**
 	 * @throws h4kuna\DataType\InvalidArgumentsException
 	 */
 	public function testExceptionFloatNull()
 	{
-		Floats::fromString(NULL);
+		Floats::fromString(null);
 	}
+
 
 	/**
 	 * @throws \h4kuna\DataType\InvalidArgumentsException
@@ -43,6 +45,7 @@ class FloatsTest extends \Tester\TestCase
 	{
 		Assert::same(-1.0, Floats::fromString('-1,d0'));
 	}
+
 
 	public function testFromHour()
 	{

@@ -15,9 +15,11 @@ final class Calendar
 	 * Cache
 	 * @var array
 	 */
-	private static $date = array();
+	private static $date = [];
 
-	private function __construct() {}
+
+	private function __construct() { }
+
 
 	/**
 	 * Czech days prepare for translate.
@@ -30,6 +32,7 @@ final class Calendar
 		}
 		return self::$date['days'];
 	}
+
 
 	/**
 	 * Czech months prepare for translate.
@@ -44,18 +47,18 @@ final class Calendar
 		return self::$date['months'];
 	}
 
+
 	/**
 	 * NULL - actual day.
 	 * 0 (for Sunday) through 6 (for Saturday)
-	 *
 	 * @param NULL|Ints|DateTime $day
 	 * @return string
 	 * @throws DataType\InvalidArgumentsException
 	 */
-	public static function nameOfDay($day = NULL)
+	public static function nameOfDay($day = null)
 	{
 		$days = self::getDays();
-		if ($day === NULL) {
+		if ($day === null) {
 			$day = (int) date('w');
 		} elseif ($day instanceof DateTime) {
 			$day = (int) $day->format('w');
@@ -76,17 +79,18 @@ final class Calendar
 		throw new DataType\InvalidArgumentsException('Invalid number for day, interval is 0-6, 0 = Sunday');
 	}
 
+
 	/**
 	 * Name of month.
 	 * @param NULL|Ints|DateTime $month
 	 * @return string
 	 * @throws DataType\InvalidArgumentsException
 	 */
-	public static function nameOfMonth($month = NULL)
+	public static function nameOfMonth($month = null)
 	{
 		$months = self::getMonths();
 
-		if ($month === NULL) {
+		if ($month === null) {
 			$month = (int) date('n');
 		} elseif ($month instanceof DateTime) {
 			$month = (int) $month->format('n');
@@ -103,6 +107,7 @@ final class Calendar
 		throw new DataType\InvalidArgumentsException('Invalid number for day, interval is 1-12.');
 	}
 
+
 	/**
 	 * @param string $date CZECH FORMAT DD.MM.YYYY[ HH:mm:SS]
 	 * @return DateTime
@@ -116,11 +121,12 @@ final class Calendar
 
 		$dt = new DateTime($find['y'] . '-' . $find['m'] . '-' . $find['d'] . ' 00:00:00');
 		if (isset($find['h'])) {
-			$find += array('s' => 0);
+			$find += ['s' => 0];
 			$dt->setTime($find['h'], $find['i'], $find['s']);
 		}
 		return $dt;
 	}
+
 
 	/**
 	 * Number days of February.
@@ -135,14 +141,15 @@ final class Calendar
 		return checkdate(2, 29, $year) ? 29 : 28;
 	}
 
+
 	/**
 	 * Easter monday.
 	 * @param Ints $year 1970-2037
 	 * @return DateTime
 	 */
-	public static function easter($year = NULL)
+	public static function easter($year = null)
 	{
-		if ($year === NULL) {
+		if ($year === null) {
 			$year = date('Y');
 		}
 		$dt = new DateTime;
@@ -152,6 +159,7 @@ final class Calendar
 		return $dt;
 	}
 
+
 	/**
 	 * Return czech name on name-day.
 	 * @param DateTime $day
@@ -159,9 +167,9 @@ final class Calendar
 	 * @return string
 	 * @throws DataType\InvalidArgumentsException
 	 */
-	public static function getName(DateTime $date = NULL)
+	public static function getName(DateTime $date = null)
 	{
-		if ($date === NULL) {
+		if ($date === null) {
 			$date = new DateTime;
 		}
 		$day = $date->format('d');

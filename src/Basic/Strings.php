@@ -10,43 +10,48 @@ use h4kuna\DataType\Location;
 final class Strings
 {
 
-	private function __constructor() {}
+	private function __constructor() { }
+
 
 	/**
-	 * @param string|Ints|Floats $value
-	 * @return Floats
+	 * @param string $value
+	 * @return float
 	 */
 	public static function toFloat($value)
 	{
 		return Floats::fromString($value);
 	}
 
+
 	/**
-	 * @param Ints|string $value
-	 * @return Ints
+	 * @param string $value
+	 * @return int
 	 */
 	public static function toInt($value)
 	{
 		return Ints::fromString($value);
 	}
 
+
 	/**
 	 * @param string $value
-	 * @return Floats[]
+	 * @return float[]
 	 */
 	public static function toGps($value)
 	{
 		return Location\Gps::fromString($value);
 	}
 
+
 	/**
-	 * @param array|\Iterator|string $value
+	 * @param string $value
 	 * @return array
 	 */
 	public static function toSet($value)
 	{
 		return Set::fromString($value);
 	}
+
 
 	/**
 	 * foo_bar => fooBar
@@ -58,6 +63,7 @@ final class Strings
 		return preg_replace_callback('/_([a-z])/', 'camelCallback', $string);
 	}
 
+
 	/**
 	 * foo_bar => FooBar
 	 * @param string $string
@@ -67,6 +73,7 @@ final class Strings
 	{
 		return ucfirst(self::toCamel($string));
 	}
+
 
 	/**
 	 * FooBar => foo_bar

@@ -10,7 +10,8 @@ use h4kuna\DataType;
 final class Floats
 {
 
-	private function __construct() {}
+	private function __construct() { }
+
 
 	/**
 	 * @param string|int|float $value
@@ -27,7 +28,7 @@ final class Floats
 			return floatval($value);
 		}
 
-		if (strstr($value, ':') !== FALSE) {
+		if (strstr($value, ':') !== false) {
 			return self::fromHour($value);
 		}
 
@@ -41,13 +42,13 @@ final class Floats
 			return '';
 		}, $value);
 
-
 		if (!is_numeric($out)) {
 			throw new DataType\InvalidArgumentsException('This value is not float: ' . $value);
 		}
 
 		return floatval($out);
 	}
+
 
 	/**
 	 * Format HH:MM or HH:MM:SS

@@ -10,13 +10,14 @@ use h4kuna\DataType;
 final class Math
 {
 
-	private function __construct() {}
+	private function __construct() { }
+
 
 	/**
 	 * Allow number in interval and correct it.
-	 * @param $number
-	 * @param $max float
-	 * @param $min float
+	 * @param float|int $number
+	 * @param float|int $max
+	 * @param float|int $min
 	 * @return Floats
 	 * @throws DataType\InvalidArgumentsException
 	 */
@@ -28,12 +29,12 @@ final class Math
 		return max($min, min($max, $number));
 	}
 
+
 	/**
 	 * Round method to zero point five.
 	 * @example 1.24 -> 1.0, 1.25 -> 1.5, 1.74 -> 1.5, 1.75 -> 2.0
-	 *
-	 * @param Floats $num
-	 * @return Floats
+	 * @param float $num
+	 * @return float
 	 */
 	public static function round5($num)
 	{
@@ -55,6 +56,7 @@ final class Math
 		return $floor + (1 * $i);
 	}
 
+
 	/**
 	 * Safe division.
 	 * @param Floats $up
@@ -64,15 +66,16 @@ final class Math
 	public static function safeDivision($up, $down)
 	{
 		if (!$down) {
-			return NULL;
+			return null;
 		}
 		return $up / $down;
 	}
 
+
 	/**
 	 * Factorial.
-	 * @param Ints $n
-	 * @return Ints
+	 * @param int $n
+	 * @return int
 	 * @throws DataType\InvalidArgumentsException
 	 */
 	public static function factorial($n)

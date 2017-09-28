@@ -16,8 +16,8 @@ class IntsTest extends \Tester\TestCase
 		Assert::same(1, Ints::fromString('1'));
 		Assert::same(1, Ints::fromString(' 1 '));
 		Assert::same(-1000, Ints::fromString('- 1 000'));
-
 	}
+
 
 	/**
 	 * @throws h4kuna\DataType\InvalidArgumentsException

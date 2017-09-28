@@ -21,7 +21,8 @@ use Iterator,
 final class Set
 {
 
-	private function __construct() {}
+	private function __construct() { }
+
 
 	/**
 	 * @param string $value
@@ -33,8 +34,9 @@ final class Set
 		if (!is_string($value)) {
 			throw new DataType\InvalidArgumentsException('Set must be string and delimited by comma. For example: foo,bar,joe');
 		}
-		return array_fill_keys(explode(',', $value), TRUE);
+		return array_fill_keys(explode(',', $value), true);
 	}
+
 
 	/**
 	 * @param array|Iterator $set

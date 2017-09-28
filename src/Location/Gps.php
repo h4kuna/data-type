@@ -7,7 +7,8 @@ use h4kuna\DataType;
 final class Gps
 {
 
-	private function __construct() {}
+	private function __construct() { }
+
 
 	/**
 	 * @param string $value
@@ -37,6 +38,7 @@ final class Gps
 		}
 		return $out;
 	}
+
 
 	/**
 	 * Transform coordinate.
@@ -71,6 +73,7 @@ final class Gps
 		return $num;
 	}
 
+
 	/**
 	 * Transform to float.
 	 * @param float $degrees
@@ -78,10 +81,11 @@ final class Gps
 	 * @param float $seconds
 	 * @return float
 	 */
-	private static function degToDec($degrees, $minutes, $seconds = 0)
+	private static function degToDec($degrees, $minutes, $seconds = 0.0)
 	{
 		return $degrees + $minutes / 60 + $seconds / 3600;
 	}
+
 
 	/**
 	 * @param float $x

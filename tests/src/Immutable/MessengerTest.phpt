@@ -9,6 +9,7 @@ include __DIR__ . '/../../bootstrap.php';
 
 class MessengerTest extends \Tester\TestCase
 {
+
 	public function testBasic()
 	{
 		$messenger = new Messenger([
@@ -23,6 +24,7 @@ class MessengerTest extends \Tester\TestCase
 		Assert::same('joe', $messenger['doe']);
 	}
 
+
 	public function testSet()
 	{
 		$messenger = new Messenger([]);
@@ -34,6 +36,7 @@ class MessengerTest extends \Tester\TestCase
 			$messenger['foo'] = 'bar';
 		}, 'h4kuna\DataType\FrozenMethodException');
 	}
+
 
 	public function testUnset()
 	{
@@ -48,10 +51,11 @@ class MessengerTest extends \Tester\TestCase
 		}, 'h4kuna\DataType\FrozenMethodException');
 	}
 
+
 	public function testIsset()
 	{
 		$messenger = new Messenger([
-			'bar' => NULL
+			'bar' => null
 		]);
 
 		Assert::false(isset($messenger->foo));
@@ -59,6 +63,7 @@ class MessengerTest extends \Tester\TestCase
 		Assert::false(isset($messenger->bar));
 		Assert::true(isset($messenger['bar']));
 	}
+
 
 	public function testSerialize()
 	{
@@ -69,6 +74,7 @@ class MessengerTest extends \Tester\TestCase
 		$serializeMessenger = serialize($messenger);
 		Assert::equal($messenger, unserialize($serializeMessenger));
 	}
+
 
 	public function testJsonSerialize()
 	{
@@ -83,6 +89,7 @@ class MessengerTest extends \Tester\TestCase
 		Assert::equal($expected, json_decode($serializeMessenger));
 	}
 
+
 	public function testCount()
 	{
 		$messenger = new Messenger([
@@ -91,6 +98,7 @@ class MessengerTest extends \Tester\TestCase
 		]);
 		Assert::same(2, count($messenger));
 	}
+
 
 	public function testIterator()
 	{

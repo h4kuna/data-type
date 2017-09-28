@@ -16,10 +16,12 @@ class CalendarTest extends \Tester\TestCase
 		Assert::same(Calendar::getDays(), Calendar::getDays());
 	}
 
+
 	public function testGetMonths()
 	{
 		Assert::same(Calendar::getMonths(), Calendar::getMonths());
 	}
+
 
 	public function testNameOfDay()
 	{
@@ -30,6 +32,7 @@ class CalendarTest extends \Tester\TestCase
 		Assert::same($days[5], Calendar::nameOfDay(new DateTime('2016-12-30')));
 	}
 
+
 	/**
 	 * @throws h4kuna\DataType\InvalidArgumentsException
 	 */
@@ -37,6 +40,7 @@ class CalendarTest extends \Tester\TestCase
 	{
 		Calendar::nameOfDay(8);
 	}
+
 
 	public function testNameOfMonth()
 	{
@@ -47,6 +51,7 @@ class CalendarTest extends \Tester\TestCase
 		Assert::same($days[12], Calendar::nameOfMonth(new DateTime('2016-12-30')));
 	}
 
+
 	/**
 	 * @throws h4kuna\DataType\InvalidArgumentsException
 	 */
@@ -54,6 +59,7 @@ class CalendarTest extends \Tester\TestCase
 	{
 		Calendar::nameOfMonth(13);
 	}
+
 
 	public function testCzech2DateTime()
 	{
@@ -87,6 +93,7 @@ class CalendarTest extends \Tester\TestCase
 		Assert::same('1986-12-30 23:59:00', $dt->format($format));
 	}
 
+
 	public function testFebruaryOfDay()
 	{
 		$years = [2012 => 29, 2013 => 28, 2014 => 28, 2015 => 28, 2016 => 29];
@@ -94,6 +101,7 @@ class CalendarTest extends \Tester\TestCase
 			Assert::same($days, Calendar::februaryOfDay($year));
 		}
 	}
+
 
 	public function testEaster()
 	{
@@ -111,11 +119,13 @@ class CalendarTest extends \Tester\TestCase
 		Assert::same(date('Y'), Calendar::easter()->format('Y'));
 	}
 
+
 	public function testGetName()
 	{
 		Assert::same('Milan', Calendar::getName(new DateTime('2013-06-18')));
 		Assert::same(Calendar::getName(), Calendar::getName(new DateTime));
 	}
+
 
 	public function testAllNames()
 	{

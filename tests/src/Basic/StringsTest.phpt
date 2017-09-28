@@ -15,10 +15,12 @@ class StringsTest extends \Tester\TestCase
 		Assert::same(1.1, Strings::toFloat('1.1'));
 	}
 
+
 	public function testToInt()
 	{
 		Assert::same(1, Strings::toInt('1'));
 	}
+
 
 	public function testToGps()
 	{
@@ -29,10 +31,12 @@ class StringsTest extends \Tester\TestCase
 		Assert::same(['51.1', '14.1'], $coordinate);
 	}
 
+
 	public function testToSet()
 	{
-		Assert::same(['foo' => TRUE, 'bar' => TRUE], Strings::toSet('foo,bar'));
+		Assert::same(['foo' => true, 'bar' => true], Strings::toSet('foo,bar'));
 	}
+
 
 	public function testToUnderscore()
 	{
@@ -52,6 +56,7 @@ class StringsTest extends \Tester\TestCase
 		}
 	}
 
+
 	public function testToCamel()
 	{
 		$tests = [
@@ -69,6 +74,7 @@ class StringsTest extends \Tester\TestCase
 			Assert::same($expeted, Strings::toCamel($value));
 		}
 	}
+
 
 	public function testToPascal()
 	{
