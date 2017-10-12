@@ -3,7 +3,6 @@
 namespace h4kuna\DataType\Date;
 
 use \DateTime,
-	h4kuna\DataType,
 	Tester\Assert;
 
 include __DIR__ . '/../../bootstrap.php';

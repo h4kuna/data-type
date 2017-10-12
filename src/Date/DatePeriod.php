@@ -22,6 +22,7 @@ class DatePeriod extends \DatePeriod
 		$intervalInstance = self::createInterval($interval === null ? '1 day' : $interval);
 		$endDate = self::createDateTime($to);
 		if ($options & self::INCLUDE_END_DATE) {
+			$endDate = clone $endDate;
 			$endDate->modify('+1 second');
 		}
 
