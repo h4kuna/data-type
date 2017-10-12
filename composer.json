@@ -12,7 +12,8 @@
     }
   ],
   "require": {
-    "php": ">=5.4"
+    "php": ">=5.4",
+    "nette/utils": ">2.2"
   },
   "autoload": {
     "psr-4": {

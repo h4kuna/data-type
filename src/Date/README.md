@@ -75,3 +75,15 @@ Return whose name's day.
 Calendar::getName(new DateTime('2013-12-24')));
 // Adam a Eva
 ```
+
+DatePeriod
+==========
+Class has method **create($from, $to, $interval = null, $options = 4)**, witch it receives parameters like string.
+```php
+$period = DatePeriod::create('2017-10-10', '2017-10-12');
+foreach ($period as $date) {
+    // 2017-10-10
+    // 2017-10-11
+    // 2017-10-12
+}
+``` 
