@@ -19,7 +19,7 @@ Math::round5(1.74) // 1.5
 Math::round5(1.75) // 2.0
 ```
 
-## Safe dision
+## Safe division
 ```php
 Math::safeDivision(5, 0); // NULL
 Math::safeDivision(0, 5); // 0.0
