@@ -12,5 +12,5 @@ else
     args=$@
 fi
 
-$DIR/../vendor/bin/tester -l $DIR/temp/test.log -s -j 2 -c $DIR/config/php.ini --colors 1 -p $args
+$DIR/../vendor/bin/tester -l $DIR/temp/test.log -s -j 2 -c $DIR/config/php.ini --colors -p $args
 

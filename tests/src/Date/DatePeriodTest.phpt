@@ -41,6 +41,8 @@ class DatePeriodTest extends \Tester\TestCase
 		Assert::same(2, $count);
 	}
 
+
+
 }
 
 (new DatePeriodTest())->run();
