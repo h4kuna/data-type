@@ -24,9 +24,8 @@ class RomeNumber
 		"IX" => 9,
 		"V" => 5,
 		"IV" => 4,
-		"I" => 1
+		"I" => 1,
 	];
-
 
 	/**
 	 * Transform from arabic to rome
@@ -42,7 +41,6 @@ class RomeNumber
 		}
 		return $return;
 	}
-
 
 	/**
 	 * Transform form rome to arabic

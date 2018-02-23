@@ -12,7 +12,6 @@ final class Ints
 
 	private function __construct() { }
 
-
 	/**
 	 * @param string|int $value
 	 * @return int

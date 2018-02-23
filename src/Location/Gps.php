@@ -9,7 +9,6 @@ final class Gps
 
 	private function __construct() { }
 
-
 	/**
 	 * @param string $value
 	 * @return float[]
@@ -38,7 +37,6 @@ final class Gps
 		}
 		return $out;
 	}
-
 
 	/**
 	 * Transform coordinate.
@@ -73,7 +71,6 @@ final class Gps
 		return $num;
 	}
 
-
 	/**
 	 * Transform to float.
 	 * @param float $degrees
@@ -85,7 +82,6 @@ final class Gps
 	{
 		return $degrees + $minutes / 60 + $seconds / 3600;
 	}
-
 
 	/**
 	 * @param float $x

@@ -14,7 +14,7 @@ class MessengerTest extends \Tester\TestCase
 	{
 		$messenger = new Messenger([
 			'foo' => 'bar',
-			'doe' => 'joe'
+			'doe' => 'joe',
 		]);
 
 		Assert::same('bar', $messenger->foo);
@@ -57,7 +57,7 @@ class MessengerTest extends \Tester\TestCase
 	public function testIsset()
 	{
 		$messenger = new Messenger([
-			'bar' => null
+			'bar' => null,
 		]);
 
 		Assert::false(isset($messenger->foo));
@@ -66,22 +66,20 @@ class MessengerTest extends \Tester\TestCase
 		Assert::true(isset($messenger['bar']));
 	}
 
-
 	public function testSerialize()
 	{
 		$messenger = new Messenger([
-			'bar' => 'foo'
+			'bar' => 'foo',
 		]);
 
 		$serializeMessenger = serialize($messenger);
 		Assert::equal($messenger, unserialize($serializeMessenger));
 	}
 
-
 	public function testJsonSerialize()
 	{
 		$messenger = new Messenger([
-			'bar' => 'foo'
+			'bar' => 'foo',
 		]);
 
 		$serializeMessenger = json_encode($messenger);
@@ -91,22 +89,20 @@ class MessengerTest extends \Tester\TestCase
 		Assert::equal($expected, json_decode($serializeMessenger));
 	}
 
-
 	public function testCount()
 	{
 		$messenger = new Messenger([
 			'foo' => 'bar',
-			'doe' => 'joe'
+			'doe' => 'joe',
 		]);
 		Assert::same(2, count($messenger));
 	}
-
 
 	public function testIterator()
 	{
 		$messenger = new Messenger([
 			'foo' => 'bar',
-			'doe' => 'joe'
+			'doe' => 'joe',
 		]);
 
 		$data = [];
@@ -115,7 +111,7 @@ class MessengerTest extends \Tester\TestCase
 		}
 		Assert::same([
 			'foo' => 'bar',
-			'doe' => 'joe'
+			'doe' => 'joe',
 		], $data);
 		Assert::same($messenger->getData(), $data);
 	}

@@ -12,7 +12,6 @@ final class Math
 
 	private function __construct() { }
 
-
 	/**
 	 * Allow number in interval and correct it.
 	 * @param float|int $number
@@ -28,7 +27,6 @@ final class Math
 		}
 		return max($min, min($max, $number));
 	}
-
 
 	/**
 	 * Round method to zero point five.
@@ -56,7 +54,6 @@ final class Math
 		return $floor + (1 * $i);
 	}
 
-
 	/**
 	 * Safe division.
 	 * @param Floats $up
@@ -70,7 +67,6 @@ final class Math
 		}
 		return $up / $down;
 	}
-
 
 	/**
 	 * Factorial.

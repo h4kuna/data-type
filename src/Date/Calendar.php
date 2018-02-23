@@ -17,9 +17,7 @@ final class Calendar
 	 */
 	private static $date = [];
 
-
 	private function __construct() { }
-
 
 	/**
 	 * Czech days prepare for translate.
@@ -33,7 +31,6 @@ final class Calendar
 		return self::$date['days'];
 	}
 
-
 	/**
 	 * Czech months prepare for translate.
 	 * @return string[]
@@ -46,7 +43,6 @@ final class Calendar
 		}
 		return self::$date['months'];
 	}
-
 
 	/**
 	 * NULL - actual day.
@@ -79,7 +75,6 @@ final class Calendar
 		throw new DataType\InvalidArgumentsException('Invalid number for day, interval is 0-6, 0 = Sunday');
 	}
 
-
 	/**
 	 * Name of month.
 	 * @param NULL|Ints|DateTime $month
@@ -107,7 +102,6 @@ final class Calendar
 		throw new DataType\InvalidArgumentsException('Invalid number for day, interval is 1-12.');
 	}
 
-
 	/**
 	 * @param string $date CZECH FORMAT DD.MM.YYYY[ HH:mm:SS]
 	 * @return DateTime
@@ -127,7 +121,6 @@ final class Calendar
 		return $dt;
 	}
 
-
 	/**
 	 * Number days of February.
 	 * @param Ints|DateTime $year
@@ -140,7 +133,6 @@ final class Calendar
 		}
 		return checkdate(2, 29, $year) ? 29 : 28;
 	}
-
 
 	/**
 	 * Easter monday.
@@ -158,7 +150,6 @@ final class Calendar
 		$dt->modify('next monday');
 		return $dt;
 	}
-
 
 	/**
 	 * Return czech name on name-day.

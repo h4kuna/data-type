@@ -12,7 +12,6 @@ final class Floats
 
 	private function __construct() { }
 
-
 	/**
 	 * @param string|int|float $value
 	 * @return float
@@ -48,7 +47,6 @@ final class Floats
 
 		return floatval($out);
 	}
-
 
 	/**
 	 * Format HH:MM or HH:MM:SS

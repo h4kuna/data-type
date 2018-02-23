@@ -12,7 +12,6 @@ final class Strings
 
 	private function __constructor() { }
 
-
 	/**
 	 * @param string $value
 	 * @return float
@@ -21,7 +20,6 @@ final class Strings
 	{
 		return Floats::fromString($value);
 	}
-
 
 	/**
 	 * @param string $value
@@ -32,7 +30,6 @@ final class Strings
 		return Ints::fromString($value);
 	}
 
-
 	/**
 	 * @param string $value
 	 * @return float[]
@@ -42,7 +39,6 @@ final class Strings
 		return Location\Gps::fromString($value);
 	}
 
-
 	/**
 	 * @param string $value
 	 * @return array
@@ -51,7 +47,6 @@ final class Strings
 	{
 		return Set::fromString($value);
 	}
-
 
 	/**
 	 * foo_bar => fooBar
@@ -63,7 +58,6 @@ final class Strings
 		return preg_replace_callback('/_([a-z])/', 'camelCallback', $string);
 	}
 
-
 	/**
 	 * foo_bar => FooBar
 	 * @param string $string
@@ -73,7 +67,6 @@ final class Strings
 	{
 		return ucfirst(self::toCamel($string));
 	}
-
 
 	/**
 	 * FooBar => foo_bar

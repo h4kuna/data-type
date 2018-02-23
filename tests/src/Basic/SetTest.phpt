@@ -23,7 +23,6 @@ class SetTest extends \Tester\TestCase
 		Assert::same($set, Set::fromString('one,two,four,five'));
 	}
 
-
 	/**
 	 * @throws \h4kuna\DataType\InvalidArgumentsException
 	 */

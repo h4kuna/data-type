@@ -15,7 +15,6 @@ class RomeNumberTest extends \Tester\TestCase
 		Assert::same(1090, RomeNumber::getArabic('MXC'));
 	}
 
-
 	public function testRome()
 	{
 		Assert::same('MXC', RomeNumber::getRome(1090));

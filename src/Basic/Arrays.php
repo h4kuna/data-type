@@ -12,7 +12,6 @@ final class Arrays
 
 	private function __construct() { }
 
-
 	/**
 	 * Better array_combine where values array does not need same size.
 	 * @param array $keys
@@ -33,7 +32,6 @@ final class Arrays
 
 		return array_combine($keys, $values);
 	}
-
 
 	/**
 	 * Implode only values where strlen > 0 and you can define keys.
@@ -56,7 +54,6 @@ final class Arrays
 		return $out;
 	}
 
-
 	/**
 	 * COALESCE similar behavior database.
 	 * @param array $array
@@ -76,7 +73,6 @@ final class Arrays
 		return null;
 	}
 
-
 	/**
 	 * Unset keys from array.
 	 * @param array|\ArrayAccess $array
@@ -94,7 +90,6 @@ final class Arrays
 		}
 		return $out;
 	}
-
 
 	public static function intersectKeys(array $values, array $keys)
 	{

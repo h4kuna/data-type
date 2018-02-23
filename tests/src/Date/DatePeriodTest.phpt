@@ -29,7 +29,6 @@ class DatePeriodTest extends \Tester\TestCase
 		Assert::same(61, $count);
 	}
 
-
 	public function testOptions()
 	{
 		$period = DatePeriod::create('2017-10-10', '2017-10-12', null, 0);
@@ -40,8 +39,6 @@ class DatePeriodTest extends \Tester\TestCase
 
 		Assert::same(2, $count);
 	}
-
-
 
 }
 

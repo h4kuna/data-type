@@ -9,7 +9,6 @@ class DatePeriod extends \DatePeriod
 
 	const INCLUDE_END_DATE = 4;
 
-
 	/**
 	 * @param string|int|\DateTimeInterface $from
 	 * @param string|int|\DateTimeInterface $to
@@ -29,7 +28,6 @@ class DatePeriod extends \DatePeriod
 		return new static(self::createDateTime($from), $intervalInstance, $endDate, $options);
 	}
 
-
 	private static function createDateTime($date)
 	{
 		if ($date instanceof \DateTimeInterface) {
@@ -37,7 +35,6 @@ class DatePeriod extends \DatePeriod
 		}
 		return Utils\DateTime::from($date);
 	}
-
 
 	private static function createInterval($interval)
 	{

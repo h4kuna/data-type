@@ -15,22 +15,21 @@ class ArraysTest extends \Tester\TestCase
 			'one',
 			'two',
 			'three',
-			'four'
+			'four',
 		]));
 
 		Assert::same([1 => 'one', 2 => 'three', 3 => 'four', 4 => null], Arrays::combine([1, 2, 3, 4], [
 			'one',
 			'three',
-			'four'
+			'four',
 		]));
 
 		Assert::same([1 => 'one', 2 => 'three', 3 => 'four', 4 => 'five'], Arrays::combine([1, 2, 3, 4], [
 			'one',
 			'three',
-			'four'
+			'four',
 		], 'five'));
 	}
-
 
 	/**
 	 * @throws h4kuna\DataType\InvalidArgumentsException
@@ -40,7 +39,6 @@ class ArraysTest extends \Tester\TestCase
 		Arrays::combine([1, 2, 3, 4], ['one', 'two', 'three', 'four', 'five']);
 	}
 
-
 	public function testConcatWs()
 	{
 		$array = [1 => 0, 2 => null, 3 => 'three', 4 => false, 5 => 'five', 6 => '', 7 => '0'];
@@ -49,7 +47,6 @@ class ArraysTest extends \Tester\TestCase
 		Assert::same('three|five', Arrays::concatWs('|', $array, 2, 3, 4, 5, 6));
 		Assert::same('five', Arrays::concatWs('|', $array, 2, 5, 5, 6));
 	}
-
 
 	public function testCoalesce()
 	{
@@ -62,7 +59,6 @@ class ArraysTest extends \Tester\TestCase
 		Assert::same(null, Arrays::coalesce([]));
 		Assert::same(null, Arrays::coalesce([], 1));
 	}
-
 
 	public function testKeysUnset()
 	{
@@ -81,13 +77,12 @@ class ArraysTest extends \Tester\TestCase
 			4 => false,
 			5 => 'five',
 			6 => '',
-			7 => '0'
+			7 => '0',
 		]);
 		$newArray = Arrays::keysUnset($arrayObject, 1, 2);
 		Assert::same([1 => 0, 2 => null], $newArray);
 		Assert::same([3 => 'three', 4 => false, 5 => 'five', 6 => '', 7 => '0'], (array) $arrayObject);
 	}
-
 
 	public function testIntesectKeys()
 	{

@@ -23,7 +23,6 @@ final class Set
 
 	private function __construct() { }
 
-
 	/**
 	 * @param string $value
 	 * @return array
@@ -36,7 +35,6 @@ final class Set
 		}
 		return array_fill_keys(explode(',', $value), true);
 	}
-
 
 	/**
 	 * @param array|Iterator $set
