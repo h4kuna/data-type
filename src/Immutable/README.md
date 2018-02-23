@@ -20,7 +20,8 @@ serialize($values); // use only property data
 
 $values->getData() // return internal array
 
-$values->foo = 'doe'; // throw exception
+$clone1 = $values->foo = 'doe'; // create clone
+$clone2 = $values->remove('foo' /* , more, keys */); // create clone
 unset($values->foo); // throw exception
 
 foreach ($values as $key => $value) {

@@ -31,15 +31,25 @@ class Messenger implements \ArrayAccess, \Iterator, \Serializable, \JsonSerializ
 
 	final public function __unset($name)
 	{
-		throw new DataType\FrozenMethodException();
+		throw new DataType\LogicException('Use "$cloneMessenger = $messenger->remove($key)" instand of "unset($messenger->key)".');
 	}
 
 
 	final public function __set($name, $value)
 	{
-		throw new DataType\FrozenMethodException();
+		$data = $this->data;
+		$data[$name] = $value;
+		return new static($data);
 	}
 
+	final public function remove(...$key)
+	{
+		$data = $this->data;
+		foreach ($key as $k) {
+			unset($data[$k]);
+		}
+		return new static($data);
+	}
 
 	final public function get($key, $default = null)
 	{
@@ -94,13 +104,13 @@ class Messenger implements \ArrayAccess, \Iterator, \Serializable, \JsonSerializ
 
 	final public function offsetSet($offset, $value)
 	{
-		throw new DataType\FrozenMethodException();
+		return $this->__set($offset, $value);
 	}
 
 
 	final public function offsetUnset($offset)
 	{
-		throw new DataType\FrozenMethodException();
+		$this->__unset($offset);
 	}
 
 

@@ -24,33 +24,35 @@ class MessengerTest extends \Tester\TestCase
 		Assert::same('joe', $messenger['doe']);
 	}
 
-
 	public function testSet()
 	{
 		$messenger = new Messenger([]);
-		Assert::exception(function () use ($messenger) {
-			$messenger->foo = 'bar';
-		}, 'h4kuna\DataType\FrozenMethodException');
+		$clone = $messenger->foo = 'bar';
+		Assert::notSame($messenger, $clone);
+		Assert::false(isset($messenger->foo));
 
-		Assert::exception(function () use ($messenger) {
-			$messenger['foo'] = 'bar';
-		}, 'h4kuna\DataType\FrozenMethodException');
+		$clone2 = $messenger['foo'] = 'bar';
+		Assert::notSame($messenger, $clone2);
 	}
-
 
 	public function testUnset()
 	{
-		$messenger = new Messenger([]);
+		$messenger = new Messenger(['foo' => 'bar', 'doe' => 'joe']);
 
 		Assert::exception(function () use ($messenger) {
 			unset($messenger['foo']);
-		}, 'h4kuna\DataType\FrozenMethodException');
+		}, 'h4kuna\DataType\LogicException');
 
 		Assert::exception(function () use ($messenger) {
 			unset($messenger->foo);
-		}, 'h4kuna\DataType\FrozenMethodException');
-	}
+		}, 'h4kuna\DataType\LogicException');
 
+		$clone = $messenger->remove('foo', 'doe');
+		Assert::notSame($messenger, $clone);
+		Assert::same(0, count($clone));
+
+		Assert::same('bar', $messenger->foo);
+	}
 
 	public function testIsset()
 	{

@@ -9,6 +9,4 @@ class DataTypeException extends \Exception {}
 
 class InvalidArgumentsException extends DataTypeException {}
 
-class FrozenMethodException extends DataTypeException {}
-
-
+class LogicException extends \RuntimeException {}
