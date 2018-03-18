@@ -23,11 +23,11 @@ final class Ints
 			return $value;
 		}
 
-		if (is_numeric($value) && $value == intval($value)) {
-			return intval($value);
+		if (is_numeric($value) && $value == ((int) $value)) {
+			return (int) $value;
 		}
 		$out = preg_replace('~\s~', '', $value);
-		$int = intval($out);
+		$int = (int) $out;
 		if ($out != $int) {
 			throw new DataType\InvalidArgumentsException('Input value is not integer. ' . $out);
 		}
