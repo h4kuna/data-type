@@ -14,38 +14,32 @@ final class Floats
 
 	/**
 	 * @param string|int|float $value
+	 * @param string $decimalPoint
+	 * @param string $thousands
 	 * @return float
 	 * @throws DataType\InvalidArgumentsException
 	 */
-	public static function fromString($value)
+	public static function fromString($value, $decimalPoint = ',', $thousands = ' ')
 	{
 		if (is_float($value)) {
 			return $value;
 		}
 
 		if (is_numeric($value)) {
-			return floatval($value);
+			return (float) $value;
 		}
 
 		if (strstr($value, ':') !== false) {
 			return self::fromHour($value);
 		}
 
-		$out = preg_replace_callback('/(?:^\s?-?)|([^\,\.\w]+|,)/i', function ($found) {
-			if (!isset($found[1])) {
-				return trim($found[0]);
-			}
-			if (isset($found[1]) && $found[1] === ',') {
-				return '.';
-			}
-			return '';
-		}, $value);
+		$out = str_replace([$thousands, $decimalPoint], ['', '.'], $value);
 
 		if (!is_numeric($out)) {
 			throw new DataType\InvalidArgumentsException('This value is not float: ' . $value);
 		}
 
-		return floatval($out);
+		return (float) $out;
 	}
 
 	/**

@@ -2,8 +2,7 @@
 
 namespace h4kuna\DataType\Basic;
 
-use h4kuna\DataType,
-	Tester\Assert;
+use Tester\Assert;
 
 include __DIR__ . '/../../bootstrap.php';
 
@@ -29,7 +28,7 @@ class FloatsTest extends \Tester\TestCase
 	}
 
 	/**
-	 * @throws h4kuna\DataType\InvalidArgumentsException
+	 * @throws \h4kuna\DataType\InvalidArgumentsException
 	 */
 	public function testExceptionFloatNull()
 	{
@@ -50,6 +49,11 @@ class FloatsTest extends \Tester\TestCase
 		Assert::same(1.5, Floats::fromHour('1:30'));
 		Assert::same(1.5, Floats::fromHour('1:30:0'));
 		Assert::same(1.5083, round(Floats::fromHour('1:30:30'), 4));
+	}
+
+	public function testThousand()
+	{
+		Assert::same(3620.0, Floats::fromString('3.620,00', ',', '.'));
 	}
 
 }
