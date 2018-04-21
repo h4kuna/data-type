@@ -35,6 +35,10 @@ final class Floats
 
 		$out = str_replace([$thousands, $decimalPoint], ['', '.'], $value);
 
+		if(preg_match("#([0-9\.]+)#", $out, $match)) {
+                	$out = floatval($match[0]);
+		}
+
 		if (!is_numeric($out)) {
 			throw new DataType\InvalidArgumentsException('This value is not float: ' . $value);
 		}
