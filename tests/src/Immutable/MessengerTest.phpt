@@ -25,15 +25,35 @@ class MessengerTest extends \Tester\TestCase
 	}
 
 
+	public function testAdd()
+	{
+		$messenger = new Messenger([]);
+		$clone = $messenger->add('foo', 'bar');
+		Assert::notSame($messenger, $clone);
+		Assert::false(isset($messenger->foo));
+		Assert::type('h4kuna\DataType\Immutable\Messenger', $clone);
+	}
+
+
+	public function testExists()
+	{
+		$messenger = new Messenger(['foo' => 'bar', 'doe' => null]);
+		Assert::true($messenger->exists('doe'));
+		Assert::false($messenger->exists('baz'));
+	}
+
+
 	public function testSet()
 	{
 		$messenger = new Messenger([]);
-		$clone = $messenger->foo = 'bar';
-		Assert::notSame($messenger, $clone);
-		Assert::false(isset($messenger->foo));
 
-		$clone2 = $messenger['foo'] = 'bar';
-		Assert::notSame($messenger, $clone2);
+		Assert::exception(function () use ($messenger) {
+			$messenger->foo = 'bar';
+		}, 'h4kuna\DataType\LogicException');
+
+		Assert::exception(function () use ($messenger) {
+			$messenger['foo'] = 'bar';
+		}, 'h4kuna\DataType\LogicException');
 	}
 
 
@@ -61,12 +81,16 @@ class MessengerTest extends \Tester\TestCase
 	{
 		$messenger = new Messenger([
 			'bar' => null,
+			'foo' => 'yes',
 		]);
 
-		Assert::false(isset($messenger->foo));
-		Assert::false(isset($messenger['foo']));
+		Assert::false(isset($messenger->baz));
+		Assert::false(isset($messenger['baz']));
 		Assert::false(isset($messenger->bar));
-		Assert::true(isset($messenger['bar']));
+		Assert::false(isset($messenger['bar']));
+
+		Assert::true(isset($messenger->foo));
+		Assert::true(isset($messenger['foo']));
 	}
 
 

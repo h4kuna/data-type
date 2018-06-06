@@ -6,23 +6,30 @@ Object does not change internal state.
 Data are locked in object you can not change it.
 
 ```php
-$values = new Messenger(['foo' => 'bar']);
+$values = new Messenger(['foo' => 'bar', 'baz' => null]);
 echo $values->foo; // bar
 echo $values['foo']; // bar
 
-isset($values->foo) // true
-isset($values->doe) // false
+isset($values->foo); // true
+isset($values->doe); // false
+isset($values->baz); // false
 
-echo count($values); // 1
+$values->exists('baz'); // true
+
+echo count($values); // 2
 
 json_encode($values); // use only property data
 serialize($values); // use only property data
 
-$values->getData() // return internal array
+$values->getData(); // return internal array
 
-$clone1 = $values->foo = 'doe'; // create clone
-$clone2 = $values->remove('foo' /* , more, keys */); // create clone
+$values->foo = 'doe'; // throw exception
+// use
+$clone1 = $values->add('foo', 'doe');
+
 unset($values->foo); // throw exception
+// use
+$clone2 = $values->remove('foo' /* , more, keys */); // create clone
 
 foreach ($values as $key => $value) {
     ...

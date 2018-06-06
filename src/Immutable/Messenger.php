@@ -37,9 +37,21 @@ class Messenger implements \ArrayAccess, \Iterator, \Serializable, \JsonSerializ
 
 	final public function __set($name, $value)
 	{
+		throw new DataType\LogicException('Use "$cloneMessenger = $messenger->add($key, $value)" instand of "$messenger->key = \'foo\';".');
+	}
+
+
+	final public function add($key, $value)
+	{
 		$data = $this->data;
-		$data[$name] = $value;
+		$data[$key] = $value;
 		return new static($data);
+	}
+
+
+	final public function exists($key)
+	{
+		return array_key_exists($key, $this->data);
 	}
 
 
@@ -106,7 +118,7 @@ class Messenger implements \ArrayAccess, \Iterator, \Serializable, \JsonSerializ
 
 	final public function offsetSet($offset, $value)
 	{
-		return $this->__set($offset, $value);
+		$this->__set($offset, $value);
 	}
 
 
@@ -118,7 +130,7 @@ class Messenger implements \ArrayAccess, \Iterator, \Serializable, \JsonSerializ
 
 	final public function offsetExists($offset)
 	{
-		return array_key_exists($offset, $this->data);
+		return $this->__isset($offset, $this->data);
 	}
 
 
@@ -144,4 +156,5 @@ class Messenger implements \ArrayAccess, \Iterator, \Serializable, \JsonSerializ
 	{
 		return $this->data;
 	}
+
 }
