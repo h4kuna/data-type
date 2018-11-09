@@ -49,6 +49,7 @@ class FloatsTest extends \Tester\TestCase
 		Assert::same(1.5, Floats::fromHour('1:30'));
 		Assert::same(1.5, Floats::fromHour('1:30:0'));
 		Assert::same(1.5083, round(Floats::fromHour('1:30:30'), 4));
+		Assert::same(-3.5, Floats::fromHour('-3:30'));
 	}
 
 	public function testThousand()

@@ -49,11 +49,12 @@ final class Floats
 	 */
 	public static function fromHour($value)
 	{
+		$value = preg_replace('~-~', '', $value, 1, $count);
 		$out = 0.0;
 		foreach (explode(':', $value) as $i => $v) {
 			$out += (Ints::fromString($v) / pow(60, $i));
 		}
-		return $out;
+		return $count === 1 ? $out * -1 : $out;
 	}
 
 }
