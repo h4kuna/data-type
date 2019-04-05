@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace h4kuna\DataType\Basic;
 
@@ -32,7 +32,7 @@ class ArraysTest extends \Tester\TestCase
 	}
 
 	/**
-	 * @throws h4kuna\DataType\InvalidArgumentsException
+	 * @throws \h4kuna\DataType\InvalidArgumentsException
 	 */
 	public function testCombineFail()
 	{

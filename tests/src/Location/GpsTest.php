@@ -1,9 +1,8 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace h4kuna\DataType\Location;
 
-use h4kuna\DataType,
-	Tester\Assert;
+use Tester\Assert;
 
 include __DIR__ . '/../../bootstrap.php';
 
@@ -38,7 +37,7 @@ class GpsTest extends \Tester\TestCase
 	}
 
 	/**
-	 * @throws h4kuna\DataType\InvalidArgumentsException
+	 * @throws \h4kuna\DataType\InvalidArgumentsException
 	 */
 	public function testFromStringFail()
 	{
@@ -46,7 +45,7 @@ class GpsTest extends \Tester\TestCase
 	}
 
 	/**
-	 * @throws h4kuna\DataType\InvalidArgumentsException
+	 * @throws \h4kuna\DataType\InvalidArgumentsException
 	 */
 	public function testPoleFail()
 	{

@@ -1,12 +1,9 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace h4kuna\DataType;
 
-/**
- * @author Milan Matějček
- */
-class DataTypeException extends \Exception {}
+abstract class DataTypeException extends \Exception {}
 
-class InvalidArgumentsException extends DataTypeException {}
+class InvalidArgumentsException extends \RuntimeException {};
 
 class LogicException extends \RuntimeException {}

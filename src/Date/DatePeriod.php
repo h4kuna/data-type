@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace h4kuna\DataType\Date;
 
@@ -7,16 +7,15 @@ use Nette\Utils;
 class DatePeriod extends \DatePeriod
 {
 
-	const INCLUDE_END_DATE = 4;
+	public const INCLUDE_END_DATE = 4;
 
 	/**
 	 * @param string|int|\DateTimeInterface $from
 	 * @param string|int|\DateTimeInterface $to
 	 * @param string|\DateInterval $interval
 	 * @param int $options
-	 * @return static
 	 */
-	public static function create($from, $to, $interval = null, $options = self::INCLUDE_END_DATE)
+	public static function create($from, $to, $interval = null, int $options = self::INCLUDE_END_DATE)
 	{
 		$intervalInstance = self::createInterval($interval === null ? '1 day' : $interval);
 		$endDate = self::createDateTime($to);
@@ -28,6 +27,7 @@ class DatePeriod extends \DatePeriod
 		return new static(self::createDateTime($from), $intervalInstance, $endDate, $options);
 	}
 
+
 	private static function createDateTime($date)
 	{
 		if ($date instanceof \DateTimeInterface) {
@@ -35,6 +35,7 @@ class DatePeriod extends \DatePeriod
 		}
 		return Utils\DateTime::from($date);
 	}
+
 
 	private static function createInterval($interval)
 	{
@@ -45,4 +46,5 @@ class DatePeriod extends \DatePeriod
 		}
 		return \DateInterval::createFromDateString($interval);
 	}
+
 }

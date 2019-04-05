@@ -12,8 +12,10 @@
     }
   ],
   "require": {
-    "php": ">=5.4",
-    "nette/utils": ">=2.2"
+    "php": ">=7.1",
+    "nette/utils": "^3.0",
+    "ext-calendar": "*",
+    "ext-json": "*"
   },
   "autoload": {
     "psr-4": {

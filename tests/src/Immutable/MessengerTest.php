@@ -1,9 +1,8 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace h4kuna\DataType\Immutable;
 
-use h4kuna\DataType,
-	Tester\Assert;
+use Tester\Assert;
 
 include __DIR__ . '/../../bootstrap.php';
 

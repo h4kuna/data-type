@@ -1,13 +1,10 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace h4kuna\DataType\Date;
 
-use DateTime,
-	h4kuna\DataType;
+use DateTime;
+use h4kuna\DataType;
 
-/**
- * @author Milan Matějček
- */
 final class Calendar
 {
 
@@ -23,7 +20,7 @@ final class Calendar
 	 * Czech days prepare for translate.
 	 * @return string[]
 	 */
-	public static function getDays()
+	public static function getDays(): array
 	{
 		if (!isset(self::$date['days'])) {
 			self::$date['days'] = array(1 => _('Pondělí'), _('Úterý'), _('Středa'), _('Čtvrtek'), _('Pátek'), _('Sobota'), _('Neděle'));
@@ -35,7 +32,7 @@ final class Calendar
 	 * Czech months prepare for translate.
 	 * @return string[]
 	 */
-	public static function getMonths()
+	public static function getMonths(): array
 	{
 		if (!isset(self::$date['months'])) {
 			self::$date['months'] = array(1 => _('Leden'), _('Únor'), _('Březen'), _('Duben'), _('Květen'), _('Červen'),
@@ -47,11 +44,10 @@ final class Calendar
 	/**
 	 * NULL - actual day.
 	 * 0 (for Sunday) through 6 (for Saturday)
-	 * @param NULL|Ints|DateTime $day
-	 * @return string
+	 * @param DateTime|int|null $day
 	 * @throws DataType\InvalidArgumentsException
 	 */
-	public static function nameOfDay($day = null)
+	public static function nameOfDay($day = null): string
 	{
 		$days = self::getDays();
 		if ($day === null) {
@@ -77,7 +73,7 @@ final class Calendar
 
 	/**
 	 * Name of month.
-	 * @param NULL|Ints|DateTime $month
+	 * @param DateTime|int|null $month
 	 * @return string
 	 * @throws DataType\InvalidArgumentsException
 	 */
@@ -104,10 +100,9 @@ final class Calendar
 
 	/**
 	 * @param string $date CZECH FORMAT DD.MM.YYYY[ HH:mm:SS]
-	 * @return DateTime
 	 * @throws DataType\InvalidArgumentsException
 	 */
-	public static function czech2DateTime($date)
+	public static function czech2DateTime(string $date): DateTime
 	{
 		if (!preg_match('/^(?P<d>[0-3]?\d)\.(?P<m>[0-1]?\d)\.(?P<y>\d{4})(?: +(?P<h>[0-6]?\d):(?P<i>[0-6]?\d)(?::(?P<s>[0-6]?\d))?)?$/', trim($date), $find)) {
 			throw new DataType\InvalidArgumentsException('Bad czech date format. ' . $date);
@@ -123,8 +118,8 @@ final class Calendar
 
 	/**
 	 * Number days of February.
-	 * @param Ints|DateTime $year
-	 * @return Ints
+	 * @param int|DateTime $year
+	 * @return int
 	 */
 	public static function februaryOfDay($year)
 	{
@@ -136,10 +131,9 @@ final class Calendar
 
 	/**
 	 * Easter monday.
-	 * @param Ints $year 1970-2037
-	 * @return DateTime
+	 * @param int $year 1970-2037
 	 */
-	public static function easter($year = null)
+	public static function easter(?int $year = null): DateTime
 	{
 		if ($year === null) {
 			$year = date('Y');
@@ -153,12 +147,9 @@ final class Calendar
 
 	/**
 	 * Return czech name on name-day.
-	 * @param DateTime $day
-	 * @param Ints|NULL $month
-	 * @return string
 	 * @throws DataType\InvalidArgumentsException
 	 */
-	public static function getName(DateTime $date = null)
+	public static function getName(?DateTime $date = null): string
 	{
 		if ($date === null) {
 			$date = new DateTime;

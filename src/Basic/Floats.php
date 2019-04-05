@@ -1,12 +1,9 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace h4kuna\DataType\Basic;
 
 use h4kuna\DataType;
 
-/**
- * @author Milan Matějček
- */
 final class Floats
 {
 
@@ -44,10 +41,8 @@ final class Floats
 
 	/**
 	 * Format HH:MM or HH:MM:SS
-	 * @param string $value
-	 * @return float
 	 */
-	public static function fromHour($value)
+	public static function fromHour(string $value): float
 	{
 		$value = preg_replace('~-~', '', $value, 1, $count);
 		$out = 0.0;

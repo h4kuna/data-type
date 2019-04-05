@@ -1,9 +1,9 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace h4kuna\DataType\Basic;
 
-use Iterator,
-	h4kuna\DataType;
+use Iterator;
+use h4kuna\DataType;
 
 /**
  * Transform set from string to array and vice versa
@@ -16,7 +16,6 @@ use Iterator,
  * )
  * string: foo,bar
  * array: [foo => TRUE, bar => TRUE]
- * @author Milan Matějček
  */
 final class Set
 {

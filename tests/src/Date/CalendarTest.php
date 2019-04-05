@@ -1,9 +1,9 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace h4kuna\DataType\Date;
 
-use \DateTime,
-	Tester\Assert;
+use \DateTime;
+use Tester\Assert;
 
 include __DIR__ . '/../../bootstrap.php';
 
@@ -30,7 +30,7 @@ class CalendarTest extends \Tester\TestCase
 	}
 
 	/**
-	 * @throws h4kuna\DataType\InvalidArgumentsException
+	 * @throws \h4kuna\DataType\InvalidArgumentsException
 	 */
 	public function testNameOfDayFail()
 	{
@@ -47,7 +47,7 @@ class CalendarTest extends \Tester\TestCase
 	}
 
 	/**
-	 * @throws h4kuna\DataType\InvalidArgumentsException
+	 * @throws \h4kuna\DataType\InvalidArgumentsException
 	 */
 	public function testNameOfMonthFail()
 	{

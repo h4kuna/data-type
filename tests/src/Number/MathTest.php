@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace h4kuna\DataType\Number;
 
@@ -23,7 +23,7 @@ class MathTest extends \Tester\TestCase
 	}
 
 	/**
-	 * @throws h4kuna\DataType\InvalidArgumentsException
+	 * @throws \h4kuna\DataType\InvalidArgumentsException
 	 */
 	public function testIntervalFail()
 	{
@@ -74,7 +74,7 @@ class MathTest extends \Tester\TestCase
 	}
 
 	/**
-	 * @throws h4kuna\DataType\InvalidArgumentsException
+	 * @throws \h4kuna\DataType\InvalidArgumentsException
 	 */
 	public function testFactorialFail()
 	{

@@ -1,15 +1,15 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace h4kuna\DataType\Date;
 
 class DateTimeString
 {
 
-	const TWO_DIGIT = '(?P<%s>\d{1,2})';
-	const FOUR_DIGIT = '(?P<%s>\d{4})';
-	const P_STRING = '\w+';
-	const P_INT = '\d+';
-	const P_MARK = '(?:\+|-)?';
+	private const TWO_DIGIT = '(?P<%s>\d{1,2})';
+	private const FOUR_DIGIT = '(?P<%s>\d{4})';
+	private const P_STRING = '\w+';
+	private const P_INT = '\d+';
+	private const P_MARK = '(?:\+|-)?';
 
 	/** @var array temp */
 	private static $map;
@@ -33,13 +33,14 @@ class DateTimeString
 		self::$freeze = true;
 	}
 
+
 	/**
 	 * @param string $format
 	 * @param string $date
 	 * @param \DateTimeZone|null $timezone
 	 * @return \DateTimeInterface|null
 	 */
-	public static function from($format, $date, \DateTimeZone $timezone = null)
+	public static function from(string $format, date $date, \DateTimeZone $timezone = null)
 	{
 		self::$freeze = true;
 		$quote = preg_quote($format);
@@ -63,6 +64,7 @@ class DateTimeString
 
 		return self::toOriginalDateTime($dt);
 	}
+
 
 	private static function validPattern($pattern)
 	{
@@ -102,7 +104,7 @@ class DateTimeString
 		return !preg_match('~[gGhHisuv]~', $format);
 	}
 
-	private static function getMap()
+	private static function getMap(): array
 	{
 		if (self::$map !== null) {
 			return self::$map;
@@ -157,6 +159,7 @@ class DateTimeString
 		return self::$map;
 	}
 
+
 	private static function transformYear($find)
 	{
 		if (isset($find['year_short'])) {
@@ -165,6 +168,7 @@ class DateTimeString
 		return $find['year'];
 	}
 
+
 	private static function yearShortConst()
 	{
 		if (self::$yearShort === null) {
@@ -172,6 +176,7 @@ class DateTimeString
 		}
 		return self::$yearShort;
 	}
+
 
 	private static function toOriginalDateTime(\DateTimeInterface $datetime)
 	{
@@ -182,4 +187,5 @@ class DateTimeString
 
 		return new $class($datetime->format('Y-m-d H:i:s.u'), $datetime->getTimezone());
 	}
+
 }

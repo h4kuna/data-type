@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace h4kuna\DataType\Number;
 
@@ -17,7 +17,7 @@ final class Math
 	 * @param float|int $number
 	 * @param float|int $max
 	 * @param float|int $min
-	 * @return Floats
+	 * @return float
 	 * @throws DataType\InvalidArgumentsException
 	 */
 	public static function interval($number, $max, $min = 0)
@@ -56,9 +56,9 @@ final class Math
 
 	/**
 	 * Safe division.
-	 * @param Floats $up
-	 * @param Floats $down
-	 * @return Floats|Ints|NULL
+	 * @param float $up
+	 * @param float $down
+	 * @return float|int|NULL
 	 */
 	public static function safeDivision($up, $down)
 	{

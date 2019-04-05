@@ -1,12 +1,9 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace h4kuna\DataType\Basic;
 
 use h4kuna\DataType;
 
-/**
- * @author Milan Matějček
- */
 final class Arrays
 {
 

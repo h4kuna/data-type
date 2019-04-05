@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /**
  * 10% faster than internal static function.
@@ -13,10 +13,12 @@ function underscoreCallback($find)
 	return $find[3] . '_' . $find[4];
 }
 
+
 function camelCallback($find)
 {
 	return strtoupper($find[1]);
 }
+
 
 if (!function_exists('_')) {
 	function _($message)
