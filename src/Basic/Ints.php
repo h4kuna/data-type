@@ -1,12 +1,9 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace h4kuna\DataType\Basic;
 
 use h4kuna\DataType;
 
-/**
- * @author Milan Matějček
- */
 final class Ints
 {
 
@@ -14,10 +11,9 @@ final class Ints
 
 	/**
 	 * @param string|int $value
-	 * @return int
 	 * @throws DataType\InvalidArgumentsException
 	 */
-	public static function fromString($value)
+	public static function fromString($value): int
 	{
 		if (is_int($value)) {
 			return $value;

@@ -1,81 +1,70 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace h4kuna\DataType\Basic;
 
 use h4kuna\DataType\Location;
 
-/**
- * @author Milan Matějček
- */
 final class Strings
 {
+	private function __construct()
+	{
+	}
 
-	private function __constructor() { }
 
-	/**
-	 * @param string $value
-	 * @return float
-	 */
-	public static function toFloat($value)
+	public static function toFloat(string $value): float
 	{
 		return Floats::fromString($value);
 	}
 
-	/**
-	 * @param string $value
-	 * @return int
-	 */
-	public static function toInt($value)
+
+	public static function toInt(string $value): int
 	{
 		return Ints::fromString($value);
 	}
 
+
 	/**
-	 * @param string $value
-	 * @return float[]
+	 * @return array<float>
 	 */
-	public static function toGps($value)
+	public static function toGps(string $value): array
 	{
 		return Location\Gps::fromString($value);
 	}
 
+
 	/**
-	 * @param string $value
-	 * @return array
+	 * @return array<string, true>
 	 */
-	public static function toSet($value)
+	public static function toSet(string $value): array
 	{
 		return Set::fromString($value);
 	}
 
+
 	/**
 	 * foo_bar => fooBar
-	 * @param string $string
-	 * @return string
 	 */
-	public static function toCamel($string)
+	public static function toCamel(string $string): string
 	{
-		return preg_replace_callback('/_([a-z])/', 'camelCallback', $string);
+		return (string) preg_replace_callback('/_([a-z])/', 'camelCallback', $string);
 	}
+
 
 	/**
 	 * foo_bar => FooBar
-	 * @param string $string
-	 * @return string
 	 */
-	public static function toPascal($string)
+	public static function toPascal(string $string): string
 	{
 		return ucfirst(self::toCamel($string));
 	}
 
+
 	/**
 	 * FooBar => foo_bar
-	 * @param string $string
-	 * @return string
 	 */
-	public static function toUnderscore($string)
+	public static function toUnderscore(string $string): string
 	{
-		return strtolower(preg_replace_callback('/(.)([A-Z][a-z])|([a-z])([A-Z])/', 'underscoreCallback', $string));
+		return strtolower((string) preg_replace_callback('/(.)([A-Z][a-z])|([a-z])([A-Z])/', 'underscoreCallback', $string));
 	}
 
 }

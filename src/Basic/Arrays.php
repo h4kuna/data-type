@@ -1,23 +1,23 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace h4kuna\DataType\Basic;
 
 use h4kuna\DataType;
 
-/**
- * @author Milan Matějček
- */
 final class Arrays
 {
 
-	private function __construct() { }
+	private function __construct()
+	{
+	}
+
 
 	/**
 	 * Better array_combine where values array does not need same size.
-	 * @param array $keys
-	 * @param array $values
+	 * @param array<string|int> $keys
+	 * @param array<mixed> $values
 	 * @param mixed $value
-	 * @return array
+	 * @return array<string|int, mixed>
 	 * @throws DataType\InvalidArgumentsException
 	 */
 	public static function combine(array $keys, array $values, $value = null)
@@ -33,32 +33,34 @@ final class Arrays
 		return array_combine($keys, $values);
 	}
 
+
 	/**
 	 * Implode only values where strlen > 0 and you can define keys.
-	 * @param string $glue
-	 * @param array $array
-	 * @param string[] $keys
+	 * @param array<string|int, scalar> $array
+	 * @param string|int $keys
 	 * @return string
 	 */
-	public static function concatWs($glue, $array, ...$keys)
+	public static function concatWs(string $glue, $array, ...$keys)
 	{
 		$out = '';
 		foreach ($keys ? self::intersectKeys($array, $keys) : $array as $value) {
-			if (!strlen($value)) {
+			if (strlen((string) $value) === 0) {
 				continue;
 			} elseif ($out !== '') {
 				$out .= $glue;
 			}
 			$out .= $value;
 		}
+
 		return $out;
 	}
 
+
 	/**
 	 * COALESCE similar behavior database.
-	 * @param array $array
-	 * @param string[] $keys
-	 * @return string|null
+	 * @param array<string|int, mixed> $array
+	 * @param string|int $keys
+	 * @return mixed
 	 */
 	public static function coalesce($array, ...$keys)
 	{
@@ -66,20 +68,22 @@ final class Arrays
 			$array = self::intersectKeys($array, $keys);
 		}
 		foreach ($array as $v) {
-			if (!empty($v)) {
+			if ($v !== null && $v !== false && $v !== '') {
 				return $v;
 			}
 		}
+
 		return null;
 	}
 
+
 	/**
 	 * Unset keys from array.
-	 * @param array|\ArrayAccess $array
-	 * @param string[] $keys
-	 * @return array Removed keys
+	 * @param array<mixed> $array
+	 * @param string|int $keys
+	 * @return array<mixed>
 	 */
-	public static function keysUnset(& $array, ...$keys)
+	public static function keysUnset(&$array, ...$keys): array
 	{
 		$out = [];
 		foreach ($keys as $key) {
@@ -88,10 +92,18 @@ final class Arrays
 				unset($array[$key]);
 			}
 		}
+
 		return $out;
 	}
 
-	public static function intersectKeys(array $values, array $keys)
+
+	/**
+	 * @template T
+	 * @param array<string|int, T> $values
+	 * @param array<string|int> $keys
+	 * @return array<string|int, T>
+	 */
+	public static function intersectKeys(array $values, array $keys): array
 	{
 		return array_intersect_key($values, array_flip($keys));
 	}

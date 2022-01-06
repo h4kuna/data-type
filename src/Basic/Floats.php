@@ -1,25 +1,22 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace h4kuna\DataType\Basic;
 
 use h4kuna\DataType;
 
-/**
- * @author Milan Matějček
- */
 final class Floats
 {
 
-	private function __construct() { }
+	private function __construct()
+	{
+	}
+
 
 	/**
 	 * @param string|int|float $value
-	 * @param string $decimalPoint
-	 * @param string $thousands
-	 * @return float
 	 * @throws DataType\InvalidArgumentsException
 	 */
-	public static function fromString($value, $decimalPoint = ',', $thousands = ' ')
+	public static function fromString($value, string $decimalPoint = ',', string $thousands = ' '): float
 	{
 		if (is_float($value)) {
 			return $value;
@@ -29,12 +26,15 @@ final class Floats
 			return (float) $value;
 		}
 
+		if ($value === null) {
+			throw new DataType\InvalidArgumentsException('This value is not float: ' . $value);
+		}
+
 		if (strstr($value, ':') !== false) {
 			return self::fromHour($value);
 		}
 
 		$out = str_replace([$thousands, $decimalPoint], ['', '.'], $value);
-
 		if (!is_numeric($out)) {
 			throw new DataType\InvalidArgumentsException('This value is not float: ' . $value);
 		}
@@ -42,19 +42,23 @@ final class Floats
 		return (float) $out;
 	}
 
+
 	/**
 	 * Format HH:MM or HH:MM:SS
-	 * @param string $value
-	 * @return float
 	 */
-	public static function fromHour($value)
+	public static function fromHour(string $value): float
 	{
-		$value = preg_replace('~-~', '', $value, 1, $count);
+		$minus = false;
+		if (substr($value, 0, 1) === '-') {
+			$minus = true;
+			$value = substr($value, 1);
+		}
 		$out = 0.0;
 		foreach (explode(':', $value) as $i => $v) {
 			$out += (Ints::fromString($v) / pow(60, $i));
 		}
-		return $count === 1 ? $out * -1 : $out;
+
+		return $minus ? $out * -1 : $out;
 	}
 
 }

@@ -1,9 +1,8 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace h4kuna\DataType\Basic;
 
-use Iterator,
-	h4kuna\DataType;
+use h4kuna\DataType;
 
 /**
  * Transform set from string to array and vice versa
@@ -16,42 +15,37 @@ use Iterator,
  * )
  * string: foo,bar
  * array: [foo => TRUE, bar => TRUE]
- * @author Milan Matějček
  */
 final class Set
 {
 
-	private function __construct() { }
+	private function __construct()
+	{
+	}
+
 
 	/**
-	 * @param string $value
-	 * @return array
-	 * @throws DataType\InvalidArgumentsException
+	 * @return array<string, true>
 	 */
-	public static function fromString($value)
+	public static function fromString(string $value)
 	{
-		if (!is_string($value)) {
-			throw new DataType\InvalidArgumentsException('Set must be string and delimited by comma. For example: foo,bar,joe');
-		}
 		return array_fill_keys(explode(',', $value), true);
 	}
 
+
 	/**
-	 * @param array|Iterator $set
-	 * @return string
+	 * @param iterable<string, mixed> $set
 	 */
-	public static function toString($set)
+	public static function toString(iterable $set): string
 	{
-		$out = '';
+		$out = [];
 		foreach ($set as $k => $v) {
-			if ($v) {
-				if ($out !== '') {
-					$out .= ',';
-				}
-				$out .= $k;
+			if ($v !== null && $v !== '' && $v !== false) {
+				$out[] = $k;
 			}
 		}
-		return $out;
+
+		return implode(',', $out);
 	}
 
 }

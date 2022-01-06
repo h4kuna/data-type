@@ -1,7 +1,10 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace h4kuna\DataType\Date;
 
+/**
+ * @deprecated
+ */
 class DateTimeString
 {
 
@@ -22,6 +25,7 @@ class DateTimeString
 	/** @var bool */
 	private static $freeze = false;
 
+
 	public static function setClass($class)
 	{
 		if (self::$freeze) {
@@ -32,6 +36,7 @@ class DateTimeString
 		self::$class = ltrim($class, '\\');
 		self::$freeze = true;
 	}
+
 
 	/**
 	 * @param string $format
@@ -44,7 +49,7 @@ class DateTimeString
 		self::$freeze = true;
 		$quote = preg_quote($format);
 		$pattern = strtr($quote, self::getMap());
-		if ($pattern !== $quote && (!self::validPattern($pattern) || !preg_match('~^' . $pattern . '$~', $date, $find) || !checkdate($find['month'], $find['day'], self::transformYear($find)))) {
+		if ($pattern !== $quote && (!self::validPattern($pattern) || !preg_match('~^' . $pattern . '$~', $date, $find) || !checkdate((int) $find['month'], (int) $find['day'], self::transformYear($find)))) {
 			return null;
 		}
 
@@ -63,6 +68,7 @@ class DateTimeString
 
 		return self::toOriginalDateTime($dt);
 	}
+
 
 	private static function validPattern($pattern)
 	{
@@ -97,10 +103,12 @@ class DateTimeString
 		throw new \InvalidArgumentException(trim($error));
 	}
 
+
 	private static function resetTime($format)
 	{
 		return !preg_match('~[gGhHisuv]~', $format);
 	}
+
 
 	private static function getMap()
 	{
@@ -157,21 +165,26 @@ class DateTimeString
 		return self::$map;
 	}
 
-	private static function transformYear($find)
+
+	private static function transformYear($find): int
 	{
 		if (isset($find['year_short'])) {
 			return $find['year_short'] + self::yearShortConst();
 		}
-		return $find['year'];
+
+		return (int) $find['year'];
 	}
 
-	private static function yearShortConst()
+
+	private static function yearShortConst(): int
 	{
 		if (self::$yearShort === null) {
-			self::$yearShort = round(date('Y'), -2);
+			self::$yearShort = (int) round((int) date('Y'), -2);
 		}
+
 		return self::$yearShort;
 	}
+
 
 	private static function toOriginalDateTime(\DateTimeInterface $datetime)
 	{
@@ -182,4 +195,5 @@ class DateTimeString
 
 		return new $class($datetime->format('Y-m-d H:i:s.u'), $datetime->getTimezone());
 	}
+
 }

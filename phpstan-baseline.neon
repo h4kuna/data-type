@@ -1,0 +1,517 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Method h4kuna\\\\DataType\\\\Date\\\\DatePeriod\\:\\:create\\(\\) return type has no value type specified in iterable type static\\(h4kuna\\\\DataType\\\\Date\\\\DatePeriod\\)\\.$#"
+			count: 1
+			path: src/Date/DatePeriod.php
+
+		-
+			message: "#^Method h4kuna\\\\DataType\\\\Date\\\\DatePeriod\\:\\:createDateTime\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/Date/DatePeriod.php
+
+		-
+			message: "#^Method h4kuna\\\\DataType\\\\Date\\\\DatePeriod\\:\\:createDateTime\\(\\) has parameter \\$date with no type specified\\.$#"
+			count: 1
+			path: src/Date/DatePeriod.php
+
+		-
+			message: "#^Method h4kuna\\\\DataType\\\\Date\\\\DatePeriod\\:\\:createInterval\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/Date/DatePeriod.php
+
+		-
+			message: "#^Method h4kuna\\\\DataType\\\\Date\\\\DatePeriod\\:\\:createInterval\\(\\) has parameter \\$interval with no type specified\\.$#"
+			count: 1
+			path: src/Date/DatePeriod.php
+
+		-
+			message: "#^Unsafe usage of new static\\(\\)\\.$#"
+			count: 1
+			path: src/Date/DatePeriod.php
+
+		-
+			message: "#^Method h4kuna\\\\DataType\\\\Date\\\\DateTimeString\\:\\:getMap\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/Date/DateTimeString.php
+
+		-
+			message: "#^Method h4kuna\\\\DataType\\\\Date\\\\DateTimeString\\:\\:resetTime\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/Date/DateTimeString.php
+
+		-
+			message: "#^Method h4kuna\\\\DataType\\\\Date\\\\DateTimeString\\:\\:resetTime\\(\\) has parameter \\$format with no type specified\\.$#"
+			count: 1
+			path: src/Date/DateTimeString.php
+
+		-
+			message: "#^Method h4kuna\\\\DataType\\\\Date\\\\DateTimeString\\:\\:setClass\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/Date/DateTimeString.php
+
+		-
+			message: "#^Method h4kuna\\\\DataType\\\\Date\\\\DateTimeString\\:\\:setClass\\(\\) has parameter \\$class with no type specified\\.$#"
+			count: 1
+			path: src/Date/DateTimeString.php
+
+		-
+			message: "#^Method h4kuna\\\\DataType\\\\Date\\\\DateTimeString\\:\\:toOriginalDateTime\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/Date/DateTimeString.php
+
+		-
+			message: "#^Method h4kuna\\\\DataType\\\\Date\\\\DateTimeString\\:\\:transformYear\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/Date/DateTimeString.php
+
+		-
+			message: "#^Method h4kuna\\\\DataType\\\\Date\\\\DateTimeString\\:\\:transformYear\\(\\) has parameter \\$find with no type specified\\.$#"
+			count: 1
+			path: src/Date/DateTimeString.php
+
+		-
+			message: "#^Method h4kuna\\\\DataType\\\\Date\\\\DateTimeString\\:\\:validPattern\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/Date/DateTimeString.php
+
+		-
+			message: "#^Method h4kuna\\\\DataType\\\\Date\\\\DateTimeString\\:\\:validPattern\\(\\) has parameter \\$pattern with no type specified\\.$#"
+			count: 1
+			path: src/Date/DateTimeString.php
+
+		-
+			message: "#^Method h4kuna\\\\DataType\\\\Date\\\\DateTimeString\\:\\:yearShortConst\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/Date/DateTimeString.php
+
+		-
+			message: "#^Parameter \\#1 \\$num of function round expects float\\|int, string given\\.$#"
+			count: 1
+			path: src/Date/DateTimeString.php
+
+		-
+			message: "#^Property h4kuna\\\\DataType\\\\Date\\\\DateTimeString\\:\\:\\$class has no type specified\\.$#"
+			count: 1
+			path: src/Date/DateTimeString.php
+
+		-
+			message: "#^Property h4kuna\\\\DataType\\\\Date\\\\DateTimeString\\:\\:\\$map type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Date/DateTimeString.php
+
+		-
+			message: "#^Static property h4kuna\\\\DataType\\\\Date\\\\DateTimeString\\:\\:\\$yearShort \\(int\\) does not accept float\\.$#"
+			count: 1
+			path: src/Date/DateTimeString.php
+
+		-
+			message: "#^Method h4kuna\\\\DataType\\\\Immutable\\\\Messenger\\:\\:key\\(\\) should return T of int\\|string but returns int\\|string\\.$#"
+			count: 1
+			path: src/Immutable/Messenger.php
+
+		-
+			message: "#^Property h4kuna\\\\DataType\\\\Immutable\\\\Messenger\\<T of int\\|string\\>\\:\\:\\$data \\(array\\<T of int\\|string, mixed\\>\\) does not accept mixed\\.$#"
+			count: 1
+			path: src/Immutable/Messenger.php
+
+		-
+			message: "#^Unsafe usage of new static\\(\\)\\.$#"
+			count: 2
+			path: src/Immutable/Messenger.php
+
+		-
+			message: "#^Method h4kuna\\\\DataType\\\\Basic\\\\ArraysTest\\:\\:testCoalesce\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/src/Basic/ArraysTest.php
+
+		-
+			message: "#^Method h4kuna\\\\DataType\\\\Basic\\\\ArraysTest\\:\\:testCombine\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/src/Basic/ArraysTest.php
+
+		-
+			message: "#^Method h4kuna\\\\DataType\\\\Basic\\\\ArraysTest\\:\\:testCombineFail\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/src/Basic/ArraysTest.php
+
+		-
+			message: "#^Method h4kuna\\\\DataType\\\\Basic\\\\ArraysTest\\:\\:testConcatWs\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/src/Basic/ArraysTest.php
+
+		-
+			message: "#^Method h4kuna\\\\DataType\\\\Basic\\\\ArraysTest\\:\\:testIntesectKeys\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/src/Basic/ArraysTest.php
+
+		-
+			message: "#^Method h4kuna\\\\DataType\\\\Basic\\\\ArraysTest\\:\\:testKeysUnset\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/src/Basic/ArraysTest.php
+
+		-
+			message: "#^PHPDoc tag @throws with type h4kuna\\\\DataType\\\\Basic\\\\h4kuna\\\\DataType\\\\InvalidArgumentsException is not subtype of Throwable$#"
+			count: 1
+			path: tests/src/Basic/ArraysTest.php
+
+		-
+			message: "#^Parameter \\#2 \\$array of static method h4kuna\\\\DataType\\\\Basic\\\\Arrays\\:\\:concatWs\\(\\) expects array\\<int\\|string, bool\\|float\\|int\\|string\\>, array\\<int, int\\|string\\|false\\|null\\> given\\.$#"
+			count: 4
+			path: tests/src/Basic/ArraysTest.php
+
+		-
+			message: "#^Method h4kuna\\\\DataType\\\\Basic\\\\FloatsTest\\:\\:testExceptionFloatChar\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/src/Basic/FloatsTest.php
+
+		-
+			message: "#^Method h4kuna\\\\DataType\\\\Basic\\\\FloatsTest\\:\\:testExceptionFloatNull\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/src/Basic/FloatsTest.php
+
+		-
+			message: "#^Method h4kuna\\\\DataType\\\\Basic\\\\FloatsTest\\:\\:testFromHour\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/src/Basic/FloatsTest.php
+
+		-
+			message: "#^Method h4kuna\\\\DataType\\\\Basic\\\\FloatsTest\\:\\:testFromString\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/src/Basic/FloatsTest.php
+
+		-
+			message: "#^Method h4kuna\\\\DataType\\\\Basic\\\\FloatsTest\\:\\:testThousand\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/src/Basic/FloatsTest.php
+
+		-
+			message: "#^Parameter \\#1 \\$value of static method h4kuna\\\\DataType\\\\Basic\\\\Floats\\:\\:fromString\\(\\) expects float\\|int\\|string, null given\\.$#"
+			count: 1
+			path: tests/src/Basic/FloatsTest.php
+
+		-
+			message: "#^Method h4kuna\\\\DataType\\\\Basic\\\\IntsTest\\:\\:testFailed\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/src/Basic/IntsTest.php
+
+		-
+			message: "#^Method h4kuna\\\\DataType\\\\Basic\\\\IntsTest\\:\\:testFromString\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/src/Basic/IntsTest.php
+
+		-
+			message: "#^PHPDoc tag @throws with type h4kuna\\\\DataType\\\\Basic\\\\h4kuna\\\\DataType\\\\InvalidArgumentsException is not subtype of Throwable$#"
+			count: 1
+			path: tests/src/Basic/IntsTest.php
+
+		-
+			message: "#^Method h4kuna\\\\DataType\\\\Basic\\\\SetTest\\:\\:testFromString\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/src/Basic/SetTest.php
+
+		-
+			message: "#^Method h4kuna\\\\DataType\\\\Basic\\\\SetTest\\:\\:testFromStringFail\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/src/Basic/SetTest.php
+
+		-
+			message: "#^Parameter \\#1 \\$value of static method h4kuna\\\\DataType\\\\Basic\\\\Set\\:\\:fromString\\(\\) expects string, array given\\.$#"
+			count: 1
+			path: tests/src/Basic/SetTest.php
+
+		-
+			message: "#^Method h4kuna\\\\DataType\\\\Basic\\\\StringsTest\\:\\:testToCamel\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/src/Basic/StringsTest.php
+
+		-
+			message: "#^Method h4kuna\\\\DataType\\\\Basic\\\\StringsTest\\:\\:testToFloat\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/src/Basic/StringsTest.php
+
+		-
+			message: "#^Method h4kuna\\\\DataType\\\\Basic\\\\StringsTest\\:\\:testToGps\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/src/Basic/StringsTest.php
+
+		-
+			message: "#^Method h4kuna\\\\DataType\\\\Basic\\\\StringsTest\\:\\:testToInt\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/src/Basic/StringsTest.php
+
+		-
+			message: "#^Method h4kuna\\\\DataType\\\\Basic\\\\StringsTest\\:\\:testToPascal\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/src/Basic/StringsTest.php
+
+		-
+			message: "#^Method h4kuna\\\\DataType\\\\Basic\\\\StringsTest\\:\\:testToSet\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/src/Basic/StringsTest.php
+
+		-
+			message: "#^Method h4kuna\\\\DataType\\\\Basic\\\\StringsTest\\:\\:testToUnderscore\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/src/Basic/StringsTest.php
+
+		-
+			message: "#^Method h4kuna\\\\DataType\\\\Date\\\\CalendarTest\\:\\:testAllNames\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/src/Date/CalendarTest.php
+
+		-
+			message: "#^Method h4kuna\\\\DataType\\\\Date\\\\CalendarTest\\:\\:testCzech2DateTime\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/src/Date/CalendarTest.php
+
+		-
+			message: "#^Method h4kuna\\\\DataType\\\\Date\\\\CalendarTest\\:\\:testEaster\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/src/Date/CalendarTest.php
+
+		-
+			message: "#^Method h4kuna\\\\DataType\\\\Date\\\\CalendarTest\\:\\:testFebruaryOfDay\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/src/Date/CalendarTest.php
+
+		-
+			message: "#^Method h4kuna\\\\DataType\\\\Date\\\\CalendarTest\\:\\:testGetDays\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/src/Date/CalendarTest.php
+
+		-
+			message: "#^Method h4kuna\\\\DataType\\\\Date\\\\CalendarTest\\:\\:testGetMonths\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/src/Date/CalendarTest.php
+
+		-
+			message: "#^Method h4kuna\\\\DataType\\\\Date\\\\CalendarTest\\:\\:testGetName\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/src/Date/CalendarTest.php
+
+		-
+			message: "#^Method h4kuna\\\\DataType\\\\Date\\\\CalendarTest\\:\\:testNameOfDay\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/src/Date/CalendarTest.php
+
+		-
+			message: "#^Method h4kuna\\\\DataType\\\\Date\\\\CalendarTest\\:\\:testNameOfDayFail\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/src/Date/CalendarTest.php
+
+		-
+			message: "#^Method h4kuna\\\\DataType\\\\Date\\\\CalendarTest\\:\\:testNameOfMonth\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/src/Date/CalendarTest.php
+
+		-
+			message: "#^Method h4kuna\\\\DataType\\\\Date\\\\CalendarTest\\:\\:testNameOfMonthFail\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/src/Date/CalendarTest.php
+
+		-
+			message: "#^PHPDoc tag @throws with type h4kuna\\\\DataType\\\\Date\\\\h4kuna\\\\DataType\\\\InvalidArgumentsException is not subtype of Throwable$#"
+			count: 2
+			path: tests/src/Date/CalendarTest.php
+
+		-
+			message: "#^Parameter \\#1 \\$day of static method h4kuna\\\\DataType\\\\Date\\\\Calendar\\:\\:nameOfDay\\(\\) expects DateTimeInterface\\|int\\|null, string given\\.$#"
+			count: 1
+			path: tests/src/Date/CalendarTest.php
+
+		-
+			message: "#^Parameter \\#1 \\$month of static method h4kuna\\\\DataType\\\\Date\\\\Calendar\\:\\:nameOfMonth\\(\\) expects DateTimeInterface\\|int\\|null, string given\\.$#"
+			count: 1
+			path: tests/src/Date/CalendarTest.php
+
+		-
+			message: "#^Method h4kuna\\\\DataType\\\\Date\\\\DatePeriodTest\\:\\:testDefault\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/src/Date/DatePeriodTest.php
+
+		-
+			message: "#^Method h4kuna\\\\DataType\\\\Date\\\\DatePeriodTest\\:\\:testOptions\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/src/Date/DatePeriodTest.php
+
+		-
+			message: "#^Cannot cast DateTimeInterface\\|null to string\\.$#"
+			count: 5
+			path: tests/src/Date/DateTimeStringTest.php
+
+		-
+			message: "#^Method h4kuna\\\\DataType\\\\Date\\\\DateTimeStringTest\\:\\:testInvalidDate\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/src/Date/DateTimeStringTest.php
+
+		-
+			message: "#^Method h4kuna\\\\DataType\\\\Date\\\\DateTimeStringTest\\:\\:testRightDataTime\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/src/Date/DateTimeStringTest.php
+
+		-
+			message: "#^Method h4kuna\\\\DataType\\\\Date\\\\DateTimeStringTest\\:\\:testRightDate\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/src/Date/DateTimeStringTest.php
+
+		-
+			message: "#^Method h4kuna\\\\DataType\\\\Date\\\\DateTimeStringTest\\:\\:testShortYear\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/src/Date/DateTimeStringTest.php
+
+		-
+			message: "#^Method h4kuna\\\\DataType\\\\Date\\\\DateTimeStringTest\\:\\:testThrowManyDays\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/src/Date/DateTimeStringTest.php
+
+		-
+			message: "#^Method h4kuna\\\\DataType\\\\Date\\\\DateTimeStringTest\\:\\:testThrowNotCompleteDate\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/src/Date/DateTimeStringTest.php
+
+		-
+			message: "#^Access to an undefined property h4kuna\\\\DataType\\\\Immutable\\\\Messenger\\<int\\|string\\>\\:\\:\\$foo\\.$#"
+			count: 1
+			path: tests/src/Immutable/MessengerTest.php
+
+		-
+			message: "#^Access to an undefined property h4kuna\\\\DataType\\\\Immutable\\\\Messenger\\<string\\>\\:\\:\\$doe\\.$#"
+			count: 1
+			path: tests/src/Immutable/MessengerTest.php
+
+		-
+			message: "#^Access to an undefined property h4kuna\\\\DataType\\\\Immutable\\\\Messenger\\<string\\>\\:\\:\\$foo\\.$#"
+			count: 2
+			path: tests/src/Immutable/MessengerTest.php
+
+		-
+			message: "#^Method h4kuna\\\\DataType\\\\Immutable\\\\MessengerTest\\:\\:testAdd\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/src/Immutable/MessengerTest.php
+
+		-
+			message: "#^Method h4kuna\\\\DataType\\\\Immutable\\\\MessengerTest\\:\\:testBasic\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/src/Immutable/MessengerTest.php
+
+		-
+			message: "#^Method h4kuna\\\\DataType\\\\Immutable\\\\MessengerTest\\:\\:testCount\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/src/Immutable/MessengerTest.php
+
+		-
+			message: "#^Method h4kuna\\\\DataType\\\\Immutable\\\\MessengerTest\\:\\:testExists\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/src/Immutable/MessengerTest.php
+
+		-
+			message: "#^Method h4kuna\\\\DataType\\\\Immutable\\\\MessengerTest\\:\\:testIsset\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/src/Immutable/MessengerTest.php
+
+		-
+			message: "#^Method h4kuna\\\\DataType\\\\Immutable\\\\MessengerTest\\:\\:testIterator\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/src/Immutable/MessengerTest.php
+
+		-
+			message: "#^Method h4kuna\\\\DataType\\\\Immutable\\\\MessengerTest\\:\\:testJsonSerialize\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/src/Immutable/MessengerTest.php
+
+		-
+			message: "#^Method h4kuna\\\\DataType\\\\Immutable\\\\MessengerTest\\:\\:testSerialize\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/src/Immutable/MessengerTest.php
+
+		-
+			message: "#^Method h4kuna\\\\DataType\\\\Immutable\\\\MessengerTest\\:\\:testSet\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/src/Immutable/MessengerTest.php
+
+		-
+			message: "#^Method h4kuna\\\\DataType\\\\Immutable\\\\MessengerTest\\:\\:testUnset\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/src/Immutable/MessengerTest.php
+
+		-
+			message: "#^Parameter \\#1 \\$json of function json_decode expects string, string\\|false given\\.$#"
+			count: 1
+			path: tests/src/Immutable/MessengerTest.php
+
+		-
+			message: "#^Method h4kuna\\\\DataType\\\\Location\\\\GpsTest\\:\\:round7\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/src/Location/GpsTest.php
+
+		-
+			message: "#^Method h4kuna\\\\DataType\\\\Location\\\\GpsTest\\:\\:round7\\(\\) has parameter \\$coordinate with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/src/Location/GpsTest.php
+
+		-
+			message: "#^Method h4kuna\\\\DataType\\\\Location\\\\GpsTest\\:\\:testFromString\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/src/Location/GpsTest.php
+
+		-
+			message: "#^Method h4kuna\\\\DataType\\\\Location\\\\GpsTest\\:\\:testFromStringFail\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/src/Location/GpsTest.php
+
+		-
+			message: "#^Method h4kuna\\\\DataType\\\\Location\\\\GpsTest\\:\\:testPoleFail\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/src/Location/GpsTest.php
+
+		-
+			message: "#^PHPDoc tag @throws with type h4kuna\\\\DataType\\\\Location\\\\h4kuna\\\\DataType\\\\InvalidArgumentsException is not subtype of Throwable$#"
+			count: 2
+			path: tests/src/Location/GpsTest.php
+
+		-
+			message: "#^Method h4kuna\\\\DataType\\\\Number\\\\MathTest\\:\\:testFactorial\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/src/Number/MathTest.php
+
+		-
+			message: "#^Method h4kuna\\\\DataType\\\\Number\\\\MathTest\\:\\:testFactorialFail\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/src/Number/MathTest.php
+
+		-
+			message: "#^Method h4kuna\\\\DataType\\\\Number\\\\MathTest\\:\\:testInterval\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/src/Number/MathTest.php
+
+		-
+			message: "#^Method h4kuna\\\\DataType\\\\Number\\\\MathTest\\:\\:testIntervalFail\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/src/Number/MathTest.php
+
+		-
+			message: "#^Method h4kuna\\\\DataType\\\\Number\\\\MathTest\\:\\:testRound5\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/src/Number/MathTest.php
+
+		-
+			message: "#^Method h4kuna\\\\DataType\\\\Number\\\\MathTest\\:\\:testSafeDivision\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/src/Number/MathTest.php
+
+		-
+			message: "#^PHPDoc tag @throws with type h4kuna\\\\DataType\\\\Number\\\\h4kuna\\\\DataType\\\\InvalidArgumentsException is not subtype of Throwable$#"
+			count: 2
+			path: tests/src/Number/MathTest.php
+
+		-
+			message: "#^Method h4kuna\\\\DataType\\\\Number\\\\RomeNumberTest\\:\\:testArabic\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/src/Number/RomeNumberTest.php
+
+		-
+			message: "#^Method h4kuna\\\\DataType\\\\Number\\\\RomeNumberTest\\:\\:testRome\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/src/Number/RomeNumberTest.php
+

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace h4kuna\DataType\Number;
 
@@ -10,33 +10,30 @@ namespace h4kuna\DataType\Number;
  */
 class RomeNumber
 {
-
-	static private $numbers = [
-		"M" => 1000,
-		"CM" => 900,
-		"D" => 500,
-		"CD" => 400,
-		"C" => 100,
-		"XC" => 90,
-		"L" => 50,
-		"XL" => 40,
-		"X" => 10,
-		"IX" => 9,
-		"V" => 5,
-		"IV" => 4,
-		"I" => 1,
+	private const NUMBERS = [
+		'M' => 1000,
+		'CM' => 900,
+		'D' => 500,
+		'CD' => 400,
+		'C' => 100,
+		'XC' => 90,
+		'L' => 50,
+		'XL' => 40,
+		'X' => 10,
+		'IX' => 9,
+		'V' => 5,
+		'IV' => 4,
+		'I' => 1,
 	];
 
 	/**
 	 * Transform from arabic to rome
-	 * @param int $number
-	 * @return string
 	 */
-	public static function getRome($number)
+	public static function getRome(int $number): string
 	{
 		$return = null;
-		foreach (self::$numbers as $key => $val) {
-			$return .= str_repeat($key, floor($number / $val));
+		foreach (self::NUMBERS as $key => $val) {
+			$return .= str_repeat($key, (int) floor($number / $val));
 			$number %= $val;
 		}
 		return $return;
@@ -44,25 +41,23 @@ class RomeNumber
 
 	/**
 	 * Transform form rome to arabic
-	 * @param string $rome
-	 * @return int
 	 */
-	public static function getArabic($rome)
+	public static function getArabic(string $rome): int
 	{
 		$return = 0;
 		$move = false;
-		$rome = str_split(strtoupper((string) $rome));
+		$rome = str_split(strtoupper($rome));
 		foreach ($rome as $key => $val) {
 			if ($move === true) {
 				$move = false;
 				continue;
 			}
 
-			if (isset($rome[$key + 1]) && isset(self::$numbers[$val . $rome[$key + 1]])) {
-				$return += self::$numbers[$val . $rome[$key + 1]];
+			if (isset($rome[$key + 1]) && isset(self::NUMBERS[$val . $rome[$key + 1]])) {
+				$return += self::NUMBERS[$val . $rome[$key + 1]];
 				$move = true;
 			} else {
-				$return += self::$numbers[$val];
+				$return += self::NUMBERS[$val];
 			}
 		}
 		return $return;

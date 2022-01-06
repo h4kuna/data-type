@@ -1,11 +1,11 @@
-<?php
+<?php declare(strict_types=1);
 
 /**
  * 10% faster than internal static function.
- * @param array $find
+ * @param array{1: string, 2: string, 3: string, 4: string} $find
  * @return string
  */
-function underscoreCallback($find)
+function underscoreCallback(array $find): string
 {
 	if (!empty($find[1])) {
 		return $find[1] . '_' . $find[2];
@@ -13,14 +13,21 @@ function underscoreCallback($find)
 	return $find[3] . '_' . $find[4];
 }
 
-function camelCallback($find)
+
+/**
+ * @param array{1: string} $find
+ */
+function camelCallback(array $find): string
 {
 	return strtoupper($find[1]);
 }
 
 if (!function_exists('_')) {
-	function _($message)
+	/**
+	 * @param string $message
+	 */
+	function _($message): string
 	{
-		return $message;
+		return (string) $message;
 	}
 }

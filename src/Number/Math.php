@@ -1,12 +1,9 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace h4kuna\DataType\Number;
 
 use h4kuna\DataType;
 
-/**
- * @author Milan Matějček
- */
 final class Math
 {
 
@@ -17,7 +14,7 @@ final class Math
 	 * @param float|int $number
 	 * @param float|int $max
 	 * @param float|int $min
-	 * @return Floats
+	 * @return float|int
 	 * @throws DataType\InvalidArgumentsException
 	 */
 	public static function interval($number, $max, $min = 0)
@@ -31,8 +28,8 @@ final class Math
 	/**
 	 * Round method to zero point five.
 	 * @example 1.24 -> 1.0, 1.25 -> 1.5, 1.74 -> 1.5, 1.75 -> 2.0
-	 * @param float $num
-	 * @return float
+	 * @param float|int $num
+	 * @return float|int
 	 */
 	public static function round5($num)
 	{
@@ -55,10 +52,9 @@ final class Math
 	}
 
 	/**
-	 * Safe division.
-	 * @param Floats $up
-	 * @param Floats $down
-	 * @return Floats|Ints|NULL
+	 * @param float|int $up
+	 * @param float|int $down
+	 * @return float|int|null
 	 */
 	public static function safeDivision($up, $down)
 	{
@@ -69,12 +65,9 @@ final class Math
 	}
 
 	/**
-	 * Factorial.
-	 * @param int $n
-	 * @return int
 	 * @throws DataType\InvalidArgumentsException
 	 */
-	public static function factorial($n)
+	public static function factorial(int $n): int
 	{
 		if ($n == 0) {
 			return 1;

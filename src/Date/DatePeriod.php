@@ -1,9 +1,12 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace h4kuna\DataType\Date;
 
 use Nette\Utils;
 
+/**
+ * @deprecated
+ */
 class DatePeriod extends \DatePeriod
 {
 
