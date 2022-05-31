@@ -2,8 +2,8 @@
 
 namespace h4kuna\DataType\Immutable;
 
-use h4kuna\DataType,
-	Tester\Assert;
+use h4kuna\DataType;
+use Tester\Assert;
 
 include __DIR__ . '/../../bootstrap.php';
 
@@ -49,11 +49,11 @@ class MessengerTest extends \Tester\TestCase
 
 		Assert::exception(function () use ($messenger) {
 			$messenger->foo = 'bar';
-		}, 'h4kuna\DataType\LogicException');
+		}, DataType\Exceptions\LogicException::class);
 
 		Assert::exception(function () use ($messenger) {
 			$messenger['foo'] = 'bar';
-		}, 'h4kuna\DataType\LogicException');
+		}, DataType\Exceptions\LogicException::class);
 	}
 
 
@@ -63,11 +63,11 @@ class MessengerTest extends \Tester\TestCase
 
 		Assert::exception(function () use ($messenger) {
 			unset($messenger['foo']);
-		}, 'h4kuna\DataType\LogicException');
+		}, DataType\Exceptions\LogicException::class);
 
 		Assert::exception(function () use ($messenger) {
 			unset($messenger->foo);
-		}, 'h4kuna\DataType\LogicException');
+		}, DataType\Exceptions\LogicException::class);
 
 		$clone = $messenger->remove('foo', 'doe');
 		Assert::notSame($messenger, $clone);

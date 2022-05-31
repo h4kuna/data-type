@@ -14,7 +14,7 @@ final class Floats
 
 	/**
 	 * @param string|int|float $value
-	 * @throws DataType\InvalidArgumentsException
+	 * @throws \h4kuna\DataType\Exceptions\InvalidArgumentsException
 	 */
 	public static function fromString($value, string $decimalPoint = ',', string $thousands = ' '): float
 	{
@@ -27,7 +27,7 @@ final class Floats
 		}
 
 		if ($value === null) {
-			throw new DataType\InvalidArgumentsException('This value is not float: ' . $value);
+			throw new DataType\Exceptions\InvalidArgumentsException('This value is not float: ' . $value);
 		}
 
 		if (strstr($value, ':') !== false) {
@@ -36,7 +36,7 @@ final class Floats
 
 		$out = str_replace([$thousands, $decimalPoint], ['', '.'], $value);
 		if (!is_numeric($out)) {
-			throw new DataType\InvalidArgumentsException('This value is not float: ' . $value);
+			throw new DataType\Exceptions\InvalidArgumentsException('This value is not float: ' . $value);
 		}
 
 		return (float) $out;

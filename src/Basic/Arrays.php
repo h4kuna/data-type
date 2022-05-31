@@ -18,7 +18,7 @@ final class Arrays
 	 * @param array<mixed> $values
 	 * @param mixed $value
 	 * @return array<string|int, mixed>
-	 * @throws DataType\InvalidArgumentsException
+	 * @throws \h4kuna\DataType\Exceptions\InvalidArgumentsException
 	 */
 	public static function combine(array $keys, array $values, $value = null)
 	{
@@ -27,7 +27,7 @@ final class Arrays
 		if ($diff > 0) {
 			$values = array_merge($values, array_fill(0, $diff, $value));
 		} elseif ($diff < 0) {
-			throw new DataType\InvalidArgumentsException('Array of values can\'t be bigger than keys.');
+			throw new DataType\Exceptions\InvalidArgumentsException('Array of values can\'t be bigger than keys.');
 		}
 
 		return array_combine($keys, $values);

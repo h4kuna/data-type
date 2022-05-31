@@ -50,7 +50,7 @@ class Messenger implements \ArrayAccess, \Iterator, \Serializable, \JsonSerializ
 	 */
 	final public function __unset($name): void
 	{
-		throw new DataType\LogicException('Use "$cloneMessenger = $messenger->remove($key)" instand of "unset($messenger->key)".');
+		throw new DataType\Exceptions\LogicException('Use "$cloneMessenger = $messenger->remove($key)" instand of "unset($messenger->key)".');
 	}
 
 
@@ -60,7 +60,7 @@ class Messenger implements \ArrayAccess, \Iterator, \Serializable, \JsonSerializ
 	 */
 	final public function __set($name, $value): void
 	{
-		throw new DataType\LogicException('Use "$cloneMessenger = $messenger->add($key, $value)" instand of "$messenger->key = \'foo\';".');
+		throw new DataType\Exceptions\LogicException('Use "$cloneMessenger = $messenger->add($key, $value)" instand of "$messenger->key = \'foo\';".');
 	}
 
 

@@ -28,7 +28,7 @@ class FloatsTest extends \Tester\TestCase
 	}
 
 	/**
-	 * @throws \h4kuna\DataType\InvalidArgumentsException
+	 * @throws \h4kuna\DataType\Exceptions\InvalidArgumentsException
 	 */
 	public function testExceptionFloatNull()
 	{
@@ -36,7 +36,7 @@ class FloatsTest extends \Tester\TestCase
 	}
 
 	/**
-	 * @throws \h4kuna\DataType\InvalidArgumentsException
+	 * @throws \h4kuna\DataType\Exceptions\InvalidArgumentsException
 	 */
 	public function testExceptionFloatChar()
 	{

@@ -75,7 +75,7 @@ final class Calendar
 	 * NULL - actual day.
 	 * 0 (for Sunday) through 6 (for Saturday)
 	 * @param null|int|\DateTimeInterface $day
-	 * @throws DataType\InvalidArgumentsException
+	 * @throws \h4kuna\DataType\Exceptions\InvalidArgumentsException
 	 */
 	public static function nameOfDay($day = null): string
 	{
@@ -87,7 +87,7 @@ final class Calendar
 		} elseif (is_numeric($day)) {
 			$day = (int) $day;
 		} else {
-			throw new DataType\InvalidArgumentsException('Input is allowed Datetime, int');
+			throw new DataType\Exceptions\InvalidArgumentsException('Input is allowed Datetime, int');
 		}
 
 		if ($day === 0) {
@@ -98,14 +98,14 @@ final class Calendar
 			return $days[$day];
 		}
 
-		throw new DataType\InvalidArgumentsException('Invalid number for day, interval is 0-6, 0 = Sunday');
+		throw new DataType\Exceptions\InvalidArgumentsException('Invalid number for day, interval is 0-6, 0 = Sunday');
 	}
 
 
 	/**
 	 * Name of month.
 	 * @param null|int|\DateTimeInterface $month
-	 * @throws DataType\InvalidArgumentsException
+	 * @throws \h4kuna\DataType\Exceptions\InvalidArgumentsException
 	 */
 	public static function nameOfMonth($month = null): string
 	{
@@ -118,25 +118,25 @@ final class Calendar
 		} elseif (is_numeric($month)) {
 			$month = (int) $month;
 		} else {
-			throw new DataType\InvalidArgumentsException('Input is allowed Datetime, int');
+			throw new DataType\Exceptions\InvalidArgumentsException('Input is allowed Datetime, int');
 		}
 
 		if (isset($months[$month])) {
 			return $months[$month];
 		}
 
-		throw new DataType\InvalidArgumentsException('Invalid number for day, interval is 1-12.');
+		throw new DataType\Exceptions\InvalidArgumentsException('Invalid number for day, interval is 1-12.');
 	}
 
 
 	/**
 	 * CZECH FORMAT DD.MM.YYYY[ HH:mm:SS]
-	 * @throws DataType\InvalidArgumentsException
+	 * @throws \h4kuna\DataType\Exceptions\InvalidArgumentsException
 	 */
 	public static function czech2DateTime(string $date): DateTime
 	{
 		if (!preg_match('/^(?P<d>[0-3]?\d)\.(?P<m>[0-1]?\d)\.(?P<y>\d{4})(?: +(?P<h>[0-6]?\d):(?P<i>[0-6]?\d)(?::(?P<s>[0-6]?\d))?)?$/', trim($date), $find)) {
-			throw new DataType\InvalidArgumentsException('Bad czech date format. ' . $date);
+			throw new DataType\Exceptions\InvalidArgumentsException('Bad czech date format. ' . $date);
 		}
 
 		$dt = new DateTime($find['y'] . '-' . $find['m'] . '-' . $find['d'] . ' 00:00:00');
@@ -183,7 +183,7 @@ final class Calendar
 
 	/**
 	 * Return czech name on name-day.
-	 * @throws DataType\InvalidArgumentsException
+	 * @throws \h4kuna\DataType\Exceptions\InvalidArgumentsException
 	 */
 	public static function getName(?\DateTimeInterface $date = null): string
 	{
@@ -976,7 +976,7 @@ final class Calendar
 				};
 				break;
 		}
-		throw new DataType\InvalidArgumentsException('Bad month or day.');
+		throw new DataType\Exceptions\InvalidArgumentsException('Bad month or day.');
 	}
 
 }

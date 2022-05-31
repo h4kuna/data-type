@@ -1,5 +1,7 @@
 <?php declare(strict_types=1);
 
+use h4kuna\DataType\Exceptions;
+
 /**
  * 10% faster than internal static function.
  * @param array{1: string, 2: string, 3: string, 4: string} $find
@@ -31,3 +33,8 @@ if (!function_exists('_')) {
 		return (string) $message;
 	}
 }
+
+// back compatibility from 2022-05-31
+class_alias(Exceptions\DataTypeException::class, 'h4kuna\DataType\DataTypeException');
+class_alias(Exceptions\InvalidArgumentsException::class, 'h4kuna\DataType\InvalidArgumentsException');
+class_alias(Exceptions\LogicException::class, 'h4kuna\DataType\LogicException');

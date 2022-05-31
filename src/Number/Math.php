@@ -15,12 +15,12 @@ final class Math
 	 * @param float|int $max
 	 * @param float|int $min
 	 * @return float|int
-	 * @throws DataType\InvalidArgumentsException
+	 * @throws \h4kuna\DataType\Exceptions\InvalidArgumentsException
 	 */
 	public static function interval($number, $max, $min = 0)
 	{
 		if ($max < $min) {
-			throw new DataType\InvalidArgumentsException('Maximum is less than minimum.');
+			throw new DataType\Exceptions\InvalidArgumentsException('Maximum is less than minimum.');
 		}
 		return max($min, min($max, $number));
 	}
@@ -65,7 +65,7 @@ final class Math
 	}
 
 	/**
-	 * @throws DataType\InvalidArgumentsException
+	 * @throws \h4kuna\DataType\Exceptions\InvalidArgumentsException
 	 */
 	public static function factorial(int $n): int
 	{
@@ -73,7 +73,7 @@ final class Math
 			return 1;
 		}
 		if ($n < 0) {
-			throw new DataType\InvalidArgumentsException('The number cann\'t negative number.');
+			throw new DataType\Exceptions\InvalidArgumentsException('The number cann\'t negative number.');
 		}
 		return $n * self::factorial($n - 1);
 	}

@@ -19,7 +19,7 @@ class IntsTest extends \Tester\TestCase
 	}
 
 	/**
-	 * @throws h4kuna\DataType\InvalidArgumentsException
+	 * @throws \h4kuna\DataType\Exceptions\InvalidArgumentsException
 	 */
 	public function testFailed()
 	{

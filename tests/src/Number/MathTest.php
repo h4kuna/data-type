@@ -23,7 +23,7 @@ class MathTest extends \Tester\TestCase
 	}
 
 	/**
-	 * @throws h4kuna\DataType\InvalidArgumentsException
+	 * @throws \h4kuna\DataType\Exceptions\InvalidArgumentsException
 	 */
 	public function testIntervalFail()
 	{
@@ -74,7 +74,7 @@ class MathTest extends \Tester\TestCase
 	}
 
 	/**
-	 * @throws h4kuna\DataType\InvalidArgumentsException
+	 * @throws \h4kuna\DataType\Exceptions\InvalidArgumentsException
 	 */
 	public function testFactorialFail()
 	{

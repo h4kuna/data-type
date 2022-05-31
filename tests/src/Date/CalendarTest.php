@@ -30,7 +30,7 @@ class CalendarTest extends \Tester\TestCase
 	}
 
 	/**
-	 * @throws h4kuna\DataType\InvalidArgumentsException
+	 * @throws \h4kuna\DataType\Exceptions\InvalidArgumentsException
 	 */
 	public function testNameOfDayFail()
 	{
@@ -47,7 +47,7 @@ class CalendarTest extends \Tester\TestCase
 	}
 
 	/**
-	 * @throws h4kuna\DataType\InvalidArgumentsException
+	 * @throws \h4kuna\DataType\Exceptions\InvalidArgumentsException
 	 */
 	public function testNameOfMonthFail()
 	{

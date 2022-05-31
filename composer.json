@@ -20,7 +20,6 @@
       "h4kuna\\DataType\\": "src/"
     },
     "files": [
-      "src/exceptions.php",
       "src/functions.php"
     ]
   },
