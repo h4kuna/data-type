@@ -6,10 +6,10 @@ use Tester\Assert;
 
 include __DIR__ . '/../../bootstrap.php';
 
-class FloatsTest extends \Tester\TestCase
+final class FloatsTest extends \Tester\TestCase
 {
 
-	public function testFromString()
+	public function testFromString(): void
 	{
 		Assert::same(0.0, Floats::fromString('0'));
 		Assert::same(0.0, Floats::fromString('0.0'));
@@ -28,22 +28,22 @@ class FloatsTest extends \Tester\TestCase
 	}
 
 	/**
-	 * @throws \h4kuna\DataType\InvalidArgumentsException
+	 * @throws \h4kuna\DataType\Exceptions\InvalidArgumentsException
 	 */
-	public function testExceptionFloatNull()
+	public function testExceptionFloatNull(): void
 	{
-		Floats::fromString(null);
+		Floats::fromString('');
 	}
 
 	/**
-	 * @throws \h4kuna\DataType\InvalidArgumentsException
+	 * @throws \h4kuna\DataType\Exceptions\InvalidArgumentsException
 	 */
-	public function testExceptionFloatChar()
+	public function testExceptionFloatChar(): void
 	{
 		Assert::same(-1.0, Floats::fromString('-1,d0'));
 	}
 
-	public function testFromHour()
+	public function testFromHour(): void
 	{
 		Assert::same(0.0, Floats::fromHour('0:0:0'));
 		Assert::same(1.5, Floats::fromHour('1:30'));
@@ -52,7 +52,7 @@ class FloatsTest extends \Tester\TestCase
 		Assert::same(-3.5, Floats::fromHour('-3:30'));
 	}
 
-	public function testThousand()
+	public function testThousand(): void
 	{
 		Assert::same(3620.0, Floats::fromString('3.620,00', ',', '.'));
 	}

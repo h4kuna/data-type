@@ -7,15 +7,15 @@ use h4kuna\DataType,
 
 include __DIR__ . '/../../bootstrap.php';
 
-class RomeNumberTest extends \Tester\TestCase
+final class RomeNumberTest extends \Tester\TestCase
 {
 
-	public function testArabic()
+	public function testArabic(): void
 	{
 		Assert::same(1090, RomeNumber::getArabic('MXC'));
 	}
 
-	public function testRome()
+	public function testRome(): void
 	{
 		Assert::same('MXC', RomeNumber::getRome(1090));
 	}

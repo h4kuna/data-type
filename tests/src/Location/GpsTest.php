@@ -7,10 +7,10 @@ use h4kuna\DataType,
 
 include __DIR__ . '/../../bootstrap.php';
 
-class GpsTest extends \Tester\TestCase
+final class GpsTest extends \Tester\TestCase
 {
 
-	public function testFromString()
+	public function testFromString(): void
 	{
 		// Praha
 		$expected = ['50.0835494', '14.4341414'];
@@ -38,22 +38,27 @@ class GpsTest extends \Tester\TestCase
 	}
 
 	/**
-	 * @throws h4kuna\DataType\InvalidArgumentsException
+	 * @throws \h4kuna\DataType\Exceptions\InvalidArgumentsException
 	 */
-	public function testFromStringFail()
+	public function testFromStringFail(): void
 	{
 		Gps::fromString('Hello fail');
 	}
 
 	/**
-	 * @throws h4kuna\DataType\InvalidArgumentsException
+	 * @throws \h4kuna\DataType\Exceptions\InvalidArgumentsException
 	 */
-	public function testPoleFail()
+	public function testPoleFail(): void
 	{
 		Gps::fromString('50.0835494A, 14.4341414W');
 	}
 
-	private static function round7(array $coordinate)
+
+	/**
+	 * @param array<int|float> $coordinate
+	 * @return array<string>
+	 */
+	private static function round7(array $coordinate): array
 	{
 		$out = [];
 		foreach ($coordinate as $v) {

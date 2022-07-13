@@ -46,7 +46,9 @@ final class Strings
 	 */
 	public static function toCamel(string $string): string
 	{
-		return (string) preg_replace_callback('/_([a-z])/', 'camelCallback', $string);
+		return (string) preg_replace_callback('/_([a-z])/', static function (array $find): string {
+			return strtoupper($find[1]);
+		}, $string);
 	}
 
 
@@ -64,7 +66,15 @@ final class Strings
 	 */
 	public static function toUnderscore(string $string): string
 	{
-		return strtolower((string) preg_replace_callback('/(.)([A-Z][a-z])|([a-z])([A-Z])/', 'underscoreCallback', $string));
+		return strtolower((string) preg_replace_callback('/(.)([A-Z][a-z])|([a-z])([A-Z])/', static function (
+			array $find
+		): string {
+			if (!empty($find[1])) {
+				return $find[1] . '_' . $find[2];
+			}
+
+			return $find[3] . '_' . $find[4];
+		}, $string));
 	}
 
 }

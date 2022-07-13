@@ -6,10 +6,10 @@ use Tester\Assert;
 
 include __DIR__ . '/../../bootstrap.php';
 
-class MathTest extends \Tester\TestCase
+final class MathTest extends \Tester\TestCase
 {
 
-	public function testInterval()
+	public function testInterval(): void
 	{
 		Assert::same(1, Math::interval(1, 2));
 		Assert::same(1, Math::interval(1, 1));
@@ -23,14 +23,14 @@ class MathTest extends \Tester\TestCase
 	}
 
 	/**
-	 * @throws h4kuna\DataType\InvalidArgumentsException
+	 * @throws \h4kuna\DataType\Exceptions\InvalidArgumentsException
 	 */
-	public function testIntervalFail()
+	public function testIntervalFail(): void
 	{
 		Math::interval(2, 1, 3);
 	}
 
-	public function testRound5()
+	public function testRound5(): void
 	{
 		Assert::same(1.0, Math::round5(1.0));
 		Assert::same(1.0, Math::round5(1.1));
@@ -61,22 +61,22 @@ class MathTest extends \Tester\TestCase
 		Assert::same(-2.0, Math::round5(-2));
 	}
 
-	public function testSafeDivision()
+	public function testSafeDivision(): void
 	{
 		Assert::same(0, Math::safeDivision(0, 1));
 		Assert::same(null, Math::safeDivision(1, 0));
 		Assert::same(1, Math::safeDivision(1, 1));
 	}
 
-	public function testFactorial()
+	public function testFactorial(): void
 	{
 		Assert::same(120, Math::factorial(5));
 	}
 
 	/**
-	 * @throws h4kuna\DataType\InvalidArgumentsException
+	 * @throws \h4kuna\DataType\Exceptions\InvalidArgumentsException
 	 */
-	public function testFactorialFail()
+	public function testFactorialFail(): void
 	{
 		Math::factorial(-1);
 	}

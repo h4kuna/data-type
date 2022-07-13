@@ -6,10 +6,10 @@ use Tester\Assert;
 
 include __DIR__ . '/../../bootstrap.php';
 
-class IntsTest extends \Tester\TestCase
+final class IntsTest extends \Tester\TestCase
 {
 
-	public function testFromString()
+	public function testFromString(): void
 	{
 		Assert::same(1, Ints::fromString(1));
 		Assert::same(1, Ints::fromString('1.0'));
@@ -19,9 +19,9 @@ class IntsTest extends \Tester\TestCase
 	}
 
 	/**
-	 * @throws h4kuna\DataType\InvalidArgumentsException
+	 * @throws \h4kuna\DataType\Exceptions\InvalidArgumentsException
 	 */
-	public function testFailed()
+	public function testFailed(): void
 	{
 		Assert::same(1, Ints::fromString('1.1')); // not int
 	}

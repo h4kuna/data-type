@@ -7,20 +7,20 @@ use \DateTime,
 
 include __DIR__ . '/../../bootstrap.php';
 
-class CalendarTest extends \Tester\TestCase
+final class CalendarTest extends \Tester\TestCase
 {
 
-	public function testGetDays()
+	public function testGetDays(): void
 	{
 		Assert::same(Calendar::getDays(), Calendar::getDays());
 	}
 
-	public function testGetMonths()
+	public function testGetMonths(): void
 	{
 		Assert::same(Calendar::getMonths(), Calendar::getMonths());
 	}
 
-	public function testNameOfDay()
+	public function testNameOfDay(): void
 	{
 		$days = Calendar::getDays();
 		$today = (date('w') == 0 ? 7 : date('w'));
@@ -30,14 +30,14 @@ class CalendarTest extends \Tester\TestCase
 	}
 
 	/**
-	 * @throws h4kuna\DataType\InvalidArgumentsException
+	 * @throws \h4kuna\DataType\Exceptions\InvalidArgumentsException
 	 */
-	public function testNameOfDayFail()
+	public function testNameOfDayFail(): void
 	{
 		Calendar::nameOfDay(8);
 	}
 
-	public function testNameOfMonth()
+	public function testNameOfMonth(): void
 	{
 		$days = Calendar::getMonths();
 		$today = date('n');
@@ -47,14 +47,14 @@ class CalendarTest extends \Tester\TestCase
 	}
 
 	/**
-	 * @throws h4kuna\DataType\InvalidArgumentsException
+	 * @throws \h4kuna\DataType\Exceptions\InvalidArgumentsException
 	 */
-	public function testNameOfMonthFail()
+	public function testNameOfMonthFail(): void
 	{
 		Calendar::nameOfMonth(13);
 	}
 
-	public function testCzech2DateTime()
+	public function testCzech2DateTime(): void
 	{
 		$format = 'Y-m-d';
 		$dt = Calendar::czech2DateTime('1.1.1986');
@@ -86,7 +86,7 @@ class CalendarTest extends \Tester\TestCase
 		Assert::same('1986-12-30 23:59:00', $dt->format($format));
 	}
 
-	public function testFebruaryOfDay()
+	public function testFebruaryOfDay(): void
 	{
 		$years = [2012 => 29, 2013 => 28, 2014 => 28, 2015 => 28, 2016 => 29];
 		foreach ($years as $year => $days) {
@@ -94,7 +94,7 @@ class CalendarTest extends \Tester\TestCase
 		}
 	}
 
-	public function testEaster()
+	public function testEaster(): void
 	{
 		$years = [
 			2012 => '2012-04-09',
@@ -110,13 +110,13 @@ class CalendarTest extends \Tester\TestCase
 		Assert::same(date('Y'), Calendar::easter()->format('Y'));
 	}
 
-	public function testGetName()
+	public function testGetName(): void
 	{
 		Assert::same('Milan', Calendar::getName(new DateTime('2013-06-18')));
 		Assert::same(Calendar::getName(), Calendar::getName(new DateTime));
 	}
 
-	public function testAllNames()
+	public function testAllNames(): void
 	{
 		$interval = new \DatePeriod(new \DateTime('01-01-2016'), new \DateInterval('P1D'), new \DateTime('31-12-2016'));
 		$i = 1;

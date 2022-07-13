@@ -12,7 +12,7 @@ final class Gps
 	/**
 	 * @param string $value
 	 * @return float[]
-	 * @throws DataType\InvalidArgumentsException
+	 * @throws \h4kuna\DataType\Exceptions\InvalidArgumentsException
 	 */
 	public static function fromString($value)
 	{
@@ -33,7 +33,7 @@ final class Gps
 			// N49.20811° E19.04247°
 			$out = self::setCoordinate(self::checkCoordinate($found[2], $found[1]), self::checkCoordinate($found[4], $found[3]));
 		} else {
-			throw new DataType\InvalidArgumentsException('Unsupported coordinate. ' . $value);
+			throw new DataType\Exceptions\InvalidArgumentsException('Unsupported coordinate. ' . $value);
 		}
 		return $out;
 	}
@@ -43,7 +43,7 @@ final class Gps
 	 * @param float $num
 	 * @param string $pole
 	 * @return float
-	 * @throws DataType\InvalidArgumentsException
+	 * @throws \h4kuna\DataType\Exceptions\InvalidArgumentsException
 	 */
 	private static function checkCoordinate($num, $pole)
 	{
@@ -61,11 +61,11 @@ final class Gps
 				}
 				break;
 			default :
-				throw new DataType\InvalidArgumentsException('Unsupported pole ' . $pole);
+				throw new DataType\Exceptions\InvalidArgumentsException('Unsupported pole ' . $pole);
 		}
 
 		if ($num > 180) {
-			throw new DataType\InvalidArgumentsException('Coordinate can be higher then 180 ' . $num);
+			throw new DataType\Exceptions\InvalidArgumentsException('Coordinate can be higher then 180 ' . $num);
 		}
 
 		return $num;

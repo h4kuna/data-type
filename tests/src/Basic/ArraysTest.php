@@ -6,10 +6,10 @@ use Tester\Assert;
 
 include __DIR__ . '/../../bootstrap.php';
 
-class ArraysTest extends \Tester\TestCase
+final class ArraysTest extends \Tester\TestCase
 {
 
-	public function testCombine()
+	public function testCombine(): void
 	{
 		Assert::same([1 => 'one', 2 => 'two', 3 => 'three', 4 => 'four'], Arrays::combine([1, 2, 3, 4], [
 			'one',
@@ -33,15 +33,15 @@ class ArraysTest extends \Tester\TestCase
 
 
 	/**
-	 * @throws h4kuna\DataType\InvalidArgumentsException
+	 * @throws \h4kuna\DataType\Exceptions\InvalidArgumentsException
 	 */
-	public function testCombineFail()
+	public function testCombineFail(): void
 	{
 		Arrays::combine([1, 2, 3, 4], ['one', 'two', 'three', 'four', 'five']);
 	}
 
 
-	public function testConcatWs()
+	public function testConcatWs(): void
 	{
 		$array = [1 => 0, 2 => null, 3 => 'three', 4 => false, 5 => 'five', 6 => '', 7 => '0'];
 		Assert::same('0|three|five|0', Arrays::concatWs('|', $array));
@@ -51,7 +51,7 @@ class ArraysTest extends \Tester\TestCase
 	}
 
 
-	public function testCoalesce()
+	public function testCoalesce(): void
 	{
 		Assert::same('foo', Arrays::coalesce([null, false, '', 'foo']));
 		Assert::same('foo', Arrays::coalesce([null, false, 'foo']));
@@ -64,7 +64,7 @@ class ArraysTest extends \Tester\TestCase
 	}
 
 
-	public function testKeysUnset()
+	public function testKeysUnset(): void
 	{
 		$array = [1 => 0, 2 => null, 3 => 'three', 4 => false, 5 => 'five', 6 => '', 7 => '0'];
 		$newArray = Arrays::keysUnset($array, 1, 2);
@@ -76,7 +76,7 @@ class ArraysTest extends \Tester\TestCase
 	}
 
 
-	public function testIntesectKeys()
+	public function testIntesectKeys(): void
 	{
 		$array = [1 => 0, 2 => null, 3 => 'three', 4 => false, 5 => 'five', 6 => '', 7 => '0'];
 		Assert::same([2 => null, 3 => 'three', 5 => 'five'], Arrays::intersectKeys($array, [2, 3, 5]));

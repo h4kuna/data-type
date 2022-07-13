@@ -2,15 +2,15 @@
 
 namespace h4kuna\DataType\Immutable;
 
-use h4kuna\DataType,
-	Tester\Assert;
+use h4kuna\DataType;
+use Tester\Assert;
 
 include __DIR__ . '/../../bootstrap.php';
 
-class MessengerTest extends \Tester\TestCase
+final class MessengerTest extends \Tester\TestCase
 {
 
-	public function testBasic()
+	public function testBasic(): void
 	{
 		$messenger = new Messenger([
 			'foo' => 'bar',
@@ -25,7 +25,7 @@ class MessengerTest extends \Tester\TestCase
 	}
 
 
-	public function testAdd()
+	public function testAdd(): void
 	{
 		$messenger = new Messenger([]);
 		$clone = $messenger->add('foo', 'bar');
@@ -35,7 +35,7 @@ class MessengerTest extends \Tester\TestCase
 	}
 
 
-	public function testExists()
+	public function testExists(): void
 	{
 		$messenger = new Messenger(['foo' => 'bar', 'doe' => null]);
 		Assert::true($messenger->exists('doe'));
@@ -43,31 +43,31 @@ class MessengerTest extends \Tester\TestCase
 	}
 
 
-	public function testSet()
+	public function testSet(): void
 	{
 		$messenger = new Messenger([]);
 
 		Assert::exception(function () use ($messenger) {
 			$messenger->foo = 'bar';
-		}, 'h4kuna\DataType\LogicException');
+		}, DataType\Exceptions\LogicException::class);
 
 		Assert::exception(function () use ($messenger) {
 			$messenger['foo'] = 'bar';
-		}, 'h4kuna\DataType\LogicException');
+		}, DataType\Exceptions\LogicException::class);
 	}
 
 
-	public function testUnset()
+	public function testUnset(): void
 	{
 		$messenger = new Messenger(['foo' => 'bar', 'doe' => 'joe']);
 
 		Assert::exception(function () use ($messenger) {
 			unset($messenger['foo']);
-		}, 'h4kuna\DataType\LogicException');
+		}, DataType\Exceptions\LogicException::class);
 
 		Assert::exception(function () use ($messenger) {
 			unset($messenger->foo);
-		}, 'h4kuna\DataType\LogicException');
+		}, DataType\Exceptions\LogicException::class);
 
 		$clone = $messenger->remove('foo', 'doe');
 		Assert::notSame($messenger, $clone);
@@ -77,7 +77,7 @@ class MessengerTest extends \Tester\TestCase
 	}
 
 
-	public function testIsset()
+	public function testIsset(): void
 	{
 		$messenger = new Messenger([
 			'bar' => null,
@@ -94,7 +94,7 @@ class MessengerTest extends \Tester\TestCase
 	}
 
 
-	public function testSerialize()
+	public function testSerialize(): void
 	{
 		$messenger = new Messenger([
 			'bar' => 'foo',
@@ -105,7 +105,7 @@ class MessengerTest extends \Tester\TestCase
 	}
 
 
-	public function testJsonSerialize()
+	public function testJsonSerialize(): void
 	{
 		$messenger = new Messenger([
 			'bar' => 'foo',
@@ -119,7 +119,7 @@ class MessengerTest extends \Tester\TestCase
 	}
 
 
-	public function testCount()
+	public function testCount(): void
 	{
 		$messenger = new Messenger([
 			'foo' => 'bar',
@@ -129,7 +129,7 @@ class MessengerTest extends \Tester\TestCase
 	}
 
 
-	public function testIterator()
+	public function testIterator(): void
 	{
 		$messenger = new Messenger([
 			'foo' => 'bar',

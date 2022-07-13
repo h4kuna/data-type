@@ -11,7 +11,7 @@ final class Ints
 
 	/**
 	 * @param string|int $value
-	 * @throws DataType\InvalidArgumentsException
+	 * @throws \h4kuna\DataType\Exceptions\InvalidArgumentsException
 	 */
 	public static function fromString($value): int
 	{
@@ -25,7 +25,7 @@ final class Ints
 		$out = preg_replace('~\s~', '', $value);
 		$int = (int) $out;
 		if ($out != $int) {
-			throw new DataType\InvalidArgumentsException('Input value is not integer. ' . $out);
+			throw new DataType\Exceptions\InvalidArgumentsException('Input value is not integer. ' . $out);
 		}
 
 		return $int;

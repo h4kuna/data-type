@@ -6,10 +6,10 @@ use Tester\Assert;
 
 include __DIR__ . '/../../bootstrap.php';
 
-class SetTest extends \Tester\TestCase
+final class SetTest extends \Tester\TestCase
 {
 
-	public function testFromString()
+	public function testFromString(): void
 	{
 		$set = ['one' => true, 'two' => true, 'three' => true, 'four' => true, 'five' => true];
 		$setString = implode(',', array_keys($set));

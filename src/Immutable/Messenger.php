@@ -5,6 +5,7 @@ namespace h4kuna\DataType\Immutable;
 use h4kuna\DataType;
 
 /**
+ * @deprecated use 8.1 #immutable
  * @template T of int|string
  * @implements \ArrayAccess<T, mixed>
  * @implements \Iterator<T, mixed>
@@ -50,7 +51,7 @@ class Messenger implements \ArrayAccess, \Iterator, \Serializable, \JsonSerializ
 	 */
 	final public function __unset($name): void
 	{
-		throw new DataType\LogicException('Use "$cloneMessenger = $messenger->remove($key)" instand of "unset($messenger->key)".');
+		throw new DataType\Exceptions\LogicException('Use "$cloneMessenger = $messenger->remove($key)" instand of "unset($messenger->key)".');
 	}
 
 
@@ -60,7 +61,7 @@ class Messenger implements \ArrayAccess, \Iterator, \Serializable, \JsonSerializ
 	 */
 	final public function __set($name, $value): void
 	{
-		throw new DataType\LogicException('Use "$cloneMessenger = $messenger->add($key, $value)" instand of "$messenger->key = \'foo\';".');
+		throw new DataType\Exceptions\LogicException('Use "$cloneMessenger = $messenger->add($key, $value)" instand of "$messenger->key = \'foo\';".');
 	}
 
 

@@ -7,20 +7,20 @@ use h4kuna\DataType,
 
 include __DIR__ . '/../../bootstrap.php';
 
-class StringsTest extends \Tester\TestCase
+final class StringsTest extends \Tester\TestCase
 {
 
-	public function testToFloat()
+	public function testToFloat(): void
 	{
 		Assert::same(1.1, Strings::toFloat('1.1'));
 	}
 
-	public function testToInt()
+	public function testToInt(): void
 	{
 		Assert::same(1, Strings::toInt('1'));
 	}
 
-	public function testToGps()
+	public function testToGps(): void
 	{
 		$coordinate = Strings::toGps('51.1, 14.1');
 		array_walk($coordinate, function (&$v) {
@@ -29,12 +29,12 @@ class StringsTest extends \Tester\TestCase
 		Assert::same(['51.1', '14.1'], $coordinate);
 	}
 
-	public function testToSet()
+	public function testToSet(): void
 	{
 		Assert::same(['foo' => true, 'bar' => true], Strings::toSet('foo,bar'));
 	}
 
-	public function testToUnderscore()
+	public function testToUnderscore(): void
 	{
 		$tests = [
 			'startMIDDLELast' => 'start_middle_last',
@@ -52,7 +52,7 @@ class StringsTest extends \Tester\TestCase
 		}
 	}
 
-	public function testToCamel()
+	public function testToCamel(): void
 	{
 		$tests = [
 			'start_middle_last' => 'startMiddleLast',
@@ -70,7 +70,7 @@ class StringsTest extends \Tester\TestCase
 		}
 	}
 
-	public function testToPascal()
+	public function testToPascal(): void
 	{
 		$tests = [
 			'start_middle_last' => 'StartMiddleLast',
