@@ -1,6 +1,5 @@
-/.idea/
-coveralls.phar
-/nbproject/
 /vendor/
 composer.lock
-/tests/temp/
+*~
+/tests/**/output/
+coverage.html

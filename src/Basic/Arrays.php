@@ -7,20 +7,13 @@ use h4kuna\DataType;
 final class Arrays
 {
 
-	private function __construct()
-	{
-	}
-
-
 	/**
 	 * Better array_combine where values array does not need same size.
 	 * @param array<string|int> $keys
 	 * @param array<mixed> $values
-	 * @param mixed $value
 	 * @return array<string|int, mixed>
-	 * @throws \h4kuna\DataType\Exceptions\InvalidArgumentsException
 	 */
-	public static function combine(array $keys, array $values, $value = null)
+	public static function combine(array $keys, array $values, mixed $value = null): array
 	{
 		$diff = count($keys) - count($values);
 
@@ -30,48 +23,28 @@ final class Arrays
 			throw new DataType\Exceptions\InvalidArgumentsException('Array of values can\'t be bigger than keys.');
 		}
 
-		$result = array_combine($keys, $values);
-		assert($result !== false);
-
-		return $result;
+		return array_combine($keys, $values);
 	}
 
 
 	/**
 	 * Implode only values where strlen > 0 and you can define keys.
-	 * @param array<string|int, scalar> $array
-	 * @param string|int $keys
-	 * @return string
+	 * @param array<string|int, scalar|null> $array
 	 */
-	public static function concatWs(string $glue, $array, ...$keys)
+	public static function concatWs(string $glue, array $array): string
 	{
-		$out = '';
-		foreach ($keys ? self::intersectKeys($array, $keys) : $array as $value) {
-			if (strlen((string) $value) === 0) {
-				continue;
-			} elseif ($out !== '') {
-				$out .= $glue;
-			}
-			$out .= $value;
-		}
-
-		return $out;
+		return implode($glue, array_filter($array, fn ($v): bool => $v !== false && $v !== '' && $v !== null));
 	}
 
 
 	/**
 	 * COALESCE similar behavior database.
-	 * @param array<string|int, mixed> $array
-	 * @param string|int $keys
-	 * @return mixed
+	 * @param iterable<string|int, mixed> $array
 	 */
-	public static function coalesce($array, ...$keys)
+	public static function coalesce(iterable $array): mixed
 	{
-		if ($keys !== []) {
-			$array = self::intersectKeys($array, $keys);
-		}
 		foreach ($array as $v) {
-			if ($v !== null && $v !== false && $v !== '') {
+			if ($v !== null) {
 				return $v;
 			}
 		}
@@ -81,12 +54,24 @@ final class Arrays
 
 
 	/**
-	 * Unset keys from array.
+	 * @deprecated use unsetKeys()
 	 * @param array<mixed> $array
 	 * @param string|int $keys
 	 * @return array<mixed>
 	 */
 	public static function keysUnset(&$array, ...$keys): array
+	{
+		return self::unsetKeys($array, ...$keys);
+	}
+
+
+	/**
+	 * Unset keys from array.
+	 * @param array<mixed> $array
+	 * @param string|int $keys
+	 * @return array<mixed>
+	 */
+	public static function unsetKeys(&$array, ...$keys): array
 	{
 		$out = [];
 		foreach ($keys as $key) {
@@ -109,6 +94,29 @@ final class Arrays
 	public static function intersectKeys(array $values, array $keys): array
 	{
 		return array_intersect_key($values, array_flip($keys));
+	}
+
+
+	/**
+	 * @return array<int>
+	 */
+	public static function generateNumbers(int $from, int $to): array
+	{
+		$values = range($from, $to, ($from < $to) ? 1 : -1);
+
+		return array_combine($values, $values);
+	}
+
+
+	/**
+	 * @param array<mixed> $array1
+	 * @param array<mixed> $array2
+	 * @param array<mixed> ...$arrays
+	 * @return array<mixed>
+	 */
+	public static function mergeUnique(array $array1, array $array2, array ...$arrays): array
+	{
+		return array_values(array_unique(array_merge($array1, $array2, ...$arrays)));
 	}
 
 }

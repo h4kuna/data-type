@@ -1,12 +1,18 @@
-<?php
+<?php declare(strict_types=1);
 
-namespace h4kuna\DataType\Number;
+namespace h4kuna\DataType\Tests\Unit\Number;
 
+use h4kuna;
+use h4kuna\DataType\Number\Math;
+use Tester;
 use Tester\Assert;
 
-include __DIR__ . '/../../bootstrap.php';
+require __DIR__ . '/../../../bootstrap.php';
 
-final class MathTest extends \Tester\TestCase
+/**
+ * @testCase
+ */
+final class MathTest extends Tester\TestCase
 {
 
 	public function testInterval(): void
@@ -23,7 +29,7 @@ final class MathTest extends \Tester\TestCase
 	}
 
 	/**
-	 * @throws \h4kuna\DataType\Exceptions\InvalidArgumentsException
+	 * @throws h4kuna\DataType\Exceptions\InvalidArgumentsException
 	 */
 	public function testIntervalFail(): void
 	{
@@ -63,9 +69,9 @@ final class MathTest extends \Tester\TestCase
 
 	public function testSafeDivision(): void
 	{
-		Assert::same(0, Math::safeDivision(0, 1));
+		Assert::same(0.0, Math::safeDivision(0, 1));
 		Assert::same(null, Math::safeDivision(1, 0));
-		Assert::same(1, Math::safeDivision(1, 1));
+		Assert::same(1.0, Math::safeDivision(1, 1));
 	}
 
 	public function testFactorial(): void

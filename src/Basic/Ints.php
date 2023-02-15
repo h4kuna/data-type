@@ -7,13 +7,10 @@ use h4kuna\DataType;
 final class Ints
 {
 
-	private function __construct() { }
-
 	/**
-	 * @param string|int $value
-	 * @throws \h4kuna\DataType\Exceptions\InvalidArgumentsException
+	 * @throws DataType\Exceptions\InvalidArgumentsException
 	 */
-	public static function fromString($value): int
+	public static function fromString(string|int $value): int
 	{
 		if (is_int($value)) {
 			return $value;

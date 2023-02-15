@@ -1,12 +1,16 @@
-<?php
+<?php declare(strict_types=1);
 
-namespace h4kuna\DataType\Date;
+namespace h4kuna\DataType\Tests\Unit\Date;
 
-use \DateTime,
-	Tester\Assert;
+use DateTime;
+use h4kuna\DataType\Date\Calendar;
+use Tester\Assert;
 
-include __DIR__ . '/../../bootstrap.php';
+require __DIR__ . '/../../../bootstrap.php';
 
+/**
+ * @testCase
+ */
 final class CalendarTest extends \Tester\TestCase
 {
 
@@ -15,10 +19,12 @@ final class CalendarTest extends \Tester\TestCase
 		Assert::same(Calendar::getDays(), Calendar::getDays());
 	}
 
+
 	public function testGetMonths(): void
 	{
 		Assert::same(Calendar::getMonths(), Calendar::getMonths());
 	}
+
 
 	public function testNameOfDay(): void
 	{
@@ -29,6 +35,7 @@ final class CalendarTest extends \Tester\TestCase
 		Assert::same($days[5], Calendar::nameOfDay(new DateTime('2016-12-30')));
 	}
 
+
 	/**
 	 * @throws \h4kuna\DataType\Exceptions\InvalidArgumentsException
 	 */
@@ -36,6 +43,7 @@ final class CalendarTest extends \Tester\TestCase
 	{
 		Calendar::nameOfDay(8);
 	}
+
 
 	public function testNameOfMonth(): void
 	{
@@ -46,6 +54,7 @@ final class CalendarTest extends \Tester\TestCase
 		Assert::same($days[12], Calendar::nameOfMonth(new DateTime('2016-12-30')));
 	}
 
+
 	/**
 	 * @throws \h4kuna\DataType\Exceptions\InvalidArgumentsException
 	 */
@@ -53,6 +62,7 @@ final class CalendarTest extends \Tester\TestCase
 	{
 		Calendar::nameOfMonth(13);
 	}
+
 
 	public function testCzech2DateTime(): void
 	{
@@ -86,6 +96,7 @@ final class CalendarTest extends \Tester\TestCase
 		Assert::same('1986-12-30 23:59:00', $dt->format($format));
 	}
 
+
 	public function testFebruaryOfDay(): void
 	{
 		$years = [2012 => 29, 2013 => 28, 2014 => 28, 2015 => 28, 2016 => 29];
@@ -93,6 +104,7 @@ final class CalendarTest extends \Tester\TestCase
 			Assert::same($days, Calendar::februaryOfDay($year));
 		}
 	}
+
 
 	public function testEaster(): void
 	{
@@ -110,11 +122,13 @@ final class CalendarTest extends \Tester\TestCase
 		Assert::same(date('Y'), Calendar::easter()->format('Y'));
 	}
 
+
 	public function testGetName(): void
 	{
 		Assert::same('Milan', Calendar::getName(new DateTime('2013-06-18')));
 		Assert::same(Calendar::getName(), Calendar::getName(new DateTime));
 	}
+
 
 	public function testAllNames(): void
 	{
@@ -122,10 +136,11 @@ final class CalendarTest extends \Tester\TestCase
 		$i = 1;
 		foreach ($interval as $item) {
 			++$i;
-			Assert::true(is_string(Calendar::getName($item)));
+			Assert::type('string', Calendar::getName($item));
 		}
 		Assert::same(366, $i);
 	}
+
 }
 
 (new CalendarTest())->run();

@@ -6,7 +6,7 @@ namespace h4kuna\DataType\Number;
  * @example
  * echo RomeNumber::getRome(1968); // MCMLXVIII
  * echo RomeNumber::getArabic('MCMLXVIII'); // 1968
- * @see http://php.vrana.cz/rimske-cislice.php
+ * @see https://php.vrana.cz/rimske-cislice.php
  */
 class RomeNumber
 {
@@ -26,6 +26,7 @@ class RomeNumber
 		'I' => 1,
 	];
 
+
 	/**
 	 * Transform from arabic to rome
 	 */
@@ -36,8 +37,10 @@ class RomeNumber
 			$return .= str_repeat($key, (int) floor($number / $val));
 			$number %= $val;
 		}
+
 		return $return;
 	}
+
 
 	/**
 	 * Transform form rome to arabic
@@ -60,6 +63,7 @@ class RomeNumber
 				$return += self::NUMBERS[$val];
 			}
 		}
+
 		return $return;
 	}
 

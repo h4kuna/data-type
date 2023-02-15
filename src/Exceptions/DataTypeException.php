@@ -2,4 +2,6 @@
 
 namespace h4kuna\DataType\Exceptions;
 
-abstract class DataTypeException extends \Exception { }
+use Exception;
+
+abstract class DataTypeException extends Exception { }

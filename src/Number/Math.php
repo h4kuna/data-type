@@ -3,35 +3,29 @@
 namespace h4kuna\DataType\Number;
 
 use h4kuna\DataType;
+use h4kuna\DataType\Exceptions\InvalidArgumentsException;
 
 final class Math
 {
 
-	private function __construct() { }
-
 	/**
 	 * Allow number in interval and correct it.
-	 * @param float|int $number
-	 * @param float|int $max
-	 * @param float|int $min
-	 * @return float|int
-	 * @throws \h4kuna\DataType\Exceptions\InvalidArgumentsException
 	 */
-	public static function interval($number, $max, $min = 0)
+	public static function interval(float|int $number, float|int $max, float|int $min = 0): float|int
 	{
 		if ($max < $min) {
-			throw new DataType\Exceptions\InvalidArgumentsException('Maximum is less than minimum.');
+			throw new InvalidArgumentsException('Maximum is less than minimum.');
 		}
+
 		return max($min, min($max, $number));
 	}
+
 
 	/**
 	 * Round method to zero point five.
 	 * @example 1.24 -> 1.0, 1.25 -> 1.5, 1.74 -> 1.5, 1.75 -> 2.0
-	 * @param float|int $num
-	 * @return float|int
 	 */
-	public static function round5($num)
+	public static function round5(float|int $num): float|int
 	{
 		if ($num < 0) {
 			$floor = ceil($num);
@@ -48,33 +42,30 @@ final class Math
 		if (0.25 <= $decimal && $decimal < 0.75) {
 			return $floor + (0.5 * $i);
 		}
+
 		return $floor + (1 * $i);
 	}
 
-	/**
-	 * @param float|int $up
-	 * @param float|int $down
-	 * @return float|int|null
-	 */
-	public static function safeDivision($up, $down)
+
+	public static function safeDivision(float|int $up, float|int $down): ?float
 	{
-		if (!$down) {
+		if ($down == 0) {
 			return null;
 		}
+
 		return $up / $down;
 	}
 
-	/**
-	 * @throws \h4kuna\DataType\Exceptions\InvalidArgumentsException
-	 */
+
 	public static function factorial(int $n): int
 	{
 		if ($n == 0) {
 			return 1;
 		}
 		if ($n < 0) {
-			throw new DataType\Exceptions\InvalidArgumentsException('The number cann\'t negative number.');
+			throw new InvalidArgumentsException('The number can\'t negative number.');
 		}
+
 		return $n * self::factorial($n - 1);
 	}
 

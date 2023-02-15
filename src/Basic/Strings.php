@@ -6,10 +6,6 @@ use h4kuna\DataType\Location;
 
 final class Strings
 {
-	private function __construct()
-	{
-	}
-
 
 	public static function toFloat(string $value): float
 	{
@@ -24,7 +20,7 @@ final class Strings
 
 
 	/**
-	 * @return array<float>
+	 * @return array{lat: float, long: float}
 	 */
 	public static function toGps(string $value): array
 	{
@@ -67,9 +63,9 @@ final class Strings
 	public static function toUnderscore(string $string): string
 	{
 		return strtolower((string) preg_replace_callback('/(.)([A-Z][a-z])|([a-z])([A-Z])/', static function (
-			array $find
+			array $find,
 		): string {
-			if (!empty($find[1])) {
+			if (isset($find[1]) && $find[1] !== '') {
 				return $find[1] . '_' . $find[2];
 			}
 

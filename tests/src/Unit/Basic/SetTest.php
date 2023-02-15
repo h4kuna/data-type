@@ -1,11 +1,15 @@
-<?php
+<?php declare(strict_types=1);
 
-namespace h4kuna\DataType\Basic;
+namespace h4kuna\DataType\Tests\Unit\Basic;
 
+use h4kuna\DataType\Basic\Set;
 use Tester\Assert;
 
-include __DIR__ . '/../../bootstrap.php';
+require __DIR__ . '/../../../bootstrap.php';
 
+/**
+ * @testCase
+ */
 final class SetTest extends \Tester\TestCase
 {
 

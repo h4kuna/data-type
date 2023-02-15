@@ -7,16 +7,7 @@ use h4kuna\DataType;
 final class Floats
 {
 
-	private function __construct()
-	{
-	}
-
-
-	/**
-	 * @param string|int|float $value
-	 * @throws \h4kuna\DataType\Exceptions\InvalidArgumentsException
-	 */
-	public static function fromString($value, string $decimalPoint = ',', string $thousands = ' '): float
+	public static function fromString(string|int|float $value, string $decimalPoint = ',', string $thousands = ' '): float
 	{
 		if (is_float($value)) {
 			return $value;

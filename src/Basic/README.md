@@ -1,120 +1,179 @@
-Arrays
-======
-Arrays::combine
----------------
-Is extension for [array_combine](http://php.net/manual/en/function.array-combine.php).
+# Arrays
+
+## Arrays::combine
+
+Is extension for [array_combine](//php.net/manual/en/function.array-combine.php).
+
 ```php
-Arrays::combine(array(1, 2, 3, 4), array('one', 'two', 'three', 'four'));
-// array(1 => 'one', 2 => 'two', 3 => 'three', 4 => 'four')
+use h4kuna\DataType\Basic;
 
-Arrays::combine(array(1, 2, 3, 4), array('one', 'three', 'four'));
-// array(1 => 'one', 2 => 'three', 3 => 'four', 4 => NULL)
+Basic\Arrays::combine([1, 2, 3, 4], ['one', 'two', 'three', 'four']);
+// [1 => 'one', 2 => 'two', 3 => 'three', 4 => 'four']
 
-Arrays::combine(array(1, 2, 3, 4), array('one', 'three', 'four'), 'five');
-// array(1 => 'one', 2 => 'three', 3 => 'four', 4 => 'five')
+Basic\Arrays::combine([1, 2, 3, 4], ['one', 'three', 'four']);
+// [1 => 'one', 2 => 'three', 3 => 'four', 4 => null]
+
+Basic\Arrays::combine([1, 2, 3, 4], ['one', 'three', 'four'], 'five');
+// [1 => 'one', 2 => 'three', 3 => 'four', 4 => 'five']
 ```
 
-Arrays::concatWs
-----------------
-Implode vaule and never separator will be side by side.
+## Arrays::concatWs
+
+Implode value and never separator will be side by side.
+
 ```php
-$array = array(1 => 0, 2 => NULL, 3 => 'three', 4 => FALSE, 5 => 'five', 6 => '', 7 => '0');
+use h4kuna\DataType\Basic;
+
+$array = [1 => 0, 2 => null, 3 => 'three', 4 => false, 5 => 'five', 6 => '', 7 => '0'];
 
 implode('|', $array);
 // 0||three||five||0
 
-Arrays::concatWs('|', $array);
+Basic\Arrays::concatWs('|', $array);
 // 0|three|five|0
 
-Arrays::concatWs('|', $array, 2, 4, 5, 6);
+Basic\Arrays::concatWs('|', $array, 2, 4, 5, 6);
 // five
 ```
 
-Arrays::coalesce
-----------------
-Select first non-empty value.
+## Arrays::coalesce
+
+Select first non-null value.
+
 ```php
-Arrays::coalesce(array(NULL, FALSE, '', 'foo');
-// foo
+use h4kuna\DataType\Basic;
 
-Arrays::coalesce(array('bar', NULL, 'foo'), 1, 2);
-// foo
-
-Arrays::coalesce(array(FALSE, NULL, '');
-// NULL
+Basic\Arrays::coalesce([null, false]);
+// false
 ```
 
-Arrays::intesectKeys
---------------------
+## Arrays::intersectKeys
+
 By array of key make intersect another array.
-```php
-$array = array(1 => 0, 2 => NULL, 3 => 'three', 4 => FALSE, 5 => 'five', 6 => '', 7 => '0');
 
-Arrays::intesectKeys($array, array(2, 3, 5));
-// array(2 => NULL, 3 => 'three', 5 => 'five')
+```php
+use h4kuna\DataType\Basic;
+
+$array = [1 => 0, 2 => null, 3 => 'three', 4 => false, 5 => 'five', 6 => '', 7 => '0'];
+
+Basic\Arrays::intersectKeys($array, [2, 3, 5]);
+// [2 => null, 3 => 'three', 5 => 'five']
 ```
 
-Arrays::keysUnset
------------------
+## Arrays::unsetKeys
+
 Unset keys from array and return array removed values.
+
 ```php
-$array = array(1 => 0, 2 => NULL, 3 => 'three', 4 => FALSE, 5 => 'five');
-Arrays::keysUnset($array, 1, 2);
-// return array(1 => 0, 2 => NULL)
+use h4kuna\DataType\Basic;
+
+$array = [1 => 0, 2 => null, 3 => 'three', 4 => false, 5 => 'five'];
+Basic\Arrays::unsetKeys($array, 1, 2);
+// return [1 => 0, 2 => null]
 // and $array
-// array(3 => 'three', 4 => FALSE, 5 => 'five')
+// [3 => 'three', 4 => false, 5 => 'five']
 ```
 
-Arrays::column
---------------
-Is wrapper for [array_column](http://php.net/manual/en/function.array-column.php) useable for php < 5.5.
+## Arrays::generateNumbers
 
-Float
-=====
-This accept whitespace and comma. Nonnumeric value throw exception.
+Prepare number line.
+
 ```php
-Float::fromString(' - 1 , 0 ');
+use h4kuna\DataType\Basic;
+Basic\Arrays::generateNumbers(2000, 2005);
+// [2000 => 2000, 2001 => 2001, 2002 => 2002, 2003 => 2003, 2004 => 2004, 2005 => 2005]
+
+Basic\Arrays::generateNumbers(2005, 2000);
+// [2005 => 2005, 2004 => 2004, 2003 => 2003, 2002 => 2002, 2001 => 2001, 2000 => 2000]
+```
+
+## Arrays::mergeUnique
+
+Prepare number line.
+
+```php
+use h4kuna\DataType\Basic;
+Basic\Arrays::mergeUnique(['a', 'b', 'c'], ['c', 'd', 'e'], ['b', 'd', 'f']);
+// ['a', 'b', 'c', 'd', 'e', 'f']
+
+```
+
+# Float
+
+This accept whitespace and comma. Nonnumeric value throw exception.
+
+```php
+use h4kuna\DataType\Basic;
+
+Basic\Floats::fromString(' - 1 , 0 ');
 // -1.0 (float)
 
-Float::fromHour('1:30');
+Basic\Floats::fromHour('1:30');
 // 1.5
 ```
 
-Int
-===
+# Int
+
 This accept whitespace. Nonnumeric or float value throw exception.
+
 ```php
-Int::fromString('- 1 000');
+use h4kuna\DataType\Basic;
+
+Basic\Ints::fromString('- 1 000');
 // -1000
 ```
 
-Set
-===
-Value transfer from array to string whose saved in database like MySql.
-```php
-Set::fromString('one,two');
-// array('one' => TRUE, 'two' => TRUE)
+# Set
 
-Set::toString(array('one' => TRUE, 'two' => TRUE));
+Value transfer from array to string whose saved in database like MySql.
+
+```php
+use h4kuna\DataType\Basic;
+
+Basic\Set::fromString('one,two');
+// ['one' => true, 'two' => true]
+
+Basic\Set::toString(['one' => true, 'two' => true]);
 // one,two
 
-Set::toString(array('one' => TRUE, 'two' => FALSE, 'three' => TRUE));
+Basic\Set::toString(['one' => true, 'two' => false, 'three' => true]);
 // one,three
 ```
 
-String
-======
+# String
+
 Interesting methods are toCamel, toUnderscore, toPascal.
 
 ```php
-String::toPascal('user_id'); // UserId
-String::toCamel('user_id'); // userId
-String::toUnderscore('userId') // user_id
-String::toUnderscore('UserId') // user_id
+use h4kuna\DataType\Basic;
+
+Basic\Strings::toPascal('user_id'); // UserId
+Basic\Strings::toCamel('user_id'); // userId
+Basic\Strings::toUnderscore('userId') // user_id
+Basic\Strings::toUnderscore('UserId') // user_id
 ```
 
 This class is only shortcut to another method.
+
 ```php
+use h4kuna\DataType\Basic;
+
 // String to int
-String::toInt('1'); // call Int::fromString('1');
+Basic\Strings::toInt('1'); // call Int::fromString('1');
+```
+
+# Bitwise operations
+
+```php
+use h4kuna\DataType\Basic;
+
+Basic\BitwiseOperations::check(3, 2); // true
+Basic\BitwiseOperations::checkStrict(3, 2); // false
+
+$x = 2;
+Basic\BitwiseOperations::add($x, 4);
+echo $x // 6
+
+Basic\BitwiseOperations::remove($x, 4);
+echo $x // 2
 ```

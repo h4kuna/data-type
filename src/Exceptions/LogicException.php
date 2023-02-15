@@ -2,4 +2,6 @@
 
 namespace h4kuna\DataType\Exceptions;
 
-final class LogicException extends \RuntimeException { }
+use RuntimeException;
+
+final class LogicException extends RuntimeException { }

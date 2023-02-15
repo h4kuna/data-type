@@ -1,11 +1,15 @@
-<?php
+<?php declare(strict_types=1);
 
-namespace h4kuna\DataType\Basic;
+namespace h4kuna\DataType\Tests\Unit\Basic;
 
+use h4kuna\DataType\Basic\Floats;
 use Tester\Assert;
 
-include __DIR__ . '/../../bootstrap.php';
+require __DIR__ . '/../../../bootstrap.php';
 
+/**
+ * @testCase
+ */
 final class FloatsTest extends \Tester\TestCase
 {
 
@@ -27,6 +31,7 @@ final class FloatsTest extends \Tester\TestCase
 		Assert::same(1.5, Floats::fromString('1:30'));
 	}
 
+
 	/**
 	 * @throws \h4kuna\DataType\Exceptions\InvalidArgumentsException
 	 */
@@ -34,6 +39,7 @@ final class FloatsTest extends \Tester\TestCase
 	{
 		Floats::fromString('');
 	}
+
 
 	/**
 	 * @throws \h4kuna\DataType\Exceptions\InvalidArgumentsException
@@ -43,6 +49,7 @@ final class FloatsTest extends \Tester\TestCase
 		Assert::same(-1.0, Floats::fromString('-1,d0'));
 	}
 
+
 	public function testFromHour(): void
 	{
 		Assert::same(0.0, Floats::fromHour('0:0:0'));
@@ -51,6 +58,7 @@ final class FloatsTest extends \Tester\TestCase
 		Assert::same(1.5083, round(Floats::fromHour('1:30:30'), 4));
 		Assert::same(-3.5, Floats::fromHour('-3:30'));
 	}
+
 
 	public function testThousand(): void
 	{

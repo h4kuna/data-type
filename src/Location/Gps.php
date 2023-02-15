@@ -3,49 +3,57 @@
 namespace h4kuna\DataType\Location;
 
 use h4kuna\DataType;
+use h4kuna\DataType\Exceptions\InvalidArgumentsException;
+use Nette\Utils\Strings;
 
 final class Gps
 {
 
-	private function __construct() { }
+	private function __construct()
+	{
+	}
+
 
 	/**
-	 * @param string $value
-	 * @return float[]
-	 * @throws \h4kuna\DataType\Exceptions\InvalidArgumentsException
+	 * @return array{lat: float, long: float}
 	 */
-	public static function fromString($value)
+	public static function fromString(string $value): array
 	{
-		$out = $found = [];
-		if (preg_match('~^(\d{1,3}\.\d+?)(N|S), ?(\d{1,3}\.\d+?)(E|W)$~i', $value, $found)) {
+		if (($found = Strings::match($value, '~^(\d{1,3}\.\d+?)(N|S), ?(\d{1,3}\.\d+?)(E|W)$~i')) !== null) {
+			assert(isset($found[1], $found[2], $found[3], $found[4]));
+
 			// 50.4113628N, 14.9032000E
-			$out = self::setCoordinate(self::checkCoordinate($found[1], $found[2]), self::checkCoordinate($found[3], $found[4]));
-		} elseif (preg_match('~(-?\d{1,3}\.\d+), ?(-?\d{1,3}\.\d+)$~', $value, $found)) {
+			return self::coordinate(self::checkCoordinate((float) $found[1], $found[2]), self::checkCoordinate((float) $found[3], $found[4]));
+		} elseif (($found = Strings::match($value, '~(-?\d{1,3}\.\d+), ?(-?\d{1,3}\.\d+)$~')) !== null) {
+			assert(isset($found[1], $found[2]));
+
 			// 50.4113628, 14.9032000
-			$out = self::setCoordinate($found[1], $found[2]);
-		} elseif (preg_match('~^(N|S) ?(\d{1,3})°(\d{1,2}\.\d+?)\',? ?(W|E) ?(\d{1,3})°(\d{1,2}\.\d+?)\'$~i', $value, $found)) {
+			return self::coordinate((float) $found[1], (float) $found[2]);
+		} elseif (($found = Strings::match($value, '~^(N|S) ?(\d{1,3})°(\d{1,2}\.\d+?)\',? ?(W|E) ?(\d{1,3})°(\d{1,2}\.\d+?)\'$~i')) !== null) {
+			assert(isset($found[1], $found[2], $found[3], $found[4], $found[5], $found[6]));
+
 			// N 50°24.68177', E 14°54.19200'
-			$out = self::setCoordinate(self::checkCoordinate(self::degToDec($found[2], $found[3]), $found[1]), self::checkCoordinate(self::degToDec($found[5], $found[6]), $found[4]));
-		} elseif (preg_match('~^(\d{1,3})°(\d{1,2})\'(\d{1,2}\.\d+?)"(N|S), ?(\d{1,3})°(\d{1,2})\'(\d{1,2}\.\d+?)"(W|E)$~i', $value, $found)) {
+			return self::coordinate(self::checkCoordinate(self::degToDec((float) $found[2], (float) $found[3]), $found[1]), self::checkCoordinate(self::degToDec((float) $found[5], (float) $found[6]), $found[4]));
+		} elseif (($found = Strings::match($value, '~^(\d{1,3})°(\d{1,2})\'(\d{1,2}\.\d+?)"(N|S), ?(\d{1,3})°(\d{1,2})\'(\d{1,2}\.\d+?)"(W|E)$~i')) !== null) {
+			assert(isset($found[1], $found[2], $found[3], $found[4], $found[5], $found[6], $found[7], $found[8]));
+
 			// 50°24'40.906"N, 14°54'11.520"E
-			$out = self::setCoordinate(self::checkCoordinate(self::degToDec($found[1], $found[2], $found[3]), $found[4]), self::checkCoordinate(self::degToDec($found[5], $found[6], $found[7]), $found[8]));
-		} elseif (preg_match('~^(N|S)(\d{1,3}\.\d+?)° ?(E|W)(\d{1,3}\.\d+?)°$~i', $value, $found)) {
+			return self::coordinate(self::checkCoordinate(self::degToDec((float) $found[1], (float) $found[2], (float) $found[3]), $found[4]), self::checkCoordinate(self::degToDec((float) $found[5], (float) $found[6], (float) $found[7]), $found[8]));
+		} elseif (($found = Strings::match($value, '~^(N|S)(\d{1,3}\.\d+?)° ?(E|W)(\d{1,3}\.\d+?)°$~i')) !== null) {
+			assert(isset($found[1], $found[2], $found[3], $found[4]));
+
 			// N49.20811° E19.04247°
-			$out = self::setCoordinate(self::checkCoordinate($found[2], $found[1]), self::checkCoordinate($found[4], $found[3]));
+			return self::coordinate(self::checkCoordinate((float) $found[2], $found[1]), self::checkCoordinate((float) $found[4], $found[3]));
 		} else {
-			throw new DataType\Exceptions\InvalidArgumentsException('Unsupported coordinate. ' . $value);
+			throw new InvalidArgumentsException('Unsupported coordinate. ' . $value);
 		}
-		return $out;
 	}
+
 
 	/**
 	 * Transform coordinate.
-	 * @param float $num
-	 * @param string $pole
-	 * @return float
-	 * @throws \h4kuna\DataType\Exceptions\InvalidArgumentsException
 	 */
-	private static function checkCoordinate($num, $pole)
+	private static function checkCoordinate(float $num, string $pole): float
 	{
 		switch (strtoupper($pole)) {
 			case 'W':
@@ -61,36 +69,29 @@ final class Gps
 				}
 				break;
 			default :
-				throw new DataType\Exceptions\InvalidArgumentsException('Unsupported pole ' . $pole);
+				throw new InvalidArgumentsException('Unsupported pole ' . $pole);
 		}
 
 		if ($num > 180) {
-			throw new DataType\Exceptions\InvalidArgumentsException('Coordinate can be higher then 180 ' . $num);
+			throw new InvalidArgumentsException('Coordinate can be higher then 180 ' . $num);
 		}
 
 		return $num;
 	}
 
-	/**
-	 * Transform to float.
-	 * @param float $degrees
-	 * @param float $minutes
-	 * @param float $seconds
-	 * @return float
-	 */
-	private static function degToDec($degrees, $minutes, $seconds = 0.0)
+
+	private static function degToDec(int|float $degrees, int|float $minutes, int|float $seconds = 0.0): float
 	{
-		return $degrees + $minutes / 60 + $seconds / 3600;
+		return (float) ($degrees + $minutes / 60 + $seconds / 3600);
 	}
 
+
 	/**
-	 * @param float $x
-	 * @param float $y
-	 * @return float[]
+	 * @return array{lat: float, long: float}
 	 */
-	private static function setCoordinate($x, $y)
+	private static function coordinate(float $x, float $y): array
 	{
-		return [$x, $y];
+		return [$x, $y, 'lat' => $x, 'long' => $y];
 	}
 
 }

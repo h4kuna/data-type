@@ -2,8 +2,10 @@
 
 namespace h4kuna\DataType\Date;
 
-use DateTime;
+use DateTimeImmutable;
+use DateTimeInterface;
 use h4kuna\DataType;
+use h4kuna\DataType\Exceptions\InvalidArgumentsException;
 
 final class Calendar
 {
@@ -11,7 +13,7 @@ final class Calendar
 	/**
 	 * @var array{days: array<int, string>, months: array<int, string>}
 	 */
-	private static $date = [
+	private static $cache = [
 		'days' => [],
 		'months' => [],
 	];
@@ -28,8 +30,8 @@ final class Calendar
 	 */
 	public static function getDays()
 	{
-		if (self::$date['days'] === []) {
-			self::$date['days'] = [
+		if (self::$cache['days'] === []) {
+			self::$cache['days'] = [
 				1 => _('Pondělí'),
 				_('Úterý'),
 				_('Středa'),
@@ -40,7 +42,7 @@ final class Calendar
 			];
 		}
 
-		return self::$date['days'];
+		return self::$cache['days'];
 	}
 
 
@@ -50,8 +52,8 @@ final class Calendar
 	 */
 	public static function getMonths()
 	{
-		if (self::$date['months'] === []) {
-			self::$date['months'] = [
+		if (self::$cache['months'] === []) {
+			self::$cache['months'] = [
 				1 => _('Leden'),
 				_('Únor'),
 				_('Březen'),
@@ -67,27 +69,25 @@ final class Calendar
 			];
 		}
 
-		return self::$date['months'];
+		return self::$cache['months'];
 	}
 
 
 	/**
 	 * NULL - actual day.
 	 * 0 (for Sunday) through 6 (for Saturday)
-	 * @param null|int|\DateTimeInterface|string $day
-	 * @throws \h4kuna\DataType\Exceptions\InvalidArgumentsException
 	 */
-	public static function nameOfDay($day = null): string
+	public static function nameOfDay(null|int|string|DateTimeInterface $day = null): string
 	{
 		$days = self::getDays();
 		if ($day === null) {
 			$day = (int) date('w');
-		} elseif ($day instanceof \DateTimeInterface) {
+		} elseif ($day instanceof DateTimeInterface) {
 			$day = (int) $day->format('w');
 		} elseif (is_numeric($day)) {
 			$day = (int) $day;
 		} else {
-			throw new DataType\Exceptions\InvalidArgumentsException('Input is allowed Datetime, int');
+			throw new InvalidArgumentsException('Input is allowed DateTimeInterface or numeric.');
 		}
 
 		if ($day === 0) {
@@ -98,64 +98,54 @@ final class Calendar
 			return $days[$day];
 		}
 
-		throw new DataType\Exceptions\InvalidArgumentsException('Invalid number for day, interval is 0-6, 0 = Sunday');
+		throw new InvalidArgumentsException('Invalid number for day, interval is 0-6, 0 = Sunday');
 	}
 
 
-	/**
-	 * Name of month.
-	 * @param null|int|\DateTimeInterface|string $month
-	 * @throws \h4kuna\DataType\Exceptions\InvalidArgumentsException
-	 */
-	public static function nameOfMonth($month = null): string
+	public static function nameOfMonth(null|int|string|DateTimeInterface $month = null): string
 	{
 		$months = self::getMonths();
 
 		if ($month === null) {
 			$month = (int) date('n');
-		} elseif ($month instanceof \DateTimeInterface) {
+		} elseif ($month instanceof DateTimeInterface) {
 			$month = (int) $month->format('n');
 		} elseif (is_numeric($month)) {
 			$month = (int) $month;
 		} else {
-			throw new DataType\Exceptions\InvalidArgumentsException('Input is allowed Datetime, int');
+			throw new InvalidArgumentsException('Input is allowed DateTimeInterface or numeric');
 		}
 
 		if (isset($months[$month])) {
 			return $months[$month];
 		}
 
-		throw new DataType\Exceptions\InvalidArgumentsException('Invalid number for day, interval is 1-12.');
+		throw new InvalidArgumentsException('Invalid number for day, interval is 1-12.');
 	}
 
 
 	/**
 	 * CZECH FORMAT DD.MM.YYYY[ HH:mm:SS]
-	 * @throws \h4kuna\DataType\Exceptions\InvalidArgumentsException
 	 */
-	public static function czech2DateTime(string $date): DateTime
+	public static function czech2DateTime(string $date): DateTimeImmutable
 	{
-		if (!preg_match('/^(?P<d>[0-3]?\d)\.(?P<m>[0-1]?\d)\.(?P<y>\d{4})(?: +(?P<h>[0-6]?\d):(?P<i>[0-6]?\d)(?::(?P<s>[0-6]?\d))?)?$/', trim($date), $find)) {
-			throw new DataType\Exceptions\InvalidArgumentsException('Bad czech date format. ' . $date);
+		if (preg_match('/^(?P<d>[0-3]?\d)\.(?P<m>[0-1]?\d)\.(?P<y>\d{4})(?: +(?P<h>[0-6]?\d):(?P<i>[0-6]?\d)(?::(?P<s>[0-6]?\d))?)?$/', trim($date), $find) === false) {
+			throw new InvalidArgumentsException('Bad czech date format. ' . $date);
 		}
 
-		$dt = new DateTime($find['y'] . '-' . $find['m'] . '-' . $find['d'] . ' 00:00:00');
+		$dt = new DateTimeImmutable($find['y'] . '-' . $find['m'] . '-' . $find['d'] . ' 00:00:00');
 		if (isset($find['h'])) {
 			$find += ['s' => 0];
-			$dt->setTime((int) $find['h'], (int) $find['i'], (int) $find['s']);
+			return $dt->setTime((int) $find['h'], (int) $find['i'], (int) $find['s']);
 		}
 
 		return $dt;
 	}
 
 
-	/**
-	 * Number days of February.
-	 * @param int|\DateTimeInterface $year
-	 */
-	public static function februaryOfDay($year): int
+	public static function februaryOfDay(int|DateTimeInterface $year): int
 	{
-		if ($year instanceof \DateTimeInterface) {
+		if ($year instanceof DateTimeInterface) {
 			$year = $year->format('Y');
 		}
 
@@ -165,34 +155,30 @@ final class Calendar
 
 	/**
 	 * Easter monday.
-	 * @param int $year 1970-2037
+	 * @param ?int $year 1970-2037
 	 */
-	public static function easter($year = null): DateTime
+	public static function easter(?int $year = null): DateTimeImmutable
 	{
 		if ($year === null) {
 			$year = (int) date('Y');
 		}
-		$dt = new DateTime;
-		$dt->setTimestamp(easter_date($year));
-		$dt->setTime(0, 0, 0);
-		$dt->modify('next monday');
+		$dt = new DateTimeImmutable('@' . easter_date($year));
 
-		return $dt;
+		return $dt->modify('today next monday');
 	}
 
 
 	/**
 	 * Return czech name on name-day.
-	 * @throws \h4kuna\DataType\Exceptions\InvalidArgumentsException
 	 */
-	public static function getName(?\DateTimeInterface $date = null): string
+	public static function getName(?DateTimeInterface $date = null): string
 	{
 		if ($date === null) {
-			$date = new DateTime;
+			$date = new DateTimeImmutable();
 		}
-		$day = $date->format('d');
+		$day = intval($date->format('d'));
 
-		switch ($date->format('m')) {
+		switch (intval($date->format('m'))) {
 			case 1:
 				switch ($day) {
 					case 1:
@@ -257,7 +243,9 @@ final class Calendar
 						return 'Robin';
 					case 31:
 						return 'Marika';
-				};
+					default:
+						break;
+				}
 				break;
 			case 2:
 				switch ($day) {
@@ -319,7 +307,9 @@ final class Calendar
 						return 'Lumír';
 					case 29:
 						return '';
-				};
+					default:
+						break;
+				}
 				break;
 			case 3:
 				switch ($day) {
@@ -385,7 +375,9 @@ final class Calendar
 						return 'Arnošt';
 					case 31:
 						return 'Kvido';
-				};
+					default:
+						break;
+				}
 				break;
 			case 4:
 				switch ($day) {
@@ -449,7 +441,9 @@ final class Calendar
 						return 'Robert';
 					case 30:
 						return 'Blahoslav';
-				};
+					default:
+						break;
+				}
 				break;
 			case 5:
 				switch ($day) {
@@ -515,7 +509,9 @@ final class Calendar
 						return 'Ferdinand';
 					case 31:
 						return 'Kamila';
-				};
+					default:
+						break;
+				}
 				break;
 			case 6:
 				switch ($day) {
@@ -579,6 +575,8 @@ final class Calendar
 						return 'Petr a Pavel';
 					case 30:
 						return 'Šárka';
+					default:
+						break;
 				}
 				break;
 			case 7:
@@ -645,7 +643,9 @@ final class Calendar
 						return 'Bořivoj';
 					case 31:
 						return 'Ignác';
-				};
+					default:
+						break;
+				}
 				break;
 			case 8:
 				switch ($day) {
@@ -711,7 +711,9 @@ final class Calendar
 						return 'Vladěna';
 					case 31:
 						return 'Pavlína';
-				};
+					default:
+						break;
+				}
 				break;
 			case 9:
 				switch ($day) {
@@ -775,7 +777,9 @@ final class Calendar
 						return 'Michal';
 					case 30:
 						return 'Jeroným';
-				};
+					default:
+						break;
+				}
 				break;
 			case 10:
 				switch ($day) {
@@ -841,7 +845,9 @@ final class Calendar
 						return 'Tadeáš';
 					case 31:
 						return 'Štěpánka';
-				};
+					default:
+						break;
+				}
 				break;
 			case 11:
 				switch ($day) {
@@ -907,7 +913,9 @@ final class Calendar
 						return 'Ondřej';
 					case 31:
 						return 'Iva';
-				};
+					default:
+						break;
+				}
 				break;
 			case 12:
 				switch ($day) {
@@ -973,10 +981,12 @@ final class Calendar
 						return 'David';
 					case 31:
 						return 'Silvestr';
-				};
+					default:
+						break;
+				}
 				break;
 		}
-		throw new DataType\Exceptions\InvalidArgumentsException('Bad month or day.');
+		throw new InvalidArgumentsException('Bad month or day.');
 	}
 
 }

@@ -1,13 +1,18 @@
-<?php
+<?php declare(strict_types=1);
 
-namespace h4kuna\DataType\Basic;
+namespace h4kuna\DataType\Tests\Unit\Basic;
 
-use h4kuna\DataType,
-	Tester\Assert;
+use h4kuna\DataType;
+use h4kuna\DataType\Basic\Strings;
+use Tester;
+use Tester\Assert;
 
-include __DIR__ . '/../../bootstrap.php';
+require __DIR__ . '/../../../bootstrap.php';
 
-final class StringsTest extends \Tester\TestCase
+/**
+ * @testCase
+ */
+final class StringsTest extends Tester\TestCase
 {
 
 	public function testToFloat(): void
@@ -15,24 +20,28 @@ final class StringsTest extends \Tester\TestCase
 		Assert::same(1.1, Strings::toFloat('1.1'));
 	}
 
+
 	public function testToInt(): void
 	{
 		Assert::same(1, Strings::toInt('1'));
 	}
 
+
 	public function testToGps(): void
 	{
 		$coordinate = Strings::toGps('51.1, 14.1');
 		array_walk($coordinate, function (&$v) {
-			$v = (string) round($v, 1);
+			$v = round(floatval($v), 1);
 		});
-		Assert::same(['51.1', '14.1'], $coordinate);
+		Assert::same([51.1, 14.1, 'lat' => 51.1, 'long' => 14.1], $coordinate);
 	}
+
 
 	public function testToSet(): void
 	{
 		Assert::same(['foo' => true, 'bar' => true], Strings::toSet('foo,bar'));
 	}
+
 
 	public function testToUnderscore(): void
 	{
@@ -52,6 +61,7 @@ final class StringsTest extends \Tester\TestCase
 		}
 	}
 
+
 	public function testToCamel(): void
 	{
 		$tests = [
@@ -69,6 +79,7 @@ final class StringsTest extends \Tester\TestCase
 			Assert::same($expeted, Strings::toCamel($value));
 		}
 	}
+
 
 	public function testToPascal(): void
 	{

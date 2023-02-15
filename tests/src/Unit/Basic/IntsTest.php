@@ -1,12 +1,18 @@
-<?php
+<?php declare(strict_types=1);
 
-namespace h4kuna\DataType\Basic;
+namespace h4kuna\DataType\Tests\Unit\Basic;
 
+use h4kuna;
+use h4kuna\DataType\Basic\Ints;
+use Tester;
 use Tester\Assert;
 
-include __DIR__ . '/../../bootstrap.php';
+require __DIR__ . '/../../../bootstrap.php';
 
-final class IntsTest extends \Tester\TestCase
+/**
+ * @testCase
+ */
+final class IntsTest extends Tester\TestCase
 {
 
 	public function testFromString(): void
@@ -18,8 +24,9 @@ final class IntsTest extends \Tester\TestCase
 		Assert::same(-1000, Ints::fromString('- 1 000'));
 	}
 
+
 	/**
-	 * @throws \h4kuna\DataType\Exceptions\InvalidArgumentsException
+	 * @throws h4kuna\DataType\Exceptions\InvalidArgumentsException
 	 */
 	public function testFailed(): void
 	{
