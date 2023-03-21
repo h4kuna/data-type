@@ -13,7 +13,7 @@
   ],
   "require": {
     "php": ">=8.0",
-    "nette/utils": "^4.0"
+    "nette/utils": "^3.0 || ^4.0"
   },
   "autoload": {
     "psr-4": {
