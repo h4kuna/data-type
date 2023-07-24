@@ -162,6 +162,17 @@ use h4kuna\DataType\Basic;
 Basic\Strings::toInt('1'); // call Int::fromString('1');
 ```
 
+```php
+use h4kuna\DataType\Basic;
+
+// String to int
+Basic\Strings::padIfNeed('foo', '#'); // #foo, STR_PAD_LEFT is default
+Basic\Strings::padIfNeed('foo', '#', STR_PAD_BOTH); // #foo#
+Basic\Strings::padIfNeed('#foo', '#', STR_PAD_BOTH); // #foo#
+Basic\Strings::padIfNeed('foo#', '#', STR_PAD_BOTH); // #foo#
+Basic\Strings::padIfNeed('#foo#', '#', STR_PAD_BOTH); // #foo#
+```
+
 # Bitwise operations
 
 ```php

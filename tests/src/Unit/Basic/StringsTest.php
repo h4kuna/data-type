@@ -98,6 +98,62 @@ final class StringsTest extends Tester\TestCase
 		}
 	}
 
+
+	protected function providePadIfNeed(): array
+	{
+		return [
+			[
+				'/a',
+				['a'],
+			],
+			[
+				'/a',
+				['/a'],
+			],
+			[
+				'/a/',
+				['a', 'padType' => STR_PAD_BOTH],
+			],
+			[
+				'/a/',
+				['/a/', 'padType' => STR_PAD_BOTH],
+			],
+			[
+				'/a/',
+				['a/', 'padType' => STR_PAD_BOTH],
+			],
+			[
+				'/a/',
+				['/a', 'padType' => STR_PAD_BOTH],
+			],
+			[
+				'a/',
+				['a', 'padType' => STR_PAD_RIGHT],
+			],
+			[
+				'a/',
+				['a/', 'padType' => STR_PAD_RIGHT],
+			],
+			[
+				'kůňůůůkůň',
+				['ůůů', 'padString' => 'kůň', 'padType' => STR_PAD_BOTH],
+			],
+			[
+				'kůňůůůkůň',
+				['kůňůůůkůň', 'padString' => 'kůň', 'padType' => STR_PAD_BOTH],
+			],
+		];
+	}
+
+
+	/**
+	 * @dataProvider providePadIfNeed
+	 */
+	public function testPadIfNeed(string $expected, array $input): void
+	{
+		Assert::same($expected, Strings::padIfNeed(...$input));
+	}
+
 }
 
 (new StringsTest())->run();

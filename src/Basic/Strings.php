@@ -57,6 +57,22 @@ final class Strings
 	}
 
 
+	public static function padIfNeed(string $string, string $padString = '/', int $padType = STR_PAD_LEFT): string
+	{
+		$length = mb_strlen($padString);
+		$prefix = $suffix = '';
+		if (($padType === STR_PAD_LEFT || $padType === STR_PAD_BOTH) && mb_substr($string, 0, $length) !== $padString) {
+			$prefix = $padString;
+		}
+
+		if (($padType === STR_PAD_RIGHT || $padType === STR_PAD_BOTH) && mb_substr($string, -$length) !== $padString) {
+			$suffix = $padString;
+		}
+
+		return "$prefix$string$suffix";
+	}
+
+
 	/**
 	 * FooBar => foo_bar
 	 */
