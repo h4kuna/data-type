@@ -146,10 +146,10 @@ final class Calendar
 	public static function februaryOfDay(int|DateTimeInterface $year): int
 	{
 		if ($year instanceof DateTimeInterface) {
-			$year = $year->format('Y');
+			$year = (int) $year->format('Y');
 		}
 
-		return checkdate(2, 29, (int) $year) ? 29 : 28;
+		return checkdate(2, 29, $year) ? 29 : 28;
 	}
 
 

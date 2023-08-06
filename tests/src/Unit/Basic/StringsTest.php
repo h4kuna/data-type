@@ -99,6 +99,9 @@ final class StringsTest extends Tester\TestCase
 	}
 
 
+	/**
+	 * @return array<array<mixed>>
+	 */
 	protected function providePadIfNeed(): array
 	{
 		return [
@@ -148,6 +151,7 @@ final class StringsTest extends Tester\TestCase
 
 	/**
 	 * @dataProvider providePadIfNeed
+	 * @param array{string: string, padString: string, padType: int} $input
 	 */
 	public function testPadIfNeed(string $expected, array $input): void
 	{

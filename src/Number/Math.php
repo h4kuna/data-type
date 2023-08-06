@@ -43,7 +43,7 @@ final class Math
 			return $floor + (0.5 * $i);
 		}
 
-		return $floor + (1 * $i);
+		return $floor + $i;
 	}
 
 

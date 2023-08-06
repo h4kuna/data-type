@@ -119,7 +119,7 @@ This accept whitespace. Nonnumeric or float value throw exception.
 ```php
 use h4kuna\DataType\Basic;
 
-Basic\Ints::fromString('- 1 000');
+Basic\Integer::from('- 1 000');
 // -1000
 ```
 

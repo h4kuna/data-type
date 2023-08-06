@@ -1,0 +1,20 @@
+<?php declare(strict_types=1);
+
+namespace h4kuna\DataType\Basic;
+
+use h4kuna\DataType;
+use h4kuna\DataType\Exceptions\InvalidTypeException;
+
+final class Integer
+{
+
+	public static function from(mixed $value): int
+	{
+		if (is_bool($value) || (is_int($value) || is_numeric($value)) && $value == (int) $value) {
+			return (int) $value;
+		}
+
+		throw InvalidTypeException::invalidInt($value);
+	}
+
+}

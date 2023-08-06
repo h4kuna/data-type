@@ -2,10 +2,22 @@
 
 namespace h4kuna\DataType\Basic;
 
+use h4kuna\DataType\Exceptions\InvalidTypeException;
 use h4kuna\DataType\Location;
 
 final class Strings
 {
+	public static function from(mixed $value): string
+	{
+		if (is_int($value) || is_float($value) || is_null($value)) {
+			return (string) $value;
+		} elseif (is_string($value) === false) {
+			throw InvalidTypeException::invalidString($value);
+		}
+
+		return $value;
+	}
+
 
 	public static function toFloat(string $value): float
 	{
@@ -15,7 +27,7 @@ final class Strings
 
 	public static function toInt(string $value): int
 	{
-		return Ints::fromString($value);
+		return Integer::from($value);
 	}
 
 

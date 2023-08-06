@@ -3,30 +3,35 @@
 namespace h4kuna\DataType\Basic;
 
 use h4kuna\DataType;
+use h4kuna\DataType\Exceptions\InvalidTypeException;
+use Nette\Utils;
 
 final class Floats
 {
 
-	public static function fromString(string|int|float $value, string $decimalPoint = ',', string $thousands = ' '): float
+	public static function fromString(
+		mixed $value,
+		string $decimalPoint = ',',
+		string $thousandSeparator = ' '
+	): float
 	{
-		if (is_float($value)) {
-			return $value;
-		} elseif (is_numeric($value)) {
+		if (is_numeric($value)) {
 			return (float) $value;
-		} elseif ($value === '') {
-			throw new DataType\Exceptions\InvalidArgumentsException('This value is not float: ' . $value);
+		} elseif ($value === '' || is_bool($value) || $value === null || is_array($value) || is_object($value)) {
+			throw InvalidTypeException::invalidFloat($value);
 		}
+		assert(is_string($value));
 
-		if (strstr($value, ':') !== false) {
+		if (Utils\Strings::match($value, '/^\d{1,2}:\d{1,2}(:\d{1,2})?$/') !== null) {
 			return self::fromHour($value);
 		}
 
-		$out = str_replace([$thousands, $decimalPoint], ['', '.'], $value);
-		if (!is_numeric($out)) {
-			throw new DataType\Exceptions\InvalidArgumentsException('This value is not float: ' . $value);
+		$out = str_replace([$thousandSeparator, $decimalPoint], ['', '.'], $value);
+		if (is_numeric($out)) {
+			return (float) $out;
 		}
 
-		return (float) $out;
+		throw InvalidTypeException::invalidFloat($value);
 	}
 
 
@@ -36,13 +41,13 @@ final class Floats
 	public static function fromHour(string $value): float
 	{
 		$minus = false;
-		if (substr($value, 0, 1) === '-') {
+		if (str_starts_with($value, '-')) {
 			$minus = true;
 			$value = substr($value, 1);
 		}
 		$out = 0.0;
 		foreach (explode(':', $value) as $i => $v) {
-			$out += (Ints::fromString($v) / pow(60, $i));
+			$out += (Integer::from($v) / pow(60, $i));
 		}
 
 		return $minus ? $out * -1 : $out;

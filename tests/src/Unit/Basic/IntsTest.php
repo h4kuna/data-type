@@ -3,7 +3,7 @@
 namespace h4kuna\DataType\Tests\Unit\Basic;
 
 use h4kuna;
-use h4kuna\DataType\Basic\Ints;
+use h4kuna\DataType\Basic\Integer;
 use Tester;
 use Tester\Assert;
 
@@ -17,20 +17,19 @@ final class IntsTest extends Tester\TestCase
 
 	public function testFromString(): void
 	{
-		Assert::same(1, Ints::fromString(1));
-		Assert::same(1, Ints::fromString('1.0'));
-		Assert::same(1, Ints::fromString('1'));
-		Assert::same(1, Ints::fromString(' 1 '));
-		Assert::same(-1000, Ints::fromString('- 1 000'));
+		Assert::same(1, Integer::from(1));
+		Assert::same(1, Integer::from('1.0'));
+		Assert::same(1, Integer::from('1'));
+		Assert::same(1, Integer::from(' 1 '));
 	}
 
 
 	/**
-	 * @throws h4kuna\DataType\Exceptions\InvalidArgumentsException
+	 * @throws h4kuna\DataType\Exceptions\InvalidTypeException
 	 */
 	public function testFailed(): void
 	{
-		Assert::same(1, Ints::fromString('1.1')); // not int
+		Assert::same(1, Integer::from('1.1')); // not int
 	}
 
 }

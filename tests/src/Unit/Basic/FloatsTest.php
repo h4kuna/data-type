@@ -2,6 +2,7 @@
 
 namespace h4kuna\DataType\Tests\Unit\Basic;
 
+use h4kuna;
 use h4kuna\DataType\Basic\Floats;
 use Tester\Assert;
 
@@ -33,7 +34,7 @@ final class FloatsTest extends \Tester\TestCase
 
 
 	/**
-	 * @throws \h4kuna\DataType\Exceptions\InvalidArgumentsException
+	 * @throws h4kuna\DataType\Exceptions\InvalidTypeException
 	 */
 	public function testExceptionFloatNull(): void
 	{
@@ -42,7 +43,7 @@ final class FloatsTest extends \Tester\TestCase
 
 
 	/**
-	 * @throws \h4kuna\DataType\Exceptions\InvalidArgumentsException
+	 * @throws h4kuna\DataType\Exceptions\InvalidTypeException
 	 */
 	public function testExceptionFloatChar(): void
 	{

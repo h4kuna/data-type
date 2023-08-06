@@ -2,7 +2,7 @@
 
 namespace h4kuna\DataType\Basic;
 
-class BitwiseOperations
+final class BitwiseOperations
 {
 
 	public static function check(int $number, int $flag): bool
