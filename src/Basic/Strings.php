@@ -21,7 +21,7 @@ final class Strings
 
 	public static function toFloat(string $value): float
 	{
-		return Floats::fromString($value);
+		return Floats::from($value);
 	}
 
 

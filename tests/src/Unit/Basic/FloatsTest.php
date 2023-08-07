@@ -16,29 +16,24 @@ final class FloatsTest extends \Tester\TestCase
 
 	public function testFromString(): void
 	{
-		Assert::same(0.0, Floats::fromString('0'));
-		Assert::same(0.0, Floats::fromString('0.0'));
-		Assert::same(0.0, Floats::fromString('-0.0'));
-		Assert::same(0.0, Floats::fromString('-.0'));
-		Assert::same(0.0, Floats::fromString('-0.'));
+		Assert::same(0.0, Floats::from('0'));
+		Assert::same(0.0, Floats::from('0.0'));
+		Assert::same(0.0, Floats::from('-0.0'));
+		Assert::same(0.0, Floats::from('-.0'));
+		Assert::same(0.0, Floats::from('-0.'));
+		Assert::same(0.0, Floats::from(''));
+		Assert::same(0.0, Floats::from(null));
+		Assert::same(1.0, Floats::from(true));
+		Assert::same(0.0, Floats::from(false));
 
-		Assert::same(-1.0, Floats::fromString(-1));
-		Assert::same(-1.0, Floats::fromString(-1.0));
-		Assert::same(-1.0, Floats::fromString('-1'));
-		Assert::same(-1.0, Floats::fromString('-1.0'));
-		Assert::same(-1.0, Floats::fromString('-1,0'));
-		Assert::same(-1.0, Floats::fromString(' - 1 , 0 '));
+		Assert::same(-1.0, Floats::from(-1));
+		Assert::same(-1.0, Floats::from(-1.0));
+		Assert::same(-1.0, Floats::from('-1'));
+		Assert::same(-1.0, Floats::from('-1.0'));
+		Assert::same(-1.0, Floats::from('-1,0'));
+		Assert::same(-1.0, Floats::from(' - 1 , 0 '));
 
-		Assert::same(1.5, Floats::fromString('1:30'));
-	}
-
-
-	/**
-	 * @throws h4kuna\DataType\Exceptions\InvalidTypeException
-	 */
-	public function testExceptionFloatNull(): void
-	{
-		Floats::fromString('');
+		Assert::same(1.5, Floats::from('1:30'));
 	}
 
 
@@ -47,7 +42,7 @@ final class FloatsTest extends \Tester\TestCase
 	 */
 	public function testExceptionFloatChar(): void
 	{
-		Assert::same(-1.0, Floats::fromString('-1,d0'));
+		Assert::same(-1.0, Floats::from('-1,d0'));
 	}
 
 
@@ -63,7 +58,7 @@ final class FloatsTest extends \Tester\TestCase
 
 	public function testThousand(): void
 	{
-		Assert::same(3620.0, Floats::fromString('3.620,00', ',', '.'));
+		Assert::same(3620.0, Floats::from('3.620,00', ',', '.'));
 	}
 
 }

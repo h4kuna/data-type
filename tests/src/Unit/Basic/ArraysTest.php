@@ -97,6 +97,16 @@ final class ArraysTest extends Tester\TestCase
 		]));
 	}
 
+
+	public function testStartWith(): void
+	{
+		Assert::true(Arrays::startWith('Lorem', 'Lo'));
+		Assert::false(Arrays::startWith('Lorem', 'Ip'));
+		Assert::true(Arrays::startWith('Lorem', 'Lo', 'Ip'));
+		Assert::true(Arrays::startWith('Ipsum', 'Lo', 'Ip'));
+		Assert::false(Arrays::startWith('Unknown', 'L', 'I'));
+	}
+
 }
 
 (new ArraysTest())->run();

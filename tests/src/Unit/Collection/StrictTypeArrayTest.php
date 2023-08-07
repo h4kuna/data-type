@@ -73,8 +73,8 @@ final class StrictTypeArrayTest extends TestCase
 	{
 		$types = self::createStrictTypeArray();
 
-		Assert::exception(fn () => $types->float('a'), InvalidTypeException::class);
-		Assert::exception(fn () => $types->float('b'), InvalidTypeException::class);
+		Assert::same(0.0, $types->float('a'));
+		Assert::same(0.0, $types->float('b'));
 		Assert::exception(fn () => $types->float('c'), InvalidTypeException::class);
 		Assert::same(0.0, $types->float('d'));
 		Assert::same(0.0, $types->float('e'));
@@ -90,8 +90,8 @@ final class StrictTypeArrayTest extends TestCase
 		Assert::same(-1.0, $types->float('o'));
 		Assert::exception(fn () => $types->float('p'), InvalidTypeException::class);
 		Assert::exception(fn () => $types->float('q'), InvalidTypeException::class);
-		Assert::exception(fn () => $types->float('r'), InvalidTypeException::class);
-		Assert::exception(fn () => $types->float('s'), InvalidTypeException::class);
+		Assert::same(1.0, $types->float('r'));
+		Assert::same(0.0, $types->float('s'));
 		Assert::exception(fn () => $types->float('z'), InvalidTypeException::class);
 	}
 
@@ -101,7 +101,7 @@ final class StrictTypeArrayTest extends TestCase
 		$types = self::createStrictTypeArray();
 
 		Assert::null($types->floatNull('a'));
-		Assert::exception(fn () => $types->floatNull('b'), InvalidTypeException::class);
+		Assert::same(0.0, $types->floatNull('b'));
 		Assert::exception(fn () => $types->floatNull('c'), InvalidTypeException::class);
 		Assert::same(0.0, $types->floatNull('d'));
 		Assert::same(0.0, $types->floatNull('e'));
@@ -117,8 +117,8 @@ final class StrictTypeArrayTest extends TestCase
 		Assert::same(-1.0, $types->floatNull('o'));
 		Assert::exception(fn () => $types->floatNull('p'), InvalidTypeException::class);
 		Assert::exception(fn () => $types->floatNull('q'), InvalidTypeException::class);
-		Assert::exception(fn () => $types->floatNull('r'), InvalidTypeException::class);
-		Assert::exception(fn () => $types->floatNull('s'), InvalidTypeException::class);
+		Assert::same(1.0, $types->floatNull('r'));
+		Assert::same(0.0, $types->floatNull('s'));
 		Assert::null($types->floatNull('z'));
 	}
 
@@ -127,8 +127,8 @@ final class StrictTypeArrayTest extends TestCase
 	{
 		$types = self::createStrictTypeArray();
 
-		Assert::exception(fn () => $types->int('a'), InvalidTypeException::class);
-		Assert::exception(fn () => $types->int('b'), InvalidTypeException::class);
+		Assert::same(0, $types->int('a'));
+		Assert::same(0, $types->int('b'));
 		Assert::exception(fn () => $types->int('c'), InvalidTypeException::class);
 		Assert::same(0, $types->int('d'));
 		Assert::same(0, $types->int('e'));
@@ -155,7 +155,7 @@ final class StrictTypeArrayTest extends TestCase
 		$types = self::createStrictTypeArray();
 
 		Assert::null($types->intNull('a'));
-		Assert::exception(fn () => $types->intNull('b'), InvalidTypeException::class);
+		Assert::same(0, $types->intNull('b'));
 		Assert::exception(fn () => $types->intNull('c'), InvalidTypeException::class);
 		Assert::same(0, $types->intNull('d'));
 		Assert::same(0, $types->intNull('e'));

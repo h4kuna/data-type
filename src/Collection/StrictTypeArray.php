@@ -20,7 +20,7 @@ final class StrictTypeArray
 
 	public function stringNull(string $name): ?string
 	{
-		return isset($this->data[$name]) ? $this->string($name) : null;
+		return isset($this->data[$name]) ? Strings::from($this->data[$name]) : null;
 	}
 
 
@@ -34,21 +34,21 @@ final class StrictTypeArray
 
 	public function float(string $name): float
 	{
-		return Floats::fromString($this->data[$name] ?? '');
+		array_key_exists($name, $this->data) || throw InvalidTypeException::invalidFloat($name);
+
+		return Floats::from($this->data[$name]);
 	}
 
 
 	public function floatNull(string $name): ?float
 	{
-		return isset($this->data[$name]) ? $this->float($name) : null;
+		return isset($this->data[$name]) ? Floats::from($this->data[$name]) : null;
 	}
 
 
 	public function int(string $name): int
 	{
-		if (isset($this->data[$name]) === false) {
-			throw InvalidTypeException::invalidFloat($name);
-		}
+		array_key_exists($name, $this->data) || throw InvalidTypeException::invalidInt($name);
 
 		return Integer::from($this->data[$name]);
 	}
@@ -56,7 +56,7 @@ final class StrictTypeArray
 
 	public function intNull(string $name): ?int
 	{
-		return isset($this->data[$name]) ? $this->int($name) : null;
+		return isset($this->data[$name]) ? Integer::from($this->data[$name]) : null;
 	}
 
 

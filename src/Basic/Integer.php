@@ -10,7 +10,7 @@ final class Integer
 
 	public static function from(mixed $value): int
 	{
-		if (is_bool($value) || (is_int($value) || is_numeric($value)) && $value == (int) $value) {
+		if (is_bool($value) || is_int($value) || $value === null || $value === '' || (is_numeric($value) && $value == (int) $value)) {
 			return (int) $value;
 		}
 

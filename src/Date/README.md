@@ -1,5 +1,5 @@
-Calendar
-========
+# Calendar
+
 This class is for czech country.
 
 Calendar::getDays
@@ -117,4 +117,32 @@ class MyDatetime extends \DateTime
 }
 
 DateTimeString::setClass(MyDatetime::class);
+```
+
+# DateTime
+
+Try to create object DateTime from string fragment.
+
+```php
+use h4kuna\DataType\Date\DateTime;
+
+DateTime::fromString('1'); // today 01:00:00
+DateTime::fromString('1:20'); // today 01:20:00
+DateTime::fromString('1:20:30'); // today 01:20:30
+DateTime::fromString('+1'); // now +1 hour
+DateTime::fromString('-1'); // now -1 hour
+DateTime::fromString('-1.5'); // now -1 hour and -30 minutes 
+DateTime::fromString('-1:30'); // now -1 hour and -30 minutes
+DateTime::fromString('6-13 12:20'); // this year, 6. month, 13. day, time 12:20:00
+```
+
+# Sleep
+
+Sleep in milliseconds 
+
+```php
+use h4kuna\DataType\Date\Sleep;
+
+Sleep::seconds(0.5); // sleep 0.5s
+Sleep::milliseconds(500); // sleep 0.5s
 ```

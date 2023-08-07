@@ -27,6 +27,18 @@ final class Arrays
 	}
 
 
+	public static function startWith(string $haystack, string ...$needle): bool
+	{
+		foreach ($needle as $str) {
+			if (str_starts_with($haystack, $str)) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+
 	/**
 	 * Implode only values where strlen > 0 and you can define keys.
 	 * @param array<string|int, scalar|null> $array
@@ -50,18 +62,6 @@ final class Arrays
 		}
 
 		return null;
-	}
-
-
-	/**
-	 * @deprecated use unsetKeys()
-	 * @param array<mixed> $array
-	 * @param string|int $keys
-	 * @return array<mixed>
-	 */
-	public static function keysUnset(&$array, ...$keys): array
-	{
-		return self::unsetKeys($array, ...$keys);
 	}
 
 

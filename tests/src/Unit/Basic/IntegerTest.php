@@ -12,12 +12,15 @@ require __DIR__ . '/../../../bootstrap.php';
 /**
  * @testCase
  */
-final class IntsTest extends Tester\TestCase
+final class IntegerTest extends Tester\TestCase
 {
 
 	public function testFromString(): void
 	{
 		Assert::same(1, Integer::from(1));
+		Assert::same(0, Integer::from(false));
+		Assert::same(0, Integer::from(null));
+		Assert::same(0, Integer::from(''));
 		Assert::same(1, Integer::from('1.0'));
 		Assert::same(1, Integer::from('1'));
 		Assert::same(1, Integer::from(' 1 '));
@@ -34,4 +37,4 @@ final class IntsTest extends Tester\TestCase
 
 }
 
-(new IntsTest())->run();
+(new IntegerTest())->run();

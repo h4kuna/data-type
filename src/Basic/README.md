@@ -95,17 +95,28 @@ Prepare number line.
 use h4kuna\DataType\Basic;
 Basic\Arrays::mergeUnique(['a', 'b', 'c'], ['c', 'd', 'e'], ['b', 'd', 'f']);
 // ['a', 'b', 'c', 'd', 'e', 'f']
+```
 
+## Arrays::startWith
+
+```php
+use h4kuna\DataType\Basic;
+$number = '+1'
+Basic\Arrays::startWith($number, '+', '-'); // true
+$number = '-1'
+Basic\Arrays::startWith($number, '+', '-'); // true
+$number = '1'
+Basic\Arrays::startWith($number, '+', '-'); // false
 ```
 
 # Float
 
-This accept whitespace and comma. Nonnumeric value throw exception.
+This accepts whitespace and comma. Non numerics value throw exception.
 
 ```php
 use h4kuna\DataType\Basic;
 
-Basic\Floats::fromString(' - 1 , 0 ');
+Basic\Floats::from(' - 1 , 0 ');
 // -1.0 (float)
 
 Basic\Floats::fromHour('1:30');

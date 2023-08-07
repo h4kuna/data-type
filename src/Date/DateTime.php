@@ -2,6 +2,7 @@
 
 namespace h4kuna\DataType\Date;
 
+use h4kuna\DataType\Basic\Arrays;
 use h4kuna\DataType\Exceptions\InvalidArgumentsException;
 use Nette\Utils\Strings;
 use Nette\Utils\Validators;
@@ -14,7 +15,7 @@ final class DateTime
 			$dateTime = new \DateTime();
 		}
 
-		$time = trim($any, '0');
+		$time = ltrim($any, '0');
 		if ($time === '') {
 			return $dateTime;
 		}
@@ -23,7 +24,7 @@ final class DateTime
 
 		return match (true) {
 			$any === 'now' => new \DateTime(),
-			Validators::isNumericInt($any) => $dateTime->modify(sprintf('+%s hour', $any)),
+			Validators::isNumericInt($any) => self::isModification($any) ? $dateTime->modify(sprintf('%s hour', $any)) : $dateTime->setTime((int) $any, 0),
 			Validators::isNumeric($prepareFloat) => $dateTime->modify(self::modifierFromFloat((float) $prepareFloat)),
 			self::isTimeFormat($any) => self::fromTimeFormat($any, $dateTime),
 			default => self::fromFormat($any),
@@ -33,6 +34,7 @@ final class DateTime
 
 	private static function modifierFromFloat(float $value): string
 	{
+		$way = $value < 0 ? -1 : 1;
 		[$hour, $minute] = explode('.', (string) $value);
 
 		$minute = intval($minute);
@@ -41,36 +43,30 @@ final class DateTime
 			$minute = (int) round(6 / (1 / $minute));
 		}
 
-		return self::modifier($hour, $minute);
+		return self::modifier($hour, $minute * $way);
 	}
 
 
-	private static function modifier(string|int $hour, string|int $minute): string
+	private static function modifier(int $hour, int $minute, int $second = 0): string
 	{
-		$hour = (string) $hour;
-		$minute = (string) $minute;
-
-		if (trim($hour) === '') {
-			$hour = '0';
-		}
-		if (trim($minute) === '') {
-			$minute = '0';
-		}
-
-		return sprintf('+%s hour, +%s minute', $hour, $minute);
+		return sprintf('%s hour, %s minute, %s second', $hour, $minute, $second);
 	}
 
 
 	private static function isTimeFormat(string $any): bool
 	{
-		return Strings::match($any, '/^\d+:\d*(:\d*)?$/') !== null;
+		return Strings::match($any, '/^[+-]?\d+:\d*(:\d*)?$/') !== null;
 	}
 
 
 	private static function fromTimeFormat(string $any, \DateTime $date): \DateTime
 	{
-		[$hour, $minute, $second] = explode(':', $any . ':0:0');
-		$date->setTime((int) $hour, (int) $minute, (int) $second);
+		['hour' => $hour, 'minute' => $minute, 'second' => $second, 'modify' => $modify] = self::explodeTime($any);
+		if ($modify) {
+			$date->modify(self::modifier($hour, $minute, $second));
+		} else {
+			$date->setTime($hour, $minute, $second);
+		}
 
 		return $date;
 	}
@@ -87,6 +83,40 @@ final class DateTime
 		}
 
 		throw new InvalidArgumentsException(sprintf('Unknown option format date. "%s"', $any));
+	}
+
+
+	private static function isModification(string $string): bool
+	{
+		return Arrays::startWith($string, '+', '-');
+	}
+
+
+	/**
+	 * @return array{hour: int, minute: int, second: int, modify: bool}
+	 */
+	private static function explodeTime(string $time): array
+	{
+		$char = substr($time, 0, 1);
+		$way = 1;
+		$modify = true;
+		if ($char === '-') {
+			$way = -1;
+			$time = substr($time, 1);
+		} elseif ($char === '+') {
+			$time = substr($time, 1);
+		} else {
+			$modify = false;
+		}
+
+		[$hour, $minute, $second] = explode(':', $time . ':0:0');
+
+		return [
+			'hour' => (int) $hour * $way,
+			'minute' => (int) $minute * $way,
+			'second' => (int) $second * $way,
+			'modify' => $modify,
+		];
 	}
 }
 

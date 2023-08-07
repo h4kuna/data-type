@@ -9,15 +9,15 @@ use Nette\Utils;
 final class Floats
 {
 
-	public static function fromString(
+	public static function from(
 		mixed $value,
 		string $decimalPoint = ',',
 		string $thousandSeparator = ' '
 	): float
 	{
-		if (is_numeric($value)) {
+		if (is_numeric($value) || $value === '' || is_bool($value) || $value === null) {
 			return (float) $value;
-		} elseif ($value === '' || is_bool($value) || $value === null || is_array($value) || is_object($value)) {
+		} elseif (is_array($value) || is_object($value)) {
 			throw InvalidTypeException::invalidFloat($value);
 		}
 		assert(is_string($value));
