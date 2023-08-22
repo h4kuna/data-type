@@ -82,30 +82,6 @@ Calendar::getName(new DateTime('2013-12-24')));
 // Adam a Eva
 ```
 
-DatePeriod
-==========
-Class has method **create($from, $to, $interval = null, $options = 4)**, witch it receives parameters like string.
-
-```php
-$period = DatePeriod::create('2017-10-10', '2017-10-12');
-foreach ($period as $date) {
-    // 2017-10-10
-    // 2017-10-11
-    // 2017-10-12
-}
-``` 
-
-DateTimeString
-==============
-Class guaranteed date is valid if return \Datetime object. For example if you send **2018-02-29** than standard `\DateTime::createFromFormat();` return **2018-03-01 HH:MM:SS.UUUUUU**.
-
-```php
-DateTimeString::from('d.m.Y', '29.2.2018'); // null
-DateTimeString::from('d.m.Y', '28.2.2018'); // object \Datetime
-```
-
-You can set own Datetime class.
-
 ```php
 class MyDatetime extends \DateTime
 {
