@@ -3,6 +3,7 @@
 namespace h4kuna\DataType\Tests\Unit\Date;
 
 use DateTime;
+use DateTimeImmutable;
 use h4kuna\DataType\Date;
 use Tester\Assert;
 use Tester\TestCase;
@@ -12,7 +13,7 @@ require_once __DIR__ . '/../../../bootstrap.php';
 /**
  * @testCase
  */
-final class DateTimeTest extends TestCase
+final class ParserTest extends TestCase
 {
 	/**
 	 * @return array<array<mixed>>
@@ -23,7 +24,8 @@ final class DateTimeTest extends TestCase
 			['expected' => '2023-06-11 07:00:00', 'input' => ''],
 			['expected' => self::format(new DateTime()), 'input' => 'now'],
 			['expected' => '2023-06-11 07:00:00', 'input' => '0'],
-			['expected' => '2023-06-11 07:30:00', 'input' => '0.5'], // decimal number has same behavior with or without +
+			['expected' => '2023-06-11 07:30:00', 'input' => '0.5'],
+			// decimal number has same behavior with or without +
 			['expected' => '2023-06-11 07:30:00', 'input' => '+0.5'],
 			['expected' => '2023-06-11 07:30:00', 'input' => '+0,5'],
 			['expected' => '2023-06-11 06:30:00', 'input' => '-0,5'],
@@ -47,15 +49,21 @@ final class DateTimeTest extends TestCase
 	 */
 	public function testMakeFromString(string $expected, string $input): void
 	{
-		Assert::same($expected, self::format(Date\DateTime::fromString($input, new DateTime('2023-06-11 07:00:00'))));
+		$dateTimeResult = Date\Parser::fromString($input, new DateTime('2023-06-11 07:00:00'));
+		Assert::same($expected, self::format($dateTimeResult));
+		Assert::type(DateTime::class, $dateTimeResult);
+
+		$dateTimeImmutableResult = Date\Parser::fromString($input, new DateTimeImmutable('2023-06-11 07:00:00'));
+		Assert::type(DateTimeImmutable::class, $dateTimeImmutableResult);
+		Assert::same($expected, self::format($dateTimeImmutableResult));
 	}
 
 
-	private static function format(DateTime $dateTime): string
+	private static function format(\DateTimeInterface $dateTime): string
 	{
 		return $dateTime->format('Y-m-d H:i:s');
 	}
 
 }
 
-(new DateTimeTest())->run();
+(new ParserTest())->run();

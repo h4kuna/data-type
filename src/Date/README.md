@@ -100,16 +100,16 @@ DateTimeString::setClass(MyDatetime::class);
 Try to create object DateTime from string fragment.
 
 ```php
-use h4kuna\DataType\Date\DateTime;
+use h4kuna\DataType\Date\Parser;
 
-DateTime::fromString('1'); // today 01:00:00
-DateTime::fromString('1:20'); // today 01:20:00
-DateTime::fromString('1:20:30'); // today 01:20:30
-DateTime::fromString('+1'); // now +1 hour
-DateTime::fromString('-1'); // now -1 hour
-DateTime::fromString('-1.5'); // now -1 hour and -30 minutes 
-DateTime::fromString('-1:30'); // now -1 hour and -30 minutes
-DateTime::fromString('6-13 12:20'); // this year, 6. month, 13. day, time 12:20:00
+Parser::fromString('1'); // today 01:00:00
+Parser::fromString('1:20'); // today 01:20:00
+Parser::fromString('1:20:30'); // today 01:20:30
+Parser::fromString('+1'); // now +1 hour
+Parser::fromString('-1'); // now -1 hour
+Parser::fromString('-1.5'); // now -1 hour and -30 minutes 
+Parser::fromString('-1:30'); // now -1 hour and -30 minutes
+Parser::fromString('6-13 12:20'); // this year, 6. month, 13. day, time 12:20:00
 ```
 
 # Sleep
