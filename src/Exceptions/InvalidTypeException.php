@@ -17,6 +17,16 @@ final class InvalidTypeException extends DataTypeException
 	}
 
 
+	private static function toString(mixed $name): string
+	{
+		if ($name === null) {
+			return 'null';
+		}
+
+		return is_scalar($name) ? (string) $name : gettype($name);
+	}
+
+
 	public static function invalidString(mixed $name): self
 	{
 		return new self(self::toString($name), 'string');
@@ -38,16 +48,6 @@ final class InvalidTypeException extends DataTypeException
 	public static function invalidArray(mixed $name): self
 	{
 		return new self(self::toString($name), 'array');
-	}
-
-
-	private static function toString(mixed $name): string
-	{
-		if ($name === null) {
-			return 'null';
-		}
-
-		return is_scalar($name) ? (string) $name : gettype($name);
 	}
 
 }

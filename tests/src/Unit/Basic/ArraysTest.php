@@ -62,6 +62,15 @@ final class ArraysTest extends Tester\TestCase
 	}
 
 
+	public function testExplode(): void
+	{
+		Assert::same(['a', 'b'], Arrays::explode('a,b'));
+		Assert::same([], Arrays::explode(''));
+		Assert::exception(fn (
+		) => Arrays::explode('a,b', ''), h4kuna\DataType\Exceptions\InvalidArgumentsException::class);
+	}
+
+
 	public function testKeysUnset(): void
 	{
 		$array = [1 => 0, 2 => null, 3 => 'three', 4 => false, 5 => 'five', 6 => '', 7 => '0'];

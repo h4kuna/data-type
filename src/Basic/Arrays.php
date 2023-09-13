@@ -40,12 +40,43 @@ final class Arrays
 
 
 	/**
+	 * @deprecated use join
 	 * Implode only values where strlen > 0 and you can define keys.
-	 * @param array<string|int, scalar|null> $array
+	 * @param array<scalar|\Stringable|null> $array
 	 */
 	public static function concatWs(string $glue, array $array): string
 	{
-		return implode($glue, array_filter($array, fn ($v): bool => $v !== false && $v !== '' && $v !== null));
+		return self::join($array, $glue);
+	}
+
+
+	/**
+	 * The original implode/join(',', ['', null, false, 'A']) return ',,,A' right is 'A'.
+	 * @param array<scalar|\Stringable|null> $array
+	 */
+	public static function join(array $array, string $delimiter = ','): string
+	{
+		return implode(
+			$delimiter,
+			array_filter($array, static fn (mixed $value): bool => $value !== false && $value !== '' && $value !== null)
+		);
+	}
+
+
+	/**
+	 * The original explode(',', '') return [''] right is [].
+	 *
+	 * @return array<string>
+	 */
+	public static function explode(string $value, string $delimiter = ','): array
+	{
+		if ($delimiter === '') {
+			throw new DataType\Exceptions\InvalidArgumentsException('Delimiter like empty string is not allowed.');
+		} elseif ($value === '') {
+			return [];
+		}
+
+		return explode($delimiter, $value);
 	}
 
 

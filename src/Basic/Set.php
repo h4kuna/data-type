@@ -29,13 +29,13 @@ final class Set
 
 
 	/**
-	 * @param iterable<string, mixed> $set
+	 * @param array<string, bool|null> $set
 	 */
-	public static function toString(iterable $set): string
+	public static function toString(array $set): string
 	{
 		$out = [];
 		foreach ($set as $k => $v) {
-			if ($v !== null && $v !== '' && $v !== false) {
+			if ($v !== null && $v !== false) {
 				$out[] = $k;
 			}
 		}

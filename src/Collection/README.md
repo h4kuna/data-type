@@ -42,6 +42,40 @@ while(1) {
 }
 ```
 
+# LazyBuilder
+
+Keep objects by name. You can add objects of same type for use or add callbacks which return the defined type.
+
+For example DatetimeZone.
+
+```php
+use h4kuna\DataType\Collection\LazyBuilder;
+
+/**
+ * @extends LazyBuilder<DateTimeZone>
+ */
+class MyLazyBuilder extends LazyBuilder {
+
+}
+
+$builder = new MyLazyBuilder([
+    'czech' => new DateTimeZone('Europe/Prague'),
+    'germany' => fn() => new DateTimeZone('Europe/Berlin'), // add like a callback
+]);
+$builder->setDefault(fn() => new DateTimeZone('UTC'));
+
+$builder->add('france', new DateTimeZone('Europe/paris'));
+$builder->add('poland', fn() => new DateTimeZone('Europe/Warsaw')); // add like a callback
+
+$builder->has('germany'); // true, callback exists
+$builder->get('germany'); // instance of DateTimeZone with 'Europe/Berlin'
+
+$builder->has('italy'); // false
+$builder->get('italy'); // instance of DateTimeZone with 'UTC'
+
+```
+
+
 # StrictTypeArray
 
 Use for array<mixed> and you need strict type.

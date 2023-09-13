@@ -11,6 +11,9 @@ use Nette\Utils\Validators;
 
 final class Parser
 {
+	/** @var array<string> */
+	public static array $formats = ['d.m. H:i', 'm-d H:i', 'd.m.Y H:i', 'Y-m-d H:i', 'd.m.Y H:i:s', 'Y-m-d H:i:s'];
+
 	/**
 	 * @param string $any
 	 * @param DateTime|DateTimeImmutable|null $dateTime
@@ -91,13 +94,11 @@ final class Parser
 	 */
 	private static function fromFormat(string $any, bool $isDateTime): DateTime|DateTimeImmutable
 	{
-		$formats = ['d.m. H:i', 'm-d H:i', 'd.m.Y H:i', 'Y-m-d H:i', 'd.m.Y H:i:s', 'Y-m-d H:i:s'];
-
 		$callback = static fn (string $format, string $any) => $isDateTime
 			? DateTime::createFromFormat($format, $any)
 			: DateTimeImmutable::createFromFormat($format, $any);
 
-		foreach ($formats as $format) {
+		foreach (self::$formats as $format) {
 			$date = $callback($format, $any);
 			if ($date !== false) {
 				return $date;

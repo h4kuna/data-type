@@ -13,7 +13,8 @@
   ],
   "require": {
     "php": ">=8.0",
-    "nette/utils": "^3.0 || ^4.0"
+    "h4kuna/memoize": "^0.1.4",
+    "nette/utils": "^3.0.1 || ^4.0"
   },
   "autoload": {
     "psr-4": {
@@ -39,7 +40,7 @@
   },
   "scripts": {
     "phpstan": "vendor/bin/phpstan analyse",
-    "tests": "vendor/bin/tester -s --colors 1 -s -C tests/src",
-    "coverage": "vendor/bin/tester --coverage coverage.html --coverage-src src/ -s --colors 1 -s -C tests/src"
+    "tests": "vendor/bin/tester --colors 1 -s -C tests/src",
+    "coverage": "vendor/bin/tester --coverage coverage.html --coverage-src src/ --colors 1 -s -C tests/src"
   }
 }

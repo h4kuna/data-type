@@ -2,6 +2,6 @@
 
 namespace h4kuna\DataType\Exceptions;
 
-final class InvalidArgumentsException extends DataTypeException
+final class InvalidStateException extends DataTypeException
 {
 }
