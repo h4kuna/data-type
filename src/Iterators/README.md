@@ -1,5 +1,4 @@
-TextIterator
-------------
+# TextIterator
 
 Read the text line by line.
 
@@ -23,8 +22,7 @@ joe
 */
 ```
 
-FlattenArrayIterator
------------
+# FlattenArrayIterator
 
 Make one level array from multidimensional with to use delimiter for join keys.
 
@@ -63,8 +61,7 @@ foreach ($iterator as $key => $item) {
 // ]
 ```
 
-PeriodDayFactory
------------
+# PeriodDayFactory
 
 Iterate between dates by days. A time is reset to midnight.
 
@@ -78,4 +75,16 @@ foreach ($period as $date) {
     // last date is 1996-04-09
 }
 
+```
+
+# ActiveWait
+
+Use callback for resolve condition and wait for `true`.
+
+```php
+use h4kuna\DataType\Iterators\ActiveWait;
+
+$wait = new ActiveWait(0.3); // wait 0.3s = 300ms
+
+$wait->run(fn(): bool => random_int(1, 5) === 4);
 ```
