@@ -2,17 +2,18 @@
 
 namespace h4kuna\DataType\Collection;
 
+use Closure;
 use h4kuna\DataType\Exceptions\InvalidStateException;
 
 /**
  * @template T
- * @phpstan-type formatCallback callable(static $self): T
- * @phpstan-type defaultCallback callable(string|int $key, static $self, mixed $options): T
+ * @phpstan-type formatCallback Closure(static $self): T
+ * @phpstan-type defaultCallback Closure(string|int $key, static $self, mixed $options): T
  */
 class LazyBuilder
 {
 	/** @var ?defaultCallback */
-	private $default = null;
+	private ?Closure $default = null;
 
 	/**
 	 * @var array<string|int, T>
@@ -35,7 +36,7 @@ class LazyBuilder
 	 */
 	public function add(string|int $key, $setup): void
 	{
-		if (is_callable($setup)) {
+		if (self::isCallable($setup)) {
 			$this->factories[$key] = $setup;
 			unset($this->formats[$key]);
 		} else {
@@ -58,7 +59,7 @@ class LazyBuilder
 		if (isset($this->formats[$key]) === false) {
 			if (isset($this->factories[$key])) {
 				$service = $this->factories[$key];
-				$format = is_callable($service) ? $service($this) : $service;
+				$format = self::isCallable($service) ? $service($this) : $service;
 			} else {
 				$format = $this->getDefault()($key, $this, null);
 			}
@@ -73,7 +74,7 @@ class LazyBuilder
 	/**
 	 * @return defaultCallback
 	 */
-	public function getDefault(): callable
+	public function getDefault(): Closure
 	{
 		if ($this->default === null) {
 			$this->default = $this->createDefaultCallback();
@@ -90,7 +91,7 @@ class LazyBuilder
 	{
 		if ($this->default !== null) {
 			throw new InvalidStateException('Default format could be setup only onetime.');
-		} elseif (is_callable($default) === false) {
+		} elseif (self::isCallable($default) === false) {
 			$default = $this->createDefaultCallback($default);
 		}
 
@@ -102,13 +103,22 @@ class LazyBuilder
 	 * @param T|null $object
 	 * @return defaultCallback
 	 */
-	protected function createDefaultCallback($object = null): callable
+	protected function createDefaultCallback($object = null): Closure
 	{
 		if ($object === null) {
 			return static fn (string|int $key
 			) => throw new InvalidStateException(sprintf('Default format is not setup. Unknown key "%s".', $key));
 		}
 		throw new InvalidStateException('Default format is not setup.');
+	}
+
+
+	/**
+	 * @return ($object is Closure ? true : false)
+	 */
+	private static function isCallable(mixed $object): bool
+	{
+		return $object instanceof Closure; // keep Closure instead of is_callable, don't support class::__invoke()
 	}
 
 }

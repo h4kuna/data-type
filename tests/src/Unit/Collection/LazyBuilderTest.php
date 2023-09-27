@@ -17,7 +17,7 @@ final class LazyBuilderTest extends TestCase
 	public function testDefaultIsNotDefinedFailed(): void
 	{
 		Assert::throws(fn () => (new LazyBuilder())->get('any'), InvalidStateException::class);
-		Assert::throws(fn () => (new LazyBuilder())->setDefault('any'), InvalidStateException::class);
+		Assert::throws(fn () => (new LazyBuilder())->setDefault('any'), InvalidStateException::class); // @phpstan-ignore-line
 
 		$lazyBuilder = new LazyBuilder();
 		$lazyBuilder->setDefault(fn () => 'hello');;
