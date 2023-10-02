@@ -14,6 +14,7 @@ final class Parser
 	/** @var array<string> */
 	public static array $formats = ['d.m. H:i', 'm-d H:i', 'd.m.Y H:i', 'Y-m-d H:i', 'd.m.Y H:i:s', 'Y-m-d H:i:s'];
 
+
 	/**
 	 * @param string $any
 	 * @param DateTime|DateTimeImmutable|null $dateTime
@@ -47,16 +48,7 @@ final class Parser
 
 	private static function modifierFromFloat(float $value): string
 	{
-		$way = $value < 0 ? -1 : 1;
-		[$hour, $minute] = explode('.', (string) $value);
-
-		$minute = intval($minute);
-		$hour = intval($hour);
-		if ($minute !== 0) {
-			$minute = (int) round(6 / (1 / $minute));
-		}
-
-		return self::modifier($hour, $minute * $way);
+		return self::modifier(0, 0, (int) ($value * 3600));
 	}
 
 
