@@ -10,14 +10,18 @@ final class Math
 
 	/**
 	 * Allow number in interval and correct it.
+	 * @return ($number is int ? int : float)
 	 */
 	public static function interval(float|int $number, float|int $max, float|int $min = 0): float|int
 	{
 		if ($max < $min) {
 			throw new InvalidArgumentsException('Maximum is less than minimum.');
 		}
+		if (is_int($number)) {
+			return max((int) $min, min((int) $max, $number));
+		}
 
-		return max($min, min($max, $number));
+		return max((float) $min, min((float) $max, $number));
 	}
 
 

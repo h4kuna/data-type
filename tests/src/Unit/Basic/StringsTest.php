@@ -27,6 +27,15 @@ final class StringsTest extends Tester\TestCase
 	}
 
 
+	public function testStrokeToPoint(): void
+	{
+		Assert::same('1', Strings::strokeToPoint('1'));
+		Assert::same('1.1', Strings::strokeToPoint('1.1'));
+		Assert::same('1.1', Strings::strokeToPoint('1,1'));
+		Assert::same('1.1.1', Strings::strokeToPoint('1,1,1'));
+	}
+
+
 	public function testToGps(): void
 	{
 		$coordinate = Strings::toGps('51.1, 14.1');

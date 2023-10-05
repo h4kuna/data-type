@@ -19,6 +19,11 @@ final class Strings
 	}
 
 
+	public static function strokeToPoint(string $value): string
+	{
+		return strtr($value, [',' => '.']);
+	}
+
 	public static function toFloat(string $value): float
 	{
 		return Floats::from($value);
