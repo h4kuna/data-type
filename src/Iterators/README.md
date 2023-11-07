@@ -88,3 +88,20 @@ $wait = new ActiveWait(0.3); // wait 0.3s = 300ms
 
 $wait->run(fn(): bool => random_int(1, 5) === 4);
 ```
+
+# ReverseArray
+
+Run array from end to begin.
+
+```php
+use h4kuna\DataType\Iterators\ReverseArray;
+
+$iterator = new ReverseArray([1, 2, 3]);
+
+foreach ($iterator as $item) {
+    echo $item;
+}
+// 3
+// 2
+// 1
+```
