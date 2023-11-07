@@ -2,6 +2,7 @@
 
 namespace h4kuna\DataType\Basic;
 
+use h4kuna\DataType\Exceptions\InvalidStateException;
 use h4kuna\DataType\Exceptions\InvalidTypeException;
 use h4kuna\DataType\Location;
 
@@ -23,6 +24,7 @@ final class Strings
 	{
 		return strtr($value, [',' => '.']);
 	}
+
 
 	public static function toFloat(string $value): float
 	{
@@ -71,6 +73,36 @@ final class Strings
 	public static function toPascal(string $string): string
 	{
 		return ucfirst(self::toCamel($string));
+	}
+
+
+	/**
+	 * The original explode(',', '') return [''] right is [].
+	 *
+	 * @return array<string>
+	 */
+	public static function split(string $value, string $delimiter = ', '): array
+	{
+		if ($delimiter === '') {
+			throw new InvalidStateException('Delimiter like empty string is not allowed.');
+		} elseif ($value === '') {
+			return [];
+		}
+
+		return explode($delimiter, $value);
+	}
+
+
+	/**
+	 * The original implode/join(',', ['', null, false, 'A']) return ',,,A' right is 'A'.
+	 * @param array<scalar|null> $array
+	 */
+	public static function join(array $array, string $delimiter = ', '): string
+	{
+		return implode(
+			$delimiter,
+			array_filter($array, static fn (mixed $value): bool => $value !== false && $value !== '' && $value !== null)
+		);
 	}
 
 

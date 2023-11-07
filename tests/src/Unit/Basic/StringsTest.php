@@ -167,6 +167,66 @@ final class StringsTest extends Tester\TestCase
 		Assert::same($expected, Strings::padIfNeed(...$input));
 	}
 
+
+	/**
+	 * @return array<mixed>
+	 */
+	public function providerJoin(): array
+	{
+		return [
+			[
+				[['A', null, 0, '', '0', false, 'B']],
+				'A, 0, 0, B',
+			],
+			[
+				[['A', 'B'], '; '],
+				'A; B',
+			],
+		];
+	}
+
+
+	/**
+	 * @dataProvider providerJoin
+	 * @param array<array<scalar|null>> $input
+	 */
+	public function testJoin(array $input, string $expected): void
+	{
+		Assert::same($expected, Strings::join(...$input));
+	}
+
+
+	/**
+	 * @return array<mixed>
+	 */
+	public function provideJoinSplit(): array
+	{
+		return [
+			[[]],
+			[['a']],
+			[['a', 'b']],
+			[[''], []],
+			[[false], []],
+			[[null], []],
+		];
+	}
+
+
+	/**
+	 * @dataProvider provideJoinSplit
+	 * @param array<scalar|null> $input
+	 * @param array<mixed>|null $expected
+	 */
+	public function testJoinSplit(array $input, ?array $expected = null): void
+	{
+		if ($expected === null) {
+			$expected = $input;
+		}
+
+		$value = Strings::join($input, ':');
+		Assert::same($expected, Strings::split($value, ':'));
+	}
+
 }
 
 (new StringsTest())->run();

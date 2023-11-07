@@ -184,6 +184,25 @@ Basic\Strings::padIfNeed('foo#', '#', STR_PAD_BOTH); // #foo#
 Basic\Strings::padIfNeed('#foo#', '#', STR_PAD_BOTH); // #foo#
 ```
 
+## Strings::explode
+
+```php
+use h4kuna\DataType\Basic\Strings;
+
+Strings::split('foo', ''); // throw exception
+Strings::split(''); // return empty []
+```
+
+## Strings::join
+
+Filter falsy value empty string, null and empty string.
+
+```php
+use h4kuna\DataType\Basic\Strings;
+
+Strings::join('B', null, '', false, 'A'); // "B, A"
+```
+
 # Bitwise operations
 
 ```php
