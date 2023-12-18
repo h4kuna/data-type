@@ -2,8 +2,8 @@
 
 namespace h4kuna\DataType\Date;
 
-use DateTime;
-use DateTimeImmutable;
+use DateTimeInterface;
+use h4kuna\DataType\Basic\Strings;
 use Nette\StaticClass;
 
 final class Time
@@ -17,15 +17,34 @@ final class Time
 
 
 	/**
-	 * @return ($dateTime is DateTimeImmutable ? DateTimeImmutable : DateTime)
+	 * string format HH:MM[:SS]
 	 */
+	public static function only(string|DateTimeInterface $dateTime): int
+	{
+		if (is_string($dateTime)) {
+			$time = Strings::split($dateTime, ':');
+			$hour = $time[0] ?? 0;
+			$minute = $time[1] ?? 0;
+			$second = $time[2] ?? 0;
+		} else {
+			$hour = $dateTime->format('G');
+			$minute = $dateTime->format('i');
+			$second = $dateTime->format('s');
+		}
+
+		return ((int) $hour) * 3600
+			+ ((int) $minute) * 60
+			+ ((int) $second);
+	}
+
+
 	public static function time(
-		DateTime|DateTimeImmutable $dateTime,
+		DateTimeInterface $dateTime,
 		?int $hour = null,
 		?int $minutes = null,
 		?int $seconds = null,
 		?int $microseconds = null,
-	): DateTime|DateTimeImmutable
+	): DateTimeInterface
 	{
 		return $dateTime->setTime(
 			$hour ?? (int) $dateTime->format('G'),
@@ -36,15 +55,12 @@ final class Time
 	}
 
 
-	/**
-	 * @return ($dateTime is DateTimeImmutable ? DateTimeImmutable : DateTime)
-	 */
 	public static function date(
-		DateTime|DateTimeImmutable $dateTime,
+		DateTimeInterface $dateTime,
 		?int $year = null,
 		?int $month = null,
 		?int $day = null,
-	): DateTime|DateTimeImmutable
+	): DateTimeInterface
 	{
 		return $dateTime->setDate(
 			$year ?? (int) $dateTime->format('Y'),
