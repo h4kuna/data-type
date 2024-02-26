@@ -22,7 +22,7 @@ final class Strings
 
 	public static function strokeToPoint(string $value): string
 	{
-		return strtr($value, [',' => '.']);
+		return strtr($value, ',', '.');
 	}
 
 
@@ -95,6 +95,7 @@ final class Strings
 
 	/**
 	 * The original implode/join(',', ['', null, false, 'A']) return ',,,A' right is 'A'.
+	 *
 	 * @param array<scalar|null> $array
 	 */
 	public static function join(array $array, string $delimiter = ', '): string

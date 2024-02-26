@@ -6,7 +6,8 @@ use DateTime;
 use DateTimeImmutable;
 use h4kuna\DataType\Basic\Arrays;
 use h4kuna\DataType\Exceptions\InvalidArgumentsException;
-use Nette\Utils\Strings;
+use Nette\Utils\Strings as NetteStrings;
+use h4kuna\DataType\Basic\Strings;
 use Nette\Utils\Validators;
 
 final class Parser
@@ -34,7 +35,7 @@ final class Parser
 			return $dateTime;
 		}
 		$dateTime = clone $dateTime;
-		$prepareFloat = strtr($any, [',' => '.']);
+		$prepareFloat = Strings::strokeToPoint($any);
 
 		return match (true) {
 			$any === 'now' => $dateTime instanceof DateTime ? new DateTime() : new DateTimeImmutable(),
@@ -60,7 +61,7 @@ final class Parser
 
 	private static function isTimeFormat(string $any): bool
 	{
-		return Strings::match($any, '/^[+-]?\d+:\d*(:\d*)?$/') !== null;
+		return NetteStrings::match($any, '/^[+-]?\d+:\d*(:\d*)?$/') !== null;
 	}
 
 
