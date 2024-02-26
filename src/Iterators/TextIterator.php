@@ -3,6 +3,7 @@
 namespace h4kuna\DataType\Iterators;
 
 use h4kuna\DataType\Basic\BitwiseOperations;
+use Nette\Utils\Strings;
 
 /**
  * Iterate via line
@@ -59,10 +60,7 @@ class TextIterator extends \ArrayIterator
 	 */
 	private static function text2Array(string $text): array
 	{
-		$text = preg_replace("/\r\n|\n\r|\r/", "\n", $text);
-		assert($text !== null);
-
-		return explode("\n", $text);
+		return explode("\n", Strings::normalizeNewLines($text));
 	}
 
 

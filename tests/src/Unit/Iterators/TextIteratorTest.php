@@ -18,7 +18,7 @@ class TextIteratorTest extends \Tester\TestCase
 
 	protected function setUp()
 	{
-		$text = "\n1Lorem;ipsum;dolor sit;Windows\r\n Lorem;ipsum;dolor sit;Solaris \n\r Lorem;ipsum;dolor sit;Linux\nLorem;ipsum;dolor sit;Mac \r   \n\nLorem;ipsum;dolor sit;amet\n";
+		$text = "\n1Lorem;ipsum;dolor sit;Windows\r\n Lorem;ipsum;dolor sit;Solaris \r Lorem;ipsum;dolor sit;Linux\nLorem;ipsum;dolor sit;Mac \r   \n\nLorem;ipsum;dolor sit;amet\n";
 		$this->object = new TextIterator($text);
 	}
 
