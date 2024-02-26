@@ -227,6 +227,53 @@ final class StringsTest extends Tester\TestCase
 		Assert::same($expected, Strings::split($value, ':'));
 	}
 
+
+	/**
+	 * @dataProvider provideReplaceStart
+	 */
+	public function testReplaceStart(string $expected, string $subject, string $search, bool $isReplaced): void
+	{
+		$actual = Strings::replaceStart($subject, $search, '#');
+		Assert::same($expected, $actual);
+		Assert::same($isReplaced, $subject !== $actual);
+	}
+
+
+	/**
+	 * @return array<mixed>
+	 */
+	protected function provideReplaceStart(): array
+	{
+		return [
+			['#_foo', 'b.*r_foo', 'b.*r', true],
+			['#_foo', 'čš_foo', 'čš', true],
+			['_foo', '_foo', 'f', false],
+		];
+	}
+
+
+	/**
+	 * @dataProvider provideReplaceEnd
+	 */
+	public function testReplaceEnd(string $expected, string $subject, string $search, bool $isReplaced): void
+	{
+		$actual = Strings::replaceEnd($subject, $search, '#');
+		Assert::same($expected, $actual);
+		Assert::same($isReplaced, $subject !== $actual);
+	}
+
+
+	/**
+	 * @return array<mixed>
+	 */
+	protected function provideReplaceEnd(): array
+	{
+		return [
+			['foo_#', 'foo_b.*r', 'b.*r', true],
+			['foo_#', 'foo_čš', 'čš', true],
+			['oof_', 'oof_', 'f', false],
+		];
+	}
 }
 
 (new StringsTest())->run();

@@ -203,6 +203,22 @@ use h4kuna\DataType\Basic\Strings;
 Strings::join('B', null, '', false, 'A'); // "B, A"
 ```
 
+## Strings::replaceStart / Strings::replaceEnd
+
+Strictly replace from start or end, one match allowed. Case-sensitive
+
+```php
+use h4kuna\DataType\Basic\Strings;
+
+// matched
+Strings::replaceStart('FooBar', 'Foo', '#'); // #Bar
+Strings::replaceEnd('FooBar', 'Bar', '#'); // Foo#
+
+// not matched
+Strings::replaceStart('BarFoo', 'Foo', '#'); // BarFoo
+Strings::replaceEnd('BarFoo', 'Bar', '#'); // BarFoo
+```
+
 # Bitwise operations
 
 ```php

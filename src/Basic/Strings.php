@@ -138,4 +138,41 @@ final class Strings
 		}, $string));
 	}
 
+
+	public static function replaceStart(
+		string $subject,
+		string $search,
+		string $replacement = '',
+	): string
+	{
+		return self::strictReplace($subject, $search, $replacement, '^%s', 1);
+	}
+
+
+	public static function replaceEnd(
+		string $subject,
+		string $search,
+		string $replacement = '',
+	): string
+	{
+		return self::strictReplace($subject, $search, $replacement, '%s$', 1);
+	}
+
+
+	private static function strictReplace(
+		string $subject,
+		string $search,
+		string $replacement,
+		string $pattern,
+		int $limit = -1,
+	): string
+	{
+		return preg_replace(
+			sprintf(self::padIfNeed($pattern, '#', STR_PAD_BOTH), preg_quote($search, '#')),
+			$replacement,
+			$subject,
+			$limit,
+		) ?? $search;
+	}
+
 }
