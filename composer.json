@@ -13,6 +13,7 @@
   ],
   "require": {
     "php": ">=8.0",
+    "ext-mbstring": "*",
     "h4kuna/memoize": "^0.1.4",
     "nette/utils": "^3.0.1 || ^4.0"
   },
