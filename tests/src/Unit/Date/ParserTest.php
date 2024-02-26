@@ -20,12 +20,13 @@ final class ParserTest extends TestCase
 	 */
 	public function provideMakeFromString(): array
 	{
+		$y = date('Y');
 		return [
 			['expected' => '2023-06-11 07:00:00', 'input' => ''],
 			['expected' => self::format(new DateTime()), 'input' => 'now'],
 			['expected' => '2023-06-11 07:00:00', 'input' => '0'],
 			['expected' => '2023-06-11 07:30:00', 'input' => '0.5'],
-			//			// decimal number has same behavior with or without +
+			// decimal number has same behavior with or without +
 			['expected' => '2023-06-11 07:30:00', 'input' => '+0.5'],
 			['expected' => '2023-06-11 07:30:00', 'input' => '+0,5'],
 			['expected' => '2023-06-11 08:45:00', 'input' => '+1,75'],
@@ -40,7 +41,7 @@ final class ParserTest extends TestCase
 			['expected' => '2023-06-11 14:45:00', 'input' => '+7:45'],
 			['expected' => '2023-06-10 23:15:00', 'input' => '-7:45'],
 			['expected' => '2023-06-11 05:30:00', 'input' => '5:30'],
-			['expected' => '2023-06-12 06:45:00', 'input' => '12.6. 6:45'],
+			['expected' => "$y-06-12 06:45:00", 'input' => '12.6. 6:45'],
 			['expected' => '2024-06-12 06:45:00', 'input' => '12.6.2024 6:45'],
 			['expected' => '2023-06-11 07:00:00', 'input' => '2023-06-11 7:00'],
 		];
