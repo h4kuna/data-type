@@ -2,6 +2,8 @@
 
 namespace h4kuna\DataType\Date;
 
+use DateTime;
+use DateTimeImmutable;
 use DateTimeInterface;
 use h4kuna\DataType\Basic\Strings;
 use Nette\StaticClass;
@@ -38,13 +40,16 @@ final class Time
 	}
 
 
+	/**
+	 * @return ($dateTime is DateTime ? DateTime : DateTimeImmutable)
+	 */
 	public static function time(
-		DateTimeInterface $dateTime,
+		DateTime|DateTimeImmutable $dateTime,
 		?int $hour = null,
 		?int $minutes = null,
 		?int $seconds = null,
 		?int $microseconds = null,
-	): DateTimeInterface
+	): DateTime|DateTimeImmutable
 	{
 		return $dateTime->setTime(
 			$hour ?? (int) $dateTime->format('G'),
@@ -55,12 +60,15 @@ final class Time
 	}
 
 
+	/**
+	 * @return ($dateTime is DateTime ? DateTime : DateTimeImmutable)
+	 */
 	public static function date(
-		DateTimeInterface $dateTime,
+		DateTime|DateTimeImmutable $dateTime,
 		?int $year = null,
 		?int $month = null,
 		?int $day = null,
-	): DateTimeInterface
+	): DateTime|DateTimeImmutable
 	{
 		return $dateTime->setDate(
 			$year ?? (int) $dateTime->format('Y'),

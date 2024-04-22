@@ -2,8 +2,6 @@
 
 namespace h4kuna\DataType\Date;
 
-use h4kuna\DataType\Exceptions\InvalidArgumentsException;
-
 final class Sleep
 {
 	/**
