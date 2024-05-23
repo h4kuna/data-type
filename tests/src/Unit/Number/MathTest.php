@@ -2,6 +2,7 @@
 
 namespace h4kuna\DataType\Tests\Unit\Number;
 
+use DateTime;
 use h4kuna;
 use h4kuna\DataType\Number\Math;
 use Tester;
@@ -24,8 +25,21 @@ final class MathTest extends Tester\TestCase
 		Assert::same(2, Math::interval(2, 4, 1));
 		Assert::same(2, Math::interval(2, 4, 2));
 		Assert::same(3, Math::interval(2, 4, 3));
+		Assert::same(2, Math::interval(2, 4, null));
+		Assert::same(4, Math::interval(5, 4, null));
+		Assert::same(2, Math::interval(2, null, 1));
+		Assert::same(6, Math::interval(5, null, 6));
+		Assert::same(5, Math::interval(5, null, null));
 
 		Assert::same(-5, Math::interval(-5, -4, -6));
+
+		Assert::same(3.0, Math::interval(2.0, 4.0, 3.0));
+
+		$min = new DateTime('1986-12-30 00:00:00');
+		Assert::same($min, Math::interval(new DateTime('1986-12-29 23:59:59'), new DateTime('1986-12-31 00:00:00'), $min));
+
+		$max = new DateTime('1986-12-31 00:00:00');
+		Assert::same($max, Math::interval(new DateTime('1986-12-31 00:00:01'), $max, new DateTime('1986-12-30 00:00:00')));
 	}
 
 	/**
