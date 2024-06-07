@@ -9,7 +9,7 @@ final class Sleep
 	 */
 	public static function seconds(float $duration): void
 	{
-		usleep((int) ($duration * 1_000_000.0));
+		self::usleep((int) ($duration * 1_000_000.0));
 	}
 
 
@@ -18,7 +18,14 @@ final class Sleep
 	 */
 	public static function milliseconds(int $duration): void
 	{
-		self::seconds($duration / 1_000.0);
+		self::usleep($duration * 1_000);
 	}
 
+
+	private static function usleep(int $microseconds): void
+	{
+		if ($microseconds > 0) {
+			usleep($microseconds);
+		}
+	}
 }
