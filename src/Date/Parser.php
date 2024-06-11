@@ -6,12 +6,15 @@ use DateTime;
 use DateTimeImmutable;
 use h4kuna\DataType\Basic\Arrays;
 use h4kuna\DataType\Exceptions\InvalidArgumentsException;
+use Nette\StaticClass;
 use Nette\Utils\Strings as NetteStrings;
 use h4kuna\DataType\Basic\Strings;
 use Nette\Utils\Validators;
 
 final class Parser
 {
+	use StaticClass;
+
 	/** @var array<string> */
 	public static array $formats = ['d.m. H:i', 'm-d H:i', 'd.m.Y H:i', 'Y-m-d H:i', 'd.m.Y H:i:s', 'Y-m-d H:i:s'];
 

@@ -2,6 +2,8 @@
 
 namespace h4kuna\DataType\Number;
 
+use Nette\StaticClass;
+
 /**
  * @example
  * echo RomeNumber::getRome(1968); // MCMLXVIII
@@ -10,6 +12,8 @@ namespace h4kuna\DataType\Number;
  */
 class RomeNumber
 {
+	use StaticClass;
+
 	private const NUMBERS = [
 		'M' => 1000,
 		'CM' => 900,

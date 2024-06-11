@@ -3,6 +3,7 @@
 namespace h4kuna\DataType\Basic;
 
 use h4kuna\DataType;
+use Nette\StaticClass;
 
 /**
  * Transform set from string to array and vice versa
@@ -18,6 +19,7 @@ use h4kuna\DataType;
  */
 final class Set
 {
+	use StaticClass;
 
 	/**
 	 * @return array<string, true>

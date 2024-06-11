@@ -3,9 +3,11 @@
 namespace h4kuna\DataType\Basic;
 
 use h4kuna\DataType;
+use Nette\StaticClass;
 
 final class Arrays
 {
+	use StaticClass;
 
 	/**
 	 * Better array_combine where values array does not need same size.

@@ -4,9 +4,12 @@ namespace h4kuna\DataType\Date;
 
 use DateTime;
 use DateTimeImmutable;
+use Nette\StaticClass;
 
 final class Convert
 {
+	use StaticClass;
+
 	public static function timestampToImmutable(int $timestamp): DateTimeImmutable
 	{
 		return (new DateTimeImmutable())->setTimestamp($timestamp);

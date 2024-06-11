@@ -5,9 +5,11 @@ namespace h4kuna\DataType\Number;
 use DateTimeInterface;
 use h4kuna\DataType;
 use h4kuna\DataType\Exceptions\InvalidArgumentsException;
+use Nette\StaticClass;
 
 final class Math
 {
+	use StaticClass;
 
 	/**
 	 * Allow number in interval and correct it.

@@ -2,6 +2,8 @@
 
 namespace h4kuna\DataType\Collection;
 
+use h4kuna\DataType\Date\Time;
+
 /**
  * @phpstan-type Any mixed
  * @phpstan-type InfoType  array{time: float, message: Any}
@@ -29,7 +31,7 @@ class Counter implements \Countable
 	 */
 	public function tick($message = ''): void
 	{
-		$this->stack[] = ['message' => $message, 'time' => self::microtime()];
+		$this->stack[] = ['message' => $message, 'time' => Time::micro()];
 	}
 
 
@@ -52,7 +54,7 @@ class Counter implements \Countable
 		if ($this->ttl === self::DISABLE_GARBAGE) {
 			return false;
 		} elseif ($this->ttl > 0) {
-			return $this->isFullByTime(self::microtime() - $this->ttl);
+			return $this->isFullByTime(Time::micro() - $this->ttl);
 		}
 
 		return $this->isFullByCount($this->ttl * -1);
@@ -77,7 +79,7 @@ class Counter implements \Countable
 		if ($this->ttl === self::DISABLE_GARBAGE) {
 			return;
 		} elseif ($this->ttl > 0) {
-			$this->garbageByTime(self::microtime() - $this->ttl);
+			$this->garbageByTime(Time::micro() - $this->ttl);
 			return;
 		}
 
@@ -108,12 +110,6 @@ class Counter implements \Countable
 		for ($i = 0; $i < $diff; ++$i) {
 			array_shift($this->stack);
 		}
-	}
-
-
-	private static function microtime(): float
-	{
-		return microtime(true);
 	}
 
 

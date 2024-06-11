@@ -60,7 +60,7 @@ class TextIterator extends \ArrayIterator
 	 */
 	private static function text2Array(string $text): array
 	{
-		return explode("\n", Strings::normalizeNewLines($text));
+		return explode("\n", Strings::unixNewLines($text));
 	}
 
 

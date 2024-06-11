@@ -4,10 +4,12 @@ namespace h4kuna\DataType\Basic;
 
 use h4kuna\DataType;
 use h4kuna\DataType\Exceptions\InvalidTypeException;
+use Nette\StaticClass;
 use Nette\Utils;
 
 final class Floats
 {
+	use StaticClass;
 
 	public static function from(
 		mixed $value,

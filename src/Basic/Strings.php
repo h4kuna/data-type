@@ -5,9 +5,12 @@ namespace h4kuna\DataType\Basic;
 use h4kuna\DataType\Exceptions\InvalidStateException;
 use h4kuna\DataType\Exceptions\InvalidTypeException;
 use h4kuna\DataType\Location;
+use Nette\StaticClass;
 
 final class Strings
 {
+	use StaticClass;
+
 	public static function from(mixed $value): string
 	{
 		if (is_int($value) || is_float($value) || is_null($value)) {

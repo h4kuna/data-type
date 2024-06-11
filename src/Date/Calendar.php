@@ -7,10 +7,12 @@ use DateTimeInterface;
 use h4kuna\DataType;
 use h4kuna\DataType\Exceptions\InvalidArgumentsException;
 use h4kuna\Memoize\MemoryStorageStatic;
+use Nette\StaticClass;
 use Nette\Utils\Strings;
 
 final class Calendar
 {
+	use StaticClass;
 	use MemoryStorageStatic;
 
 	public static string $namesFile = __DIR__ . '/names.php';

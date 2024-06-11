@@ -4,9 +4,11 @@ namespace h4kuna\DataType\Date;
 
 use DateTimeImmutable;
 use h4kuna\Memoize\MemoryStorageStatic;
+use Nette\StaticClass;
 
 final class Easter
 {
+	use StaticClass;
 	use MemoryStorageStatic;
 
 	public static ?bool $useNative = null;

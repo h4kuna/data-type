@@ -2,8 +2,11 @@
 
 namespace h4kuna\DataType\Basic;
 
+use Nette\StaticClass;
+
 final class BitwiseOperations
 {
+	use StaticClass;
 
 	public static function check(int $number, int $flag): bool
 	{

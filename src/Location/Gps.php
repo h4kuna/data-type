@@ -4,10 +4,12 @@ namespace h4kuna\DataType\Location;
 
 use h4kuna\DataType;
 use h4kuna\DataType\Exceptions\InvalidArgumentsException;
+use Nette\StaticClass;
 use Nette\Utils\Strings;
 
 final class Gps
 {
+	use StaticClass;
 
 	private function __construct()
 	{

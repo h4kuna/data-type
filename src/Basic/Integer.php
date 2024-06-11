@@ -4,9 +4,11 @@ namespace h4kuna\DataType\Basic;
 
 use h4kuna\DataType;
 use h4kuna\DataType\Exceptions\InvalidTypeException;
+use Nette\StaticClass;
 
 final class Integer
 {
+	use StaticClass;
 
 	public static function from(mixed $value): int
 	{

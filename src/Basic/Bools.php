@@ -3,9 +3,11 @@
 namespace h4kuna\DataType\Basic;
 
 use h4kuna\DataType\Exceptions\InvalidTypeException;
+use Nette\StaticClass;
 
 final class Bools
 {
+	use StaticClass;
 
 	public static function from(mixed $value): bool
 	{
