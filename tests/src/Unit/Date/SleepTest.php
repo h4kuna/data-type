@@ -13,22 +13,55 @@ require __DIR__ . '/../../../bootstrap.php';
  */
 final class SleepTest extends TestCase
 {
-
-	public function testSeconds(): void
+	/**
+	 * @return array<mixed>
+	 */
+	public static function dataSeconds(): array
 	{
-		$start = microtime(true);
-		Sleep::seconds(0.5);
-		Assert::same(0.5, round(microtime(true) - $start, 1));
+		return [
+			[
+				0.5,
+			],
+			[
+				1.1,
+			],
+		];
 	}
 
 
-	public function testMilliseconds(): void
+	/**
+	 * @dataProvider dataSeconds
+	 */
+	public function testSeconds(float $sleep): void
 	{
 		$start = microtime(true);
-		Sleep::milliseconds(500);
-		Assert::same(0.5, round(microtime(true) - $start, 1));
+		Sleep::seconds($sleep);
+		Assert::same($sleep, round(microtime(true) - $start, 1));
 	}
 
+
+	/**
+	 * @param int<0, max> $sleep
+	 * @dataProvider provideMilliseconds
+	 */
+	public function testMilliseconds(int $sleep): void
+	{
+		$start = microtime(true);
+		Sleep::milliseconds($sleep);
+		Assert::same($sleep / 1_000, round(microtime(true) - $start, 1));
+	}
+
+
+	/**
+	 * @return array<mixed>
+	 */
+	protected function provideMilliseconds(): array
+	{
+		return [
+			[500],
+			[1100],
+		];
+	}
 }
 
 (new SleepTest())->run();

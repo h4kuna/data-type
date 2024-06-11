@@ -2,30 +2,46 @@
 
 namespace h4kuna\DataType\Date;
 
+use Nette\StaticClass;
+
 final class Sleep
 {
+	use StaticClass;
+
 	/**
 	 * @param float $duration like 0.5 as half second
 	 */
 	public static function seconds(float $duration): void
 	{
-		self::usleep((int) ($duration * 1_000_000.0));
+		$seconds = (int) $duration;
+		if ($seconds > 0) {
+			sleep($seconds);
+		}
+
+		$milli = $duration - $seconds;
+		if ($milli > 0) {
+			self::sleep($milli * 1_000.0);
+		}
 	}
 
 
 	/**
-	 * @param int $duration like 500 as half second
+	 * @param int<0, max> $duration like 500 as half second
 	 */
 	public static function milliseconds(int $duration): void
 	{
-		self::usleep($duration * 1_000);
+		if ($duration > 0) {
+			if ($duration > 999) {
+				self::seconds($duration / 1_000.0);
+			} else {
+				self::sleep($duration);
+			}
+		}
 	}
 
 
-	private static function usleep(int $microseconds): void
+	private static function sleep(int|float $milli): void
 	{
-		if ($microseconds > 0) {
-			usleep($microseconds);
-		}
+		usleep((int) ($milli * 1_000.0));
 	}
 }
