@@ -60,7 +60,11 @@ class TextIterator extends \ArrayIterator
 	 */
 	private static function text2Array(string $text): array
 	{
-		return explode("\n", Strings::unixNewLines($text));
+		$existsNewMethod = method_exists(Strings::class, 'unixNewLines'); // @phpstan-ignore-line
+		return explode("\n", $existsNewMethod
+			? Strings::unixNewLines($text)
+			: Strings::normalizeNewLines($text)
+		);
 	}
 
 
