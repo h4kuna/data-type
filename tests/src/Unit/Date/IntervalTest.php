@@ -23,14 +23,26 @@ final class IntervalTest extends TestCase
 		return [
 			'29. february exists' => [
 				static function (self $self) {
-					$interval = (new DateTime('2024-06-01 12:13:14'))->diff(new DateTime('2023-06-01 00:00:00'));
+					$interval = (new DateTime('2023-06-01 00:00:00'))->diff(new DateTime('2024-06-01 12:13:14'));
 					$self->assertToSeconds(31666394, $interval);
 				},
 			],
 			'only 28. february' => [
 				static function (self $self) {
-					$interval = (new DateTime('2023-06-01 12:13:14'))->diff(new DateTime('2022-06-01 00:00:00'));
+					$interval = (new DateTime('2022-06-01 00:00:00'))->diff(new DateTime('2023-06-01 12:13:14'));
 					$self->assertToSeconds(31579994, $interval);
+				},
+			],
+			'only 28. february invert' => [
+				static function (self $self) {
+					$interval = (new DateTime('2023-06-01 12:13:14'))->diff(new DateTime('2022-06-01 00:00:00'));
+					$self->assertToSeconds(-31579994, $interval);
+				},
+			],
+			'from string' => [
+				static function (self $self) {
+					$interval = (new DateInterval('P3Y6M4DT12H30M5S'));
+					$self->assertToSeconds(110842205, $interval);
 				},
 			],
 		];
