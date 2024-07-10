@@ -7,16 +7,16 @@ use Nette\Utils\Strings;
 
 /**
  * Iterate via line
- * @phpstan-type LINE string|array<int, string|null>
- * @extends \ArrayIterator<int, LINE>
+ * @template TValue
+ * @extends \ArrayIterator<int, TValue>
  */
 class TextIterator extends \ArrayIterator
 {
-
 	public const SKIP_EMPTY_LINE = 1048576; // 2^20
 	public const CSV_MODE = 2097152; // 2^21
 	public const SKIP_FIRST_LINE = 4194304; // 2^22
 	public const TRIM_LINE = 8388608; // 2^23
+	public const SKIP_EMPTY_AND_TRIM_LINE = self::TRIM_LINE | self::SKIP_EMPTY_LINE;
 
 	private string $_current = '';
 
@@ -31,7 +31,7 @@ class TextIterator extends \ArrayIterator
 
 
 	/**
-	 * @param array<string>|string $text
+	 * @param array<string|null>|string $text
 	 */
 	public function __construct(array|string $text)
 	{
@@ -86,7 +86,7 @@ class TextIterator extends \ArrayIterator
 	}
 
 
-	/** @return LINE */
+	/** @return TValue */
 	public function current(): mixed
 	{
 		$content = $this->_current;
@@ -111,6 +111,7 @@ class TextIterator extends \ArrayIterator
 
 	public function valid(): bool
 	{
+		$flags = $this->getFlags();
 		do {
 			if (parent::valid() === false) {
 				return false;
@@ -118,10 +119,10 @@ class TextIterator extends \ArrayIterator
 			$current = parent::current();
 			assert(is_string($current));
 			$this->_current = $current;
-			if (BitwiseOperations::check($this->getFlags(), self::TRIM_LINE)) {
+			if (BitwiseOperations::check($flags, self::TRIM_LINE)) {
 				$this->_current = trim($this->_current);
 			}
-		} while (BitwiseOperations::check($this->getFlags(), self::SKIP_EMPTY_LINE) && $this->_current === '' && $this->moveInternalPointer());
+		} while (BitwiseOperations::check($flags, self::SKIP_EMPTY_LINE) && $this->_current === '' && $this->moveInternalPointer());
 
 		return true;
 	}
