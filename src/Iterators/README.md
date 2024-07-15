@@ -10,15 +10,40 @@ bar
 joe";
 
 $textIterator = new TextIterator($incomingString);
-$textIterator->setFlags($textIterator::SKIP_EMPTY_LINE | $textIterator::TRIM_LINE);
 foreach($textIterator as $line) {
     echo $line;
 }
 /*
- * output will be trimed
+ * output will be trimmed and skip empty lines
 foo
 bar
 joe
+*/
+```
+
+# CsvIterator
+```php
+use h4kuna\DataType\Iterators\TextIterator;
+use h4kuna\DataType\Iterators\CsvIterator;
+$incomingString = "1Lorem,ipsum,dolor sit,Windows
+2Lorem,ipsum,dolor sit,Solaris
+
+3Lorem,ipsum,dolor sit,Linux
+4Lorem,ipsum,dolor sit,Mac
+";
+
+$csvIterator = new CsvIterator($incomingString);
+// or
+$csvIterator = new CsvIterator(new TextIterator($incomingString));
+
+foreach($csvIterator as $line) {
+    var_dump($line);
+}
+/*
+array{1Lorem, ipsum, dolor sit, Windows}
+array{2Lorem, ipsum, dolor sit, Solaris}
+array{3Lorem, ipsum, dolor sit, Linux}
+array{4Lorem, ipsum, dolor sit, Mac}
 */
 ```
 

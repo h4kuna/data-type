@@ -2,77 +2,51 @@
 
 namespace h4kuna\DataType\Tests\Unit\Iterators;
 
+use h4kuna;
 use h4kuna\DataType\Iterators\TextIterator;
-use Tester\Assert;
+use SplFileObject;
 
 require __DIR__ . '/bootstrap.php';
 
 /**
  * @testCase
  */
-class TextIteratorTest extends \Tester\TestCase
+final class TextIteratorTest extends \Tester\TestCase
 {
-
-	private TextIterator $object;
-
-
-	protected function setUp()
-	{
-		$text = "\n1Lorem;ipsum;dolor sit;Windows\r\n Lorem;ipsum;dolor sit;Solaris \r Lorem;ipsum;dolor sit;Linux\nLorem;ipsum;dolor sit;Mac \r   \n\nLorem;ipsum;dolor sit;amet\n";
-		$this->object = new TextIterator($text);
-	}
-
 
 	public function testNoSetup(): void
 	{
-		$compare = $this->loadContent();
-		Assert::same(loadResult('noSetup'), $compare);
+		$compare = createTextIterator(TextIterator::NoSetup);
+		assertContent('noSetup', toString($compare));
 	}
 
 
 	public function testSkipEmpty(): void
 	{
-		$this->object->setFlags(TextIterator::SKIP_EMPTY_LINE);
-		$compare = $this->loadContent();
-		Assert::same(loadResult('emptyLine'), $compare);
+		$compare = createTextIterator(TextIterator::KeepEmptyLine);
+		assertContent('keepEmptyLine', toString($compare));
 	}
 
 
 	public function testSkipEmptyTrim(): void
 	{
-		$this->object->setFlags(TextIterator::SKIP_EMPTY_LINE | TextIterator::TRIM_LINE);
-		$compare = $this->loadContent();
-		Assert::same(loadResult('trimEmptyLine'), $compare);
+		$compare = createTextIterator(TextIterator::KeepEmptyLine | TextIterator::SkipTrimLine);
+		assertContent('keepEmptyLineAndSkipTrim', toString($compare));
 	}
 
 
-	public function testCsvWithHead(): void
+	/**
+	 * @throws h4kuna\DataType\Exceptions\InvalidStateException
+	 */
+	public function testFileObjectAsCsv(): void
 	{
-		$this->object->setCsv(';');
-		$compare = $this->loadContent();
-		Assert::same(loadResult('csvWithHead'), $compare);
+		$file = new SplFileObject(filepath());
+		$file->setFlags(SplFileObject::READ_CSV);
+		$file->setCsvControl(';');
+		$textIterator = new TextIterator($file);
+
+		toString($textIterator);
 	}
-
-
-	public function testCsv(): void
-	{
-		$this->object->setFlags(TextIterator::SKIP_FIRST_LINE);
-		$this->object->setCsv(';');
-		$compare = $this->loadContent();
-		Assert::same(loadResult('csv'), $compare);
-	}
-
-
-	private function loadContent(): string
-	{
-		$compare = [];
-		foreach ($this->object as $row) {
-			$compare[] = is_array($row) ? serialize($row) : $row;
-		}
-
-		return implode("\n", $compare);
-	}
-
 }
 
 (new TextIteratorTest)->run();

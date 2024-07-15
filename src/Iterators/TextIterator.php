@@ -2,137 +2,78 @@
 
 namespace h4kuna\DataType\Iterators;
 
+use Generator;
+use h4kuna\DataType\Basic\Arrays;
 use h4kuna\DataType\Basic\BitwiseOperations;
-use Nette\Utils\Strings;
+use h4kuna\DataType\Exceptions\InvalidStateException;
+use IteratorAggregate;
+use SplFileObject;
 
 /**
  * Iterate via line
- * @template TValue
- * @extends \ArrayIterator<int, TValue>
+ * @template TValue of string|non-empty-string
+ * @implements IteratorAggregate<int, TValue>
+ * @phpstan-type VIterable array<scalar|null>|SplFileObject
  */
-class TextIterator extends \ArrayIterator
+final class TextIterator implements IteratorAggregate
 {
-	public const SKIP_EMPTY_LINE = 1048576; // 2^20
-	public const CSV_MODE = 2097152; // 2^21
-	public const SKIP_FIRST_LINE = 4194304; // 2^22
-	public const TRIM_LINE = 8388608; // 2^23
-	public const SKIP_EMPTY_AND_TRIM_LINE = self::TRIM_LINE | self::SKIP_EMPTY_LINE;
+	public const NoSetup = 0;
+	public const KeepEmptyLine = 1;
+	public const SkipFirstLine = 2;
+	public const SkipTrimLine = 4;
 
-	private string $_current = '';
-
-	private int $flags = 0;
-
-	/** @var array{delimiter: string, enclosure: string, escape: string} */
-	private array $csv = [
-		'delimiter' => ',',
-		'enclosure' => '"',
-		'escape' => '\\',
-	];
+	/** @var VIterable */
+	private array|SplFileObject $data;
 
 
 	/**
-	 * @param array<string|null>|string $text
+	 * @param VIterable|string $text
+	 * @param int $flags, trim line and skip empty line by default
 	 */
-	public function __construct(array|string $text)
+	public function __construct(
+		array|string|SplFileObject $text,
+		private int $flags = self::NoSetup
+	)
 	{
-		parent::__construct(is_array($text) ? $text : self::text2Array($text));
+		$this->data = is_string($text) ? Arrays::text2Array($text) : $text;
 	}
 
 
 	/**
-	 * Active csv parser.
+	 * @return Generator<int, TValue>
 	 */
-	public function setCsv(string $delimiter = ',', string $enclosure = '"', string $escape = '\\'): static
+	public function getIterator(): Generator
 	{
-		$this->setFlags($this->getFlags() | self::SKIP_EMPTY_LINE | self::CSV_MODE | self::TRIM_LINE);
-		$this->csv = [
-			'delimiter' => $delimiter,
-			'enclosure' => $enclosure,
-			'escape' => $escape,
-		];
+		$isTrimEnabled = BitwiseOperations::check($this->flags, self::SkipTrimLine) === false;
+		$skipEmptyLine = BitwiseOperations::check($this->flags, self::KeepEmptyLine) === false;
 
-		return $this;
-	}
-
-
-	/**
-	 * @return array<string>
-	 */
-	private static function text2Array(string $text): array
-	{
-		$existsNewMethod = method_exists(Strings::class, 'unixNewLines'); // @phpstan-ignore-line
-		return explode("\n", $existsNewMethod
-			? Strings::unixNewLines($text)
-			: Strings::normalizeNewLines($text)
-		);
-	}
-
-
-	/**
-	 * Change API behavior *****************************************************
-	 * *************************************************************************
-	 */
-
-	public function setFlags(int $flags): void
-	{
-		parent::setFlags($flags);
-		$this->flags = $flags;
-	}
-
-
-	public function getFlags(): int
-	{
-		return parent::getFlags() | $this->flags;
-	}
-
-
-	/** @return TValue */
-	public function current(): mixed
-	{
-		$content = $this->_current;
-		if (BitwiseOperations::check($this->getFlags(), self::CSV_MODE)) {
-			$result = str_getcsv($content, $this->csv['delimiter'], $this->csv['enclosure'], $this->csv['escape']);
-
-			return $result;
+		if ($this->data instanceof SplFileObject) {
+			if (BitwiseOperations::check($this->data->getFlags(), SplFileObject::READ_CSV)) {
+				throw new InvalidStateException('SplFileObject is in csv read mode. Let\'s disable it and use CsvIterator() instead.');
+			}
+			$first = 0;
+		} else {
+			$first = array_key_first($this->data);
 		}
 
-		return $content;
-	}
+		foreach ($this->data as $key => $row) {
+			if ($first === $key && BitwiseOperations::check($this->flags, self::SkipFirstLine)) {
+				continue;
+			}
+			assert(is_array($row) === false);
 
+			$strRow = (string) $row;
 
-	public function rewind(): void
-	{
-		parent::rewind();
-		if ($this->valid() && BitwiseOperations::check($this->getFlags(), self::SKIP_FIRST_LINE)) {
-			$this->next();
+			if ($isTrimEnabled) {
+				$strRow = trim($strRow);
+			}
+
+			if ($skipEmptyLine && $strRow === '') {
+				continue;
+			}
+
+			/** @var TValue $strRow */
+			yield $key => $strRow;
 		}
 	}
-
-
-	public function valid(): bool
-	{
-		$flags = $this->getFlags();
-		do {
-			if (parent::valid() === false) {
-				return false;
-			}
-			$current = parent::current();
-			assert(is_string($current));
-			$this->_current = $current;
-			if (BitwiseOperations::check($flags, self::TRIM_LINE)) {
-				$this->_current = trim($this->_current);
-			}
-		} while (BitwiseOperations::check($flags, self::SKIP_EMPTY_LINE) && $this->_current === '' && $this->moveInternalPointer());
-
-		return true;
-	}
-
-
-	private function moveInternalPointer(): bool
-	{
-		$this->next();
-
-		return true;
-	}
-
 }

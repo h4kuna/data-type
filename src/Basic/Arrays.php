@@ -4,6 +4,7 @@ namespace h4kuna\DataType\Basic;
 
 use h4kuna\DataType;
 use Nette\StaticClass;
+use Nette\Utils\Strings;
 
 final class Arrays
 {
@@ -42,9 +43,9 @@ final class Arrays
 
 
 	/**
+	 * @param array<scalar|\Stringable|null> $array
 	 * @deprecated use join
 	 * Implode only values where strlen > 0 and you can define keys.
-	 * @param array<scalar|\Stringable|null> $array
 	 */
 	public static function concatWs(string $glue, array $array): string
 	{
@@ -150,6 +151,19 @@ final class Arrays
 	public static function mergeUnique(array $array1, array $array2, array ...$arrays): array
 	{
 		return array_values(array_unique(array_merge($array1, $array2, ...$arrays)));
+	}
+
+
+	/**
+	 * @return array<string>
+	 */
+	public static function text2Array(string $text): array
+	{
+		$existsNewMethod = method_exists(Strings::class, 'unixNewLines'); // @phpstan-ignore-line
+		return explode("\n", $existsNewMethod
+			? Strings::unixNewLines($text)
+			: Strings::normalizeNewLines($text)
+		);
 	}
 
 }
