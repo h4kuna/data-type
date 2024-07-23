@@ -9,6 +9,21 @@ final class Sleep
 	use StaticClass;
 
 	/**
+	 * @param int<0, max> $duration like 500 as half second
+	 */
+	public static function milliseconds(int $duration): void
+	{
+		if ($duration > 0) {
+			if ($duration > 999) {
+				self::seconds($duration / 1_000.0);
+			} else {
+				self::sleep($duration);
+			}
+		}
+	}
+
+
+	/**
 	 * @param float $duration like 0.5 as half second
 	 */
 	public static function seconds(float $duration): void
@@ -21,21 +36,6 @@ final class Sleep
 		$milli = $duration - $seconds;
 		if ($milli > 0) {
 			self::sleep($milli * 1_000.0);
-		}
-	}
-
-
-	/**
-	 * @param int<0, max> $duration like 500 as half second
-	 */
-	public static function milliseconds(int $duration): void
-	{
-		if ($duration > 0) {
-			if ($duration > 999) {
-				self::seconds($duration / 1_000.0);
-			} else {
-				self::sleep($duration);
-			}
 		}
 	}
 

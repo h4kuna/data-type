@@ -40,14 +40,14 @@ final class Convert
 	}
 
 
-	public static function toImmutable(DateTime|DateTimeImmutable $dateTime): DateTimeImmutable
-	{
-		return $dateTime instanceof DateTimeImmutable ? $dateTime : DateTimeImmutable::createFromMutable($dateTime);
-	}
-
-
 	public static function toImmutableMidnight(DateTime|DateTimeImmutable $dateTime): DateTimeImmutable
 	{
 		return self::toImmutable($dateTime)->setTime(0, 0, 0, 0);
+	}
+
+
+	public static function toImmutable(DateTime|DateTimeImmutable $dateTime): DateTimeImmutable
+	{
+		return $dateTime instanceof DateTimeImmutable ? $dateTime : DateTimeImmutable::createFromMutable($dateTime);
 	}
 }

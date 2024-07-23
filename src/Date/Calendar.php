@@ -24,6 +24,29 @@ final class Calendar
 
 
 	/**
+	 * @param null|int<0, 7>|string|DateTimeInterface $day
+	 */
+	public static function nameOfDay(null|int|string|DateTimeInterface $day = null): string
+	{
+		if ($day === null) {
+			$day = (int) date('w');
+		} elseif ($day instanceof DateTimeInterface) {
+			$day = (int) $day->format('w');
+		} elseif (is_numeric($day)) {
+			$day = (int) $day;
+		} else {
+			throw new InvalidArgumentsException('Input is allowed DateTimeInterface or numeric.');
+		}
+
+		if ($day === 0) {
+			$day = 7;
+		}
+
+		return self::getDays()[$day] ?? throw new InvalidArgumentsException('Invalid number for day, interval is 0-6, 0 = Sunday');
+	}
+
+
+	/**
 	 * @return array<string>
 	 */
 	public static function getDays(): array
@@ -39,6 +62,25 @@ final class Calendar
 				'Neděle',
 			];
 		});
+	}
+
+
+	/**
+	 * @param null|int<1, 12>|string|DateTimeInterface $month
+	 */
+	public static function nameOfMonth(null|int|string|DateTimeInterface $month = null): string
+	{
+		if ($month === null) {
+			$month = (int) date('n');
+		} elseif ($month instanceof DateTimeInterface) {
+			$month = (int) $month->format('n');
+		} elseif (is_numeric($month)) {
+			$month = (int) $month;
+		} else {
+			throw new InvalidArgumentsException('Input is allowed DateTimeInterface or numeric');
+		}
+
+		return self::getMonths()[$month] ?? throw new InvalidArgumentsException('Invalid number for day, interval is 1-12.');
 	}
 
 
@@ -63,47 +105,6 @@ final class Calendar
 				'Prosinec',
 			];
 		});
-	}
-
-
-	/**
-	 * @param null|int<0, 7>|string|DateTimeInterface $day
-	 */
-	public static function nameOfDay(null|int|string|DateTimeInterface $day = null): string
-	{
-		if ($day === null) {
-			$day = (int) date('w');
-		} elseif ($day instanceof DateTimeInterface) {
-			$day = (int) $day->format('w');
-		} elseif (is_numeric($day)) {
-			$day = (int) $day;
-		} else {
-			throw new InvalidArgumentsException('Input is allowed DateTimeInterface or numeric.');
-		}
-
-		if ($day === 0) {
-			$day = 7;
-		}
-
-		return self::getDays()[$day] ?? throw new InvalidArgumentsException('Invalid number for day, interval is 0-6, 0 = Sunday');
-	}
-
-	/**
-	 * @param null|int<1, 12>|string|DateTimeInterface $month
-	 */
-	public static function nameOfMonth(null|int|string|DateTimeInterface $month = null): string
-	{
-		if ($month === null) {
-			$month = (int) date('n');
-		} elseif ($month instanceof DateTimeInterface) {
-			$month = (int) $month->format('n');
-		} elseif (is_numeric($month)) {
-			$month = (int) $month;
-		} else {
-			throw new InvalidArgumentsException('Input is allowed DateTimeInterface or numeric');
-		}
-
-		return self::getMonths()[$month] ?? throw new InvalidArgumentsException('Invalid number for day, interval is 1-12.');
 	}
 
 
@@ -134,9 +135,9 @@ final class Calendar
 
 
 	/**
-	 * @deprecated see
-	 * @see Easter::monday()
 	 * @param ?int<1970, 2037> $year
+	 * @see Easter::monday()
+	 * @deprecated see
 	 */
 	public static function easter(?int $year = null): DateTimeImmutable
 	{

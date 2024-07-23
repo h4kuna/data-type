@@ -114,7 +114,7 @@ Parser::fromString('6-13 12:20'); // this year, 6. month, 13. day, time 12:20:00
 
 # Sleep
 
-Sleep in milliseconds 
+Sleep in milliseconds
 
 ```php
 use h4kuna\DataType\Date\Sleep;

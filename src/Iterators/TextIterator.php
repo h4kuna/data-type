@@ -28,7 +28,7 @@ final class TextIterator implements IteratorAggregate
 
 	/**
 	 * @param VIterable|string $text
-	 * @param int $flags, trim line and skip empty line by default
+	 * @param int $flags , trim line and skip empty line by default
 	 */
 	public function __construct(
 		array|string|SplFileObject $text,

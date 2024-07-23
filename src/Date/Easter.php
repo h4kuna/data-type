@@ -17,6 +17,15 @@ final class Easter
 	/**
 	 * @param ?int<1970, 2037> $year
 	 */
+	public static function monday(?int $year = null): DateTimeImmutable
+	{
+		return self::sunday($year)->modify('+1 day');
+	}
+
+
+	/**
+	 * @param ?int<1970, 2037> $year
+	 */
 	public static function sunday(?int $year = null): DateTimeImmutable
 	{
 		if (self::$useNative === null) {
@@ -29,6 +38,12 @@ final class Easter
 
 		return self::memoize([__METHOD__, $year], static fn (
 		): DateTimeImmutable => self::$useNative === true ? Convert::timestampToImmutable(self::native($year))->modify('today') : Convert::timestampToImmutable(self::counted($year)));
+	}
+
+
+	private static function native(int $year): int
+	{
+		return easter_date($year);
 	}
 
 
@@ -52,21 +67,6 @@ final class Easter
 		assert($result !== false);
 
 		return $result;
-	}
-
-
-	private static function native(int $year): int
-	{
-		return easter_date($year);
-	}
-
-
-	/**
-	 * @param ?int<1970, 2037> $year
-	 */
-	public static function monday(?int $year = null): DateTimeImmutable
-	{
-		return self::sunday($year)->modify('+1 day');
 	}
 
 

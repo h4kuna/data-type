@@ -20,6 +20,7 @@ $counter->count(); // 0, internally call garbage
 ```
 
 Next example:
+
 ```php
 use h4kuna\DataType\Collection\Counter;
 $counter = new Counter(2);
@@ -74,7 +75,6 @@ $builder->has('italy'); // false
 $builder->get('italy'); // instance of DateTimeZone with 'UTC'
 
 ```
-
 
 # StrictTypeArray
 

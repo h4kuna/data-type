@@ -5,10 +5,10 @@ namespace h4kuna\DataType\Date;
 use DateTime;
 use DateTimeImmutable;
 use h4kuna\DataType\Basic\Arrays;
+use h4kuna\DataType\Basic\Strings;
 use h4kuna\DataType\Exceptions\InvalidArgumentsException;
 use Nette\StaticClass;
 use Nette\Utils\Strings as NetteStrings;
-use h4kuna\DataType\Basic\Strings;
 use Nette\Utils\Validators;
 
 final class Parser
@@ -50,6 +50,12 @@ final class Parser
 	}
 
 
+	private static function isModification(string $string): bool
+	{
+		return Arrays::startWith($string, '+', '-');
+	}
+
+
 	private static function modifierFromFloat(float $value): string
 	{
 		return self::modifier(0, 0, (int) ($value * 3600));
@@ -86,32 +92,6 @@ final class Parser
 
 
 	/**
-	 * @return ($isDateTime is true ? DateTime : DateTimeImmutable)
-	 */
-	private static function fromFormat(string $any, bool $isDateTime): DateTime|DateTimeImmutable
-	{
-		$callback = static fn (string $format, string $any) => $isDateTime
-			? DateTime::createFromFormat($format, $any)
-			: DateTimeImmutable::createFromFormat($format, $any);
-
-		foreach (self::$formats as $format) {
-			$date = $callback($format, $any);
-			if ($date !== false) {
-				return $date;
-			}
-		}
-
-		throw new InvalidArgumentsException(sprintf('Unknown option format date. "%s"', $any));
-	}
-
-
-	private static function isModification(string $string): bool
-	{
-		return Arrays::startWith($string, '+', '-');
-	}
-
-
-	/**
 	 * @return array{hour: int, minute: int, second: int, modify: bool}
 	 */
 	private static function explodeTime(string $time): array
@@ -136,6 +116,26 @@ final class Parser
 			'second' => (int) $second * $way,
 			'modify' => $modify,
 		];
+	}
+
+
+	/**
+	 * @return ($isDateTime is true ? DateTime : DateTimeImmutable)
+	 */
+	private static function fromFormat(string $any, bool $isDateTime): DateTime|DateTimeImmutable
+	{
+		$callback = static fn (string $format, string $any) => $isDateTime
+			? DateTime::createFromFormat($format, $any)
+			: DateTimeImmutable::createFromFormat($format, $any);
+
+		foreach (self::$formats as $format) {
+			$date = $callback($format, $any);
+			if ($date !== false) {
+				return $date;
+			}
+		}
+
+		throw new InvalidArgumentsException(sprintf('Unknown option format date. "%s"', $any));
 	}
 }
 

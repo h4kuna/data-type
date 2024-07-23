@@ -5,6 +5,7 @@ namespace h4kuna\DataType\Basic;
 use h4kuna\DataType;
 use Nette\StaticClass;
 use Nette\Utils\Strings;
+use Stringable;
 
 final class Arrays
 {
@@ -43,7 +44,7 @@ final class Arrays
 
 
 	/**
-	 * @param array<scalar|\Stringable|null> $array
+	 * @param array<scalar|Stringable|null> $array
 	 * @deprecated use join
 	 * Implode only values where strlen > 0 and you can define keys.
 	 */
@@ -55,7 +56,7 @@ final class Arrays
 
 	/**
 	 * The original implode/join(',', ['', null, false, 'A']) return ',,,A' right is 'A'.
-	 * @param array<scalar|\Stringable|null> $array
+	 * @param array<scalar|Stringable|null> $array
 	 */
 	public static function join(array $array, string $delimiter = ','): string
 	{

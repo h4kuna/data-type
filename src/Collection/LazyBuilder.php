@@ -45,6 +45,15 @@ class LazyBuilder
 	}
 
 
+	/**
+	 * @return ($object is Closure ? true : false)
+	 */
+	private static function isCallable(mixed $object): bool
+	{
+		return $object instanceof Closure; // keep Closure instead of is_callable, don't support class::__invoke()
+	}
+
+
 	public function has(string|int $key): bool
 	{
 		return isset($this->formats[$key]) || isset($this->factories[$key]);
@@ -110,15 +119,6 @@ class LazyBuilder
 			) => throw new InvalidStateException(sprintf('Default format is not setup. Unknown key "%s".', $key));
 		}
 		throw new InvalidStateException('Default format is not setup.');
-	}
-
-
-	/**
-	 * @return ($object is Closure ? true : false)
-	 */
-	private static function isCallable(mixed $object): bool
-	{
-		return $object instanceof Closure; // keep Closure instead of is_callable, don't support class::__invoke()
 	}
 
 }

@@ -53,6 +53,15 @@ final class Gps
 
 
 	/**
+	 * @return array{lat: float, long: float}
+	 */
+	private static function coordinate(float $x, float $y): array
+	{
+		return [$x, $y, 'lat' => $x, 'long' => $y];
+	}
+
+
+	/**
 	 * Transform coordinate.
 	 */
 	private static function checkCoordinate(float $num, string $pole): float
@@ -85,15 +94,6 @@ final class Gps
 	private static function degToDec(int|float $degrees, int|float $minutes, int|float $seconds = 0.0): float
 	{
 		return (float) ($degrees + $minutes / 60 + $seconds / 3600);
-	}
-
-
-	/**
-	 * @return array{lat: float, long: float}
-	 */
-	private static function coordinate(float $x, float $y): array
-	{
-		return [$x, $y, 'lat' => $x, 'long' => $y];
 	}
 
 }

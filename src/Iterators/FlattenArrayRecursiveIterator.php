@@ -2,10 +2,12 @@
 
 namespace h4kuna\DataType\Iterators;
 
+use RecursiveIteratorIterator;
+
 /**
- * @extends \RecursiveIteratorIterator<FlattenArrayIterator>
+ * @extends RecursiveIteratorIterator<FlattenArrayIterator>
  */
-final class FlattenArrayRecursiveIterator extends \RecursiveIteratorIterator
+final class FlattenArrayRecursiveIterator extends RecursiveIteratorIterator
 {
 
 	/**

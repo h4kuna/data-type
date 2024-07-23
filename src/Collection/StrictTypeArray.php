@@ -71,6 +71,15 @@ final class StrictTypeArray
 
 
 	/**
+	 * @return array<string>|null
+	 */
+	public function arrayNull(string $name): ?array
+	{
+		return isset($this->data[$name]) ? $this->array($name) : null;
+	}
+
+
+	/**
 	 * @return array<string>
 	 */
 	public function array(string $name): array
@@ -81,15 +90,6 @@ final class StrictTypeArray
 		}
 
 		return $value;
-	}
-
-
-	/**
-	 * @return array<string>|null
-	 */
-	public function arrayNull(string $name): ?array
-	{
-		return isset($this->data[$name]) ? $this->array($name) : null;
 	}
 
 }

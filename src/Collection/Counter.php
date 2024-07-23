@@ -2,13 +2,14 @@
 
 namespace h4kuna\DataType\Collection;
 
+use Countable;
 use h4kuna\DataType\Date\Time;
 
 /**
  * @phpstan-type Any mixed
  * @phpstan-type InfoType  array{time: float, message: Any}
  */
-class Counter implements \Countable
+class Counter implements Countable
 {
 	public const DISABLE_GARBAGE = 0;
 
@@ -61,16 +62,28 @@ class Counter implements \Countable
 	}
 
 
+	private function isFullByTime(float $ttl): bool
+	{
+		$key = array_key_first($this->stack);
+		if ($key === null) {
+			return false;
+		}
+
+		return $this->stack[$key]['time'] < $ttl;
+	}
+
+
+	private function isFullByCount(int $maxCount): bool
+	{
+		$actualCount = count($this->stack);
+		return $maxCount < $actualCount;
+	}
+
+
 	public function count(): int
 	{
 		$this->garbage();
 		return count($this->stack);
-	}
-
-
-	public function reset(): void
-	{
-		$this->stack = [];
 	}
 
 
@@ -113,20 +126,8 @@ class Counter implements \Countable
 	}
 
 
-	private function isFullByTime(float $ttl): bool
+	public function reset(): void
 	{
-		$key = array_key_first($this->stack);
-		if ($key === null) {
-			return false;
-		}
-
-		return $this->stack[$key]['time'] < $ttl;
-	}
-
-
-	private function isFullByCount(int $maxCount): bool
-	{
-		$actualCount = count($this->stack);
-		return $maxCount < $actualCount;
+		$this->stack = [];
 	}
 }

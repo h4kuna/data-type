@@ -2,11 +2,13 @@
 
 namespace h4kuna\DataType\Iterators;
 
+use RecursiveIterator;
+
 /**
  * @example new \RecursiveIteratorIterator(new FlattenArrayIterator($data));
- * @implements \RecursiveIterator<string, mixed>
+ * @implements RecursiveIterator<string, mixed>
  */
-final class FlattenArrayIterator implements \RecursiveIterator
+final class FlattenArrayIterator implements RecursiveIterator
 {
 
 	/**
@@ -20,12 +22,6 @@ final class FlattenArrayIterator implements \RecursiveIterator
 	 */
 	public function __construct(private array $data, private string $delimiter = '-')
 	{
-	}
-
-
-	public function current(): mixed
-	{
-		return current($this->data);
 	}
 
 
@@ -67,10 +63,16 @@ final class FlattenArrayIterator implements \RecursiveIterator
 	}
 
 
+	public function current(): mixed
+	{
+		return current($this->data);
+	}
+
+
 	/**
-	 * @return \RecursiveIterator<string, mixed>
+	 * @return RecursiveIterator<string, mixed>
 	 */
-	public function getChildren(): ?\RecursiveIterator
+	public function getChildren(): ?RecursiveIterator
 	{
 		$current = $this->current();
 		assert(is_array($current));

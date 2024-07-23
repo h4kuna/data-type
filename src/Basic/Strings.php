@@ -11,18 +11,6 @@ final class Strings
 {
 	use StaticClass;
 
-	public static function from(mixed $value): string
-	{
-		if (is_int($value) || is_float($value) || is_null($value)) {
-			return (string) $value;
-		} elseif (is_string($value) === false) {
-			throw InvalidTypeException::invalidString($value);
-		}
-
-		return $value;
-	}
-
-
 	public static function strokeToPoint(string $value): string
 	{
 		return strtr($value, ',', '.');
@@ -32,6 +20,18 @@ final class Strings
 	public static function toFloat(string $value): float
 	{
 		return Floats::from($value);
+	}
+
+
+	public static function from(mixed $value): string
+	{
+		if (is_int($value) || is_float($value) || is_null($value)) {
+			return (string) $value;
+		} elseif (is_string($value) === false) {
+			throw InvalidTypeException::invalidString($value);
+		}
+
+		return $value;
 	}
 
 
@@ -60,6 +60,15 @@ final class Strings
 
 
 	/**
+	 * foo_bar => FooBar
+	 */
+	public static function toPascal(string $string): string
+	{
+		return ucfirst(self::toCamel($string));
+	}
+
+
+	/**
 	 * foo_bar => fooBar
 	 */
 	public static function toCamel(string $string): string
@@ -67,15 +76,6 @@ final class Strings
 		return (string) preg_replace_callback('/_([a-z])/', static function (array $find): string {
 			return strtoupper($find[1]);
 		}, $string);
-	}
-
-
-	/**
-	 * foo_bar => FooBar
-	 */
-	public static function toPascal(string $string): string
-	{
-		return ucfirst(self::toCamel($string));
 	}
 
 
@@ -110,22 +110,6 @@ final class Strings
 	}
 
 
-	public static function padIfNeed(string $string, string $padString = '/', int $padType = STR_PAD_LEFT): string
-	{
-		$length = mb_strlen($padString);
-		$prefix = $suffix = '';
-		if (($padType === STR_PAD_LEFT || $padType === STR_PAD_BOTH) && mb_substr($string, 0, $length) !== $padString) {
-			$prefix = $padString;
-		}
-
-		if (($padType === STR_PAD_RIGHT || $padType === STR_PAD_BOTH) && mb_substr($string, -$length) !== $padString) {
-			$suffix = $padString;
-		}
-
-		return "$prefix$string$suffix";
-	}
-
-
 	/**
 	 * FooBar => foo_bar
 	 */
@@ -153,16 +137,6 @@ final class Strings
 	}
 
 
-	public static function replaceEnd(
-		string $subject,
-		string $search,
-		string $replacement = '',
-	): string
-	{
-		return self::strictReplace($subject, $search, $replacement, '%s$', 1);
-	}
-
-
 	private static function strictReplace(
 		string $subject,
 		string $search,
@@ -177,6 +151,32 @@ final class Strings
 			$subject,
 			$limit,
 		) ?? $search;
+	}
+
+
+	public static function padIfNeed(string $string, string $padString = '/', int $padType = STR_PAD_LEFT): string
+	{
+		$length = mb_strlen($padString);
+		$prefix = $suffix = '';
+		if (($padType === STR_PAD_LEFT || $padType === STR_PAD_BOTH) && mb_substr($string, 0, $length) !== $padString) {
+			$prefix = $padString;
+		}
+
+		if (($padType === STR_PAD_RIGHT || $padType === STR_PAD_BOTH) && mb_substr($string, -$length) !== $padString) {
+			$suffix = $padString;
+		}
+
+		return "$prefix$string$suffix";
+	}
+
+
+	public static function replaceEnd(
+		string $subject,
+		string $search,
+		string $replacement = '',
+	): string
+	{
+		return self::strictReplace($subject, $search, $replacement, '%s$', 1);
 	}
 
 }
