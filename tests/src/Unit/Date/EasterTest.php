@@ -47,5 +47,5 @@ final class EasterTest extends TestCase
 
 }
 
-Memoize\Helpers::bypassMemoize();
+Memoize\Helper::bypassMemoize();
 (new EasterTest())->run();

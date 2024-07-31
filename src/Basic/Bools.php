@@ -9,6 +9,12 @@ final class Bools
 {
 	use StaticClass;
 
+	public static function nullable(mixed $value): ?bool
+	{
+		return $value === null ? null : self::from($value);
+	}
+
+
 	public static function from(mixed $value): bool
 	{
 		if ($value === true) {

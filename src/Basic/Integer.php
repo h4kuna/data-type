@@ -10,6 +10,12 @@ final class Integer
 {
 	use StaticClass;
 
+	public static function nullable(mixed $value): ?int
+	{
+		return $value === null ? null : self::from($value);
+	}
+
+
 	public static function from(mixed $value): int
 	{
 		if (is_bool($value) || is_int($value) || $value === null || $value === '' || (is_numeric($value) && $value == (int) $value)) {

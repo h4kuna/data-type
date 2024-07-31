@@ -274,6 +274,13 @@ final class StringsTest extends Tester\TestCase
 			['oof_', 'oof_', 'f', false],
 		];
 	}
+
+
+	public function testNullable(): void
+	{
+		Assert::null(Strings::nullable(null));
+		Assert::same('null', Strings::nullable('null'));
+	}
 }
 
 (new StringsTest())->run();

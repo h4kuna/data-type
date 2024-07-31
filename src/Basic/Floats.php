@@ -11,6 +11,12 @@ final class Floats
 {
 	use StaticClass;
 
+	public static function nullable(mixed $value): ?float
+	{
+		return $value === null ? null : self::from($value);
+	}
+
+
 	public static function from(
 		mixed $value,
 		string $decimalPoint = ',',

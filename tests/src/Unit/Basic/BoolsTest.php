@@ -66,6 +66,18 @@ final class BoolsTest extends TestCase
 		Bools::from($input);
 	}
 
+
+	/**
+	 * @dataProvider dataFrom
+	 */
+	public function testNullable(mixed $input, bool $expected): void
+	{
+		if ($input === null) {
+			$expected = null;
+		}
+		Assert::same($expected, Bools::nullable($input));
+	}
+
 }
 
 (new BoolsTest())->run();

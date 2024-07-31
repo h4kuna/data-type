@@ -14,16 +14,29 @@ require __DIR__ . '/../../../bootstrap.php';
  */
 final class IntegerTest extends Tester\TestCase
 {
-
-	public function testFromString(): void
+	/**
+	 * @return array<array<mixed>>
+	 */
+	protected function dataFrom(): array
 	{
-		Assert::same(1, Integer::from(1));
-		Assert::same(0, Integer::from(false));
-		Assert::same(0, Integer::from(null));
-		Assert::same(0, Integer::from(''));
-		Assert::same(1, Integer::from('1.0'));
-		Assert::same(1, Integer::from('1'));
-		Assert::same(1, Integer::from(' 1 '));
+		return [
+			[false, 0],
+			[null, 0],
+			['', 0],
+			[1, 1],
+			['1.0', 1],
+			['1', 1],
+			[' 1 ', 1],
+		];
+	}
+
+
+	/**
+	 * @dataProvider dataFrom
+	 */
+	public function testFromString(mixed $input, int $expected): void
+	{
+		Assert::same($expected, Integer::from($input));
 	}
 
 
@@ -33,6 +46,18 @@ final class IntegerTest extends Tester\TestCase
 	public function testFailed(): void
 	{
 		Assert::same(1, Integer::from('1.1')); // not int
+	}
+
+
+	/**
+	 * @dataProvider dataFrom
+	 */
+	public function testNullable(mixed $input, int $expected): void
+	{
+		if ($input === null) {
+			$expected = null;
+		}
+		Assert::same($expected, Integer::nullable($input));
 	}
 
 }

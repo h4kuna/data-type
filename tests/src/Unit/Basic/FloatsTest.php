@@ -13,27 +13,38 @@ require __DIR__ . '/../../../bootstrap.php';
  */
 final class FloatsTest extends \Tester\TestCase
 {
-
-	public function testFromString(): void
+	/**
+	 * @return array<array<mixed>>
+	 */
+	protected function dataFrom(): array
 	{
-		Assert::same(0.0, Floats::from('0'));
-		Assert::same(0.0, Floats::from('0.0'));
-		Assert::same(0.0, Floats::from('-0.0'));
-		Assert::same(0.0, Floats::from('-.0'));
-		Assert::same(0.0, Floats::from('-0.'));
-		Assert::same(0.0, Floats::from(''));
-		Assert::same(0.0, Floats::from(null));
-		Assert::same(1.0, Floats::from(true));
-		Assert::same(0.0, Floats::from(false));
+		return [
+			['0', 0.0],
+			['0.0', 0.0],
+			['-0.0', 0.0],
+			['-.0', 0.0],
+			['-0.', 0.0],
+			['', 0.0],
+			[null, 0.0],
+			[false, 0.0],
+			[true, 1.0],
+			[-1, -1.0],
+			[-1.0, -1.0],
+			['-1', -1.0],
+			['-1.0', -1.0],
+			['-1,0', -1.0],
+			[' - 1 , 0 ', -1.0],
+			['1:30', 1.5],
+		];
+	}
 
-		Assert::same(-1.0, Floats::from(-1));
-		Assert::same(-1.0, Floats::from(-1.0));
-		Assert::same(-1.0, Floats::from('-1'));
-		Assert::same(-1.0, Floats::from('-1.0'));
-		Assert::same(-1.0, Floats::from('-1,0'));
-		Assert::same(-1.0, Floats::from(' - 1 , 0 '));
 
-		Assert::same(1.5, Floats::from('1:30'));
+	/**
+	 * @dataProvider dataFrom
+	 */
+	public function testFromString(mixed $input, float $expected): void
+	{
+		Assert::same($expected, Floats::from($input));
 	}
 
 
@@ -59,6 +70,18 @@ final class FloatsTest extends \Tester\TestCase
 	public function testThousand(): void
 	{
 		Assert::same(3620.0, Floats::from('3.620,00', ',', '.'));
+	}
+
+
+	/**
+	 * @dataProvider dataFrom
+	 */
+	public function testNullable(mixed $input, float $expected): void
+	{
+		if ($input === null) {
+			$expected = null;
+		}
+		Assert::same($expected, Floats::nullable($input));
 	}
 
 }

@@ -11,6 +11,12 @@ final class Strings
 {
 	use StaticClass;
 
+	public static function nullable(mixed $value): ?string
+	{
+		return $value === null ? null : self::from($value);
+	}
+
+
 	public static function strokeToPoint(string $value): string
 	{
 		return strtr($value, ',', '.');
