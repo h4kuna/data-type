@@ -31,17 +31,18 @@
     }
   },
   "require-dev": {
-    "nette/tester": "^2.4",
-    "phpstan/phpstan": "^1.8",
-    "phpstan/phpstan-strict-rules": "^1.4",
+    "phpstan/phpstan": "^2.0",
+    "phpstan/phpstan-strict-rules": "^2.0",
+    "phpstan/phpstan-deprecation-rules": "^2.0",
     "tracy/tracy": "^2.9"
   },
   "config": {
     "sort-packages": true
   },
   "scripts": {
+    "coverage": "vendor/bin/tester --coverage coverage.html --coverage-src src/ --colors 1 -s -C tests/src",
+    "qa": "composer stan && composer tests",
     "stan": "vendor/bin/phpstan analyse",
-    "tests": "vendor/bin/tester --colors 1 -s -C tests/src",
-    "coverage": "vendor/bin/tester --coverage coverage.html --coverage-src src/ --colors 1 -s -C tests/src"
+    "tests": "vendor/bin/tester --colors 1 -s -C tests/src"
   }
 }

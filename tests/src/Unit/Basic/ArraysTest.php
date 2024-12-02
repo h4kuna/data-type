@@ -66,8 +66,6 @@ final class ArraysTest extends Tester\TestCase
 	{
 		Assert::same(['a', 'b'], Arrays::explode('a,b'));
 		Assert::same([], Arrays::explode(''));
-		Assert::exception(fn (
-		) => Arrays::explode('a,b', ''), h4kuna\DataType\Exceptions\InvalidArgumentsException::class);
 	}
 
 

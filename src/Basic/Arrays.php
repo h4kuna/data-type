@@ -44,6 +44,16 @@ final class Arrays
 
 
 	/**
+	 * strict in_array
+	 * @param list<mixed>|array<string|int, mixed> $haystack
+	 */
+	public static function contains(string $needle, array $haystack): bool
+	{
+		return in_array($needle, $haystack, true);
+	}
+
+
+	/**
 	 * @param array<scalar|Stringable|null> $array
 	 * @deprecated use join
 	 * Implode only values where strlen > 0 and you can define keys.
@@ -69,14 +79,13 @@ final class Arrays
 
 	/**
 	 * The original explode(',', '') return [''] right is [].
+	 * @param non-empty-string $delimiter
 	 *
 	 * @return array<string>
 	 */
 	public static function explode(string $value, string $delimiter = ','): array
 	{
-		if ($delimiter === '') {
-			throw new DataType\Exceptions\InvalidArgumentsException('Delimiter like empty string is not allowed.');
-		} elseif ($value === '') {
+		if ($value === '') {
 			return [];
 		}
 
