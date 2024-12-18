@@ -124,7 +124,7 @@ final class Strings
 		return strtolower((string) preg_replace_callback('/(.)([A-Z][a-z])|([a-z])([A-Z])/', static function (
 			array $find,
 		): string {
-			if (isset($find[1]) && $find[1] !== '') {
+			if ($find[1] !== '') {
 				return $find[1] . '_' . $find[2];
 			}
 
