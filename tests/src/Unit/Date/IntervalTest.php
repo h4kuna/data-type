@@ -24,25 +24,31 @@ final class IntervalTest extends TestCase
 			'29. february exists' => [
 				static function (self $self) {
 					$interval = (new DateTime('2023-06-01 00:00:00'))->diff(new DateTime('2024-06-01 12:13:14'));
-					$self->assertToSeconds(31666394, $interval);
+					$self->assertToSeconds(31666394.0, $interval);
 				},
 			],
 			'only 28. february' => [
 				static function (self $self) {
 					$interval = (new DateTime('2022-06-01 00:00:00'))->diff(new DateTime('2023-06-01 12:13:14'));
-					$self->assertToSeconds(31579994, $interval);
+					$self->assertToSeconds(31579994.0, $interval);
 				},
 			],
 			'only 28. february invert' => [
 				static function (self $self) {
 					$interval = (new DateTime('2023-06-01 12:13:14'))->diff(new DateTime('2022-06-01 00:00:00'));
-					$self->assertToSeconds(-31579994, $interval);
+					$self->assertToSeconds(-31579994.0, $interval);
+				},
+			],
+			'miliseconds' => [
+				static function (self $self) {
+					$interval = (new DateTime('2022-06-01 00:00:00.55'))->diff(new DateTime('2023-06-01 12:13:14'));
+					$self->assertToSeconds(31579993.45, $interval);
 				},
 			],
 			'from string' => [
 				static function (self $self) {
 					$interval = (new DateInterval('P3Y6M4DT12H30M5S'));
-					$self->assertToSeconds(110842205, $interval);
+					$self->assertToSeconds(110842205.0, $interval);
 				},
 			],
 		];
@@ -60,11 +66,12 @@ final class IntervalTest extends TestCase
 
 
 	public function assertToSeconds(
-		int $expected,
+		float $expected,
 		DateInterval $dateInterval,
 	): void
 	{
-		Assert::same($expected, Interval::toSeconds($dateInterval));
+		Assert::same((int) round($expected), Interval::toSeconds($dateInterval));
+		Assert::same($expected, Interval::toSecondsMilli($dateInterval));
 	}
 }
 

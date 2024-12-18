@@ -11,6 +11,11 @@ final class Interval
 {
 	public static function toSeconds(DateInterval $dateInterval): int
 	{
+		return (int) round(self::toSecondsMilli($dateInterval));
+	}
+
+	public static function toSecondsMilli(DateInterval $dateInterval): float
+	{
 		if ($dateInterval->days === false) {
 			$days = $dateInterval->y * Utils\DateTime::YEAR
 				+ $dateInterval->m * Utils\DateTime::MONTH
@@ -21,7 +26,8 @@ final class Interval
 
 		$days += $dateInterval->h * Utils\DateTime::HOUR
 			+ $dateInterval->i * Utils\DateTime::MINUTE
-			+ $dateInterval->s;
+			+ $dateInterval->s
+			+ $dateInterval->f;
 
 		return $dateInterval->invert === 1 ? $days * -1 : $days;
 	}
