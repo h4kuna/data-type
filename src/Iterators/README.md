@@ -115,14 +115,14 @@ $wait = new ActiveWait(0.3); // wait 0.3s = 300ms
 $wait->run(fn(): bool => random_int(1, 5) === 4);
 ```
 
-# ReverseArray
+# ReverseIterator
 
 Run array from end to begin.
 
 ```php
-use h4kuna\DataType\Iterators\ReverseArray;
+use h4kuna\DataType\Iterators\ReverseIterator;
 
-$iterator = new ReverseArray([1, 2, 3]);
+$iterator = new ReverseIterator([1, 2, 3]);
 
 foreach ($iterator as $item) {
     echo $item;
