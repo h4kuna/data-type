@@ -4,7 +4,7 @@ namespace h4kuna\DataType\Iterators;
 
 use h4kuna\DataType\Date\Sleep;
 
-final class ActiveWait
+class ActiveWait
 {
 
 	public function __construct(

@@ -8,7 +8,7 @@ use RecursiveIterator;
  * @example new \RecursiveIteratorIterator(new FlattenArrayIterator($data));
  * @implements RecursiveIterator<string, mixed>
  */
-final class FlattenArrayIterator implements RecursiveIterator
+class FlattenArrayIterator implements RecursiveIterator
 {
 
 	/**

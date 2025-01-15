@@ -7,7 +7,7 @@ use RecursiveIteratorIterator;
 /**
  * @extends RecursiveIteratorIterator<FlattenArrayIterator>
  */
-final class FlattenArrayRecursiveIterator extends RecursiveIteratorIterator
+class FlattenArrayRecursiveIterator extends RecursiveIteratorIterator
 {
 
 	/**

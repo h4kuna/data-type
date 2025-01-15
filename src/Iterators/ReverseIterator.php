@@ -9,7 +9,7 @@ use Iterator;
  * @template TValue=mixed
  * @implements Iterator<TKey, TValue>
  */
-final class ReverseIterator implements Iterator
+class ReverseIterator implements Iterator
 {
 	/**
 	 * @var TKey

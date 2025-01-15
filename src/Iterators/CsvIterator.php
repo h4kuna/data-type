@@ -9,7 +9,7 @@ use SplFileObject;
 /**
  * @implements IteratorAggregate<int, array<string>>
  */
-final class CsvIterator implements IteratorAggregate
+class CsvIterator implements IteratorAggregate
 {
 	/** @var TextIterator<string|non-empty-string> */
 	private TextIterator $textIterator;

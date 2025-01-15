@@ -15,7 +15,7 @@ use SplFileObject;
  * @implements IteratorAggregate<int, TValue>
  * @phpstan-type VIterable array<scalar|null>|SplFileObject
  */
-final class TextIterator implements IteratorAggregate
+class TextIterator implements IteratorAggregate
 {
 	public const NoSetup = 0;
 	public const KeepEmptyLine = 1;
