@@ -102,3 +102,42 @@ $strictTypeArray->stringNull('d'); // null
 $strictTypeArray->int('b'); // 1
 $strictTypeArray->float('b'); // 1.0
 ```
+
+# JsonToHtml
+
+is abstract class what convert setup from server for javascript by json. You must extend the class and define property yourself. And load it by JSON.parse().
+
+```php
+use h4kuna\DataType\Collection\JsonToHtml;
+
+class MyJsonConfig extends JsonToHtml {
+    public int $foo = 1;
+    
+    public function __construct() {
+        parent::__construct('my-config');
+    }
+} 
+
+
+$myJsonConfig = new MyJsonConfig();
+$myJsonConfig->foo = 10;
+
+(string) $myJsonConfig;
+// <script type="text/json" id="my-config">{"foo":10}</script>
+```
+
+Typescript
+
+```typescript
+export function loadConfig<T>(id: string): T {
+    const c = document.getElementById(id)
+
+    if (c === null) {
+        throw new Error(`Could not find element with id '${id}'`)
+    }
+
+    return JSON.parse(c.textContent || c.innerHTML) as T
+}
+
+console.log(loadConfig('my-config'));
+```

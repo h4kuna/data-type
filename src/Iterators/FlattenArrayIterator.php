@@ -7,6 +7,7 @@ use RecursiveIterator;
 /**
  * @example new \RecursiveIteratorIterator(new FlattenArrayIterator($data));
  * @implements RecursiveIterator<string, mixed>
+ * @phpstan-consistent-constructor
  */
 class FlattenArrayIterator implements RecursiveIterator
 {
