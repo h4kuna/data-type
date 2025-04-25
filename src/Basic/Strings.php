@@ -23,6 +23,12 @@ final class Strings
 	}
 
 
+	public static function key(string|int ...$values): string
+	{
+		return self::join($values, "\x00");
+	}
+
+
 	public static function toFloat(string $value): float
 	{
 		return Floats::from($value);

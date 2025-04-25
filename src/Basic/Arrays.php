@@ -83,13 +83,15 @@ final class Arrays
 	 *
 	 * @return array<string>
 	 */
-	public static function explode(string $value, string $delimiter = ','): array
+	public static function explode(string $value, string $delimiter = ',', ?int $limit = null): array
 	{
 		if ($value === '') {
 			return [];
 		}
 
-		return explode($delimiter, $value);
+		return $limit === null
+			? explode($delimiter, $value)
+			: explode($delimiter, $delimiter, $limit);
 	}
 
 

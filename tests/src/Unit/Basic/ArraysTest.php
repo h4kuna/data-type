@@ -114,6 +114,17 @@ final class ArraysTest extends Tester\TestCase
 		Assert::false(Arrays::startWith('Unknown', 'L', 'I'));
 	}
 
+
+	public function testNativeExplode(): void
+	{
+		Assert::same([''], explode(',', ''));
+		Assert::same(['a'], explode(',', 'a,b,c', -2));
+		Assert::same(['a'], explode(',', 'a,b', -1));
+		Assert::same(['a,b'], explode(',', 'a,b', 0));
+		Assert::same(['a,b'], explode(',', 'a,b', 1));
+		Assert::same(['a','b'], explode(',', 'a,b', 2));
+	}
+
 }
 
 (new ArraysTest())->run();
