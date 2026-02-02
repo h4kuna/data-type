@@ -34,6 +34,17 @@ final class Strings
 		return Floats::from($value);
 	}
 
+	public static function startWith(string $haystack, string ...$needle): bool
+	{
+		foreach ($needle as $str) {
+			if (str_starts_with($haystack, $str)) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 
 	public static function from(mixed $value): string
 	{
@@ -92,33 +103,24 @@ final class Strings
 
 
 	/**
-	 * The original explode(',', '') return [''] right is [].
+	 * @deprecated use Arrays::explode()
 	 *
 	 * @return array<string>
 	 */
 	public static function split(string $value, string $delimiter = ', '): array
 	{
-		if ($delimiter === '') {
-			throw new InvalidStateException('Delimiter like empty string is not allowed.');
-		} elseif ($value === '') {
-			return [];
-		}
-
-		return explode($delimiter, $value);
+		return Arrays::explode($value, $delimiter);
 	}
 
 
 	/**
-	 * The original implode/join(',', ['', null, false, 'A']) return ',,,A' right is 'A'.
+	 * @deprecated use Arrays::join()
 	 *
 	 * @param array<scalar|null> $array
 	 */
 	public static function join(array $array, string $delimiter = ', '): string
 	{
-		return implode(
-			$delimiter,
-			array_filter($array, static fn (mixed $value): bool => $value !== false && $value !== '' && $value !== null)
-		);
+		return Arrays::join($array, $delimiter);
 	}
 
 
