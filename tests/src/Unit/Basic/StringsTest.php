@@ -36,6 +36,16 @@ final class StringsTest extends Tester\TestCase
 	}
 
 
+	public function testStartWith(): void
+	{
+		Assert::true(Strings::startWith('Lorem', 'Lo'));
+		Assert::false(Strings::startWith('Lorem', 'Ip'));
+		Assert::true(Strings::startWith('Lorem', 'Lo', 'Ip'));
+		Assert::true(Strings::startWith('Ipsum', 'Lo', 'Ip'));
+		Assert::false(Strings::startWith('Unknown', 'L', 'I'));
+	}
+
+
 	public function testToGps(): void
 	{
 		$coordinate = Strings::toGps('51.1, 14.1');
@@ -193,38 +203,6 @@ final class StringsTest extends Tester\TestCase
 	public function testJoin(array $input, string $expected): void
 	{
 		Assert::same($expected, Strings::join(...$input));
-	}
-
-
-	/**
-	 * @return array<mixed>
-	 */
-	public function provideJoinSplit(): array
-	{
-		return [
-			[[]],
-			[['a']],
-			[['a', 'b']],
-			[[''], []],
-			[[false], []],
-			[[null], []],
-		];
-	}
-
-
-	/**
-	 * @dataProvider provideJoinSplit
-	 * @param array<scalar|null> $input
-	 * @param array<mixed>|null $expected
-	 */
-	public function testJoinSplit(array $input, ?array $expected = null): void
-	{
-		if ($expected === null) {
-			$expected = $input;
-		}
-
-		$value = Strings::join($input, ':');
-		Assert::same($expected, Strings::split($value, ':'));
 	}
 
 

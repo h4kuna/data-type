@@ -105,16 +105,6 @@ final class ArraysTest extends Tester\TestCase
 	}
 
 
-	public function testStartWith(): void
-	{
-		Assert::true(Arrays::startWith('Lorem', 'Lo'));
-		Assert::false(Arrays::startWith('Lorem', 'Ip'));
-		Assert::true(Arrays::startWith('Lorem', 'Lo', 'Ip'));
-		Assert::true(Arrays::startWith('Ipsum', 'Lo', 'Ip'));
-		Assert::false(Arrays::startWith('Unknown', 'L', 'I'));
-	}
-
-
 	public function testNativeExplode(): void
 	{
 		Assert::same([''], explode(',', ''));
@@ -123,6 +113,37 @@ final class ArraysTest extends Tester\TestCase
 		Assert::same(['a,b'], explode(',', 'a,b', 0));
 		Assert::same(['a,b'], explode(',', 'a,b', 1));
 		Assert::same(['a','b'], explode(',', 'a,b', 2));
+	}
+
+	/**
+	 * @return array<mixed>
+	 */
+	public function provideImplodeExplode(): array
+	{
+		return [
+			[[]],
+			[['a']],
+			[['a', 'b']],
+			[[''], []],
+			[[false], []],
+			[[null], []],
+		];
+	}
+
+
+	/**
+	 * @dataProvider provideImplodeExplode
+	 * @param array<scalar|null> $input
+	 * @param array<mixed>|null $expected
+	 */
+	public function testImplodeExplode(array $input, ?array $expected = null): void
+	{
+		if ($expected === null) {
+			$expected = $input;
+		}
+
+		$value = Arrays::join($input, ':');
+		Assert::same($expected, Arrays::explode($value, ':'));
 	}
 
 }

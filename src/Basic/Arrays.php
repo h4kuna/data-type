@@ -5,6 +5,7 @@ namespace h4kuna\DataType\Basic;
 use h4kuna\DataType;
 use Nette\StaticClass;
 use Nette\Utils\Strings;
+use h4kuna\DataType\Basic\Strings as MyStrings;
 use Stringable;
 
 final class Arrays
@@ -12,10 +13,15 @@ final class Arrays
 	use StaticClass;
 
 	/**
+	 * @template TKey of array-key
+	 * @template TValue
+	 * @template TDefault
+	 *
 	 * Better array_combine where values array does not need same size.
-	 * @param array<string|int> $keys
-	 * @param array<mixed> $values
-	 * @return array<string|int, mixed>
+	 * @param array<TKey> $keys
+	 * @param array<TValue> $values
+	 * @param TDefault $value
+	 * @return array<TKey, TValue|TDefault>
 	 */
 	public static function combine(array $keys, array $values, mixed $value = null): array
 	{
@@ -31,21 +37,18 @@ final class Arrays
 	}
 
 
+	/**
+	 * @deprecated use \h4kuna\DataType\Basic\Strings::startsWith
+	 */
 	public static function startWith(string $haystack, string ...$needle): bool
 	{
-		foreach ($needle as $str) {
-			if (str_starts_with($haystack, $str)) {
-				return true;
-			}
-		}
-
-		return false;
+		return MyStrings::startWith($haystack, ...$needle);
 	}
 
 
 	/**
 	 * strict in_array
-	 * @param list<mixed>|array<string|int, mixed> $haystack
+	 * @param list<mixed>|array<mixed> $haystack
 	 */
 	public static function contains(string $needle, array $haystack): bool
 	{
@@ -70,10 +73,7 @@ final class Arrays
 	 */
 	public static function join(array $array, string $delimiter = ','): string
 	{
-		return implode(
-			$delimiter,
-			array_filter($array, static fn (mixed $value): bool => $value !== false && $value !== '' && $value !== null)
-		);
+		return implode($delimiter, self::filter($array));
 	}
 
 
@@ -96,6 +96,20 @@ final class Arrays
 
 
 	/**
+	 * Remove false, empty string and null. Keys are preserved.
+	 * @template TKey of array-key
+	 * @template TValue
+	 *
+	 * @param array<TKey, TValue> $array
+	 * @return array<TKey, TValue>
+	 */
+	public static function filter(array $array): array
+	{
+		return array_filter($array, static fn (mixed $value): bool => $value !== false && $value !== '' && $value !== null);
+	}
+
+
+	/**
 	 * COALESCE similar behavior database.
 	 * @param iterable<string|int, mixed> $array
 	 */
@@ -113,10 +127,12 @@ final class Arrays
 
 	/**
 	 * Unset keys from array.
-	 * @param array<mixed> $array
-	 * @param string|int $keys
-	 * @return array<mixed>
-	 */
+	 * @template TValue
+	 *
+	 * @param array<TValue>|list<TValue> $array
+	 * @param string|int ...$keys
+	 * @return ($array is list ? list<TValue> : array<TValue>)
+     */
 	public static function unsetKeys(&$array, ...$keys): array
 	{
 		$out = [];
@@ -133,9 +149,9 @@ final class Arrays
 
 	/**
 	 * @template T
-	 * @param array<string|int, T> $values
-	 * @param array<string|int> $keys
-	 * @return array<string|int, T>
+	 * @param array<T> $values
+	 * @param array<int|string> $keys
+	 * @return array<T>
 	 */
 	public static function intersectKeys(array $values, array $keys): array
 	{
@@ -155,10 +171,10 @@ final class Arrays
 
 
 	/**
-	 * @param array<mixed> $array1
-	 * @param array<mixed> $array2
-	 * @param array<mixed> ...$arrays
-	 * @return array<mixed>
+	 * @param array<scalar|Stringable|null> $array1
+	 * @param array<scalar|Stringable|null> $array2
+	 * @param array<scalar|Stringable|null> ...$arrays
+	 * @return list<scalar|Stringable|null>
 	 */
 	public static function mergeUnique(array $array1, array $array2, array ...$arrays): array
 	{
@@ -167,7 +183,7 @@ final class Arrays
 
 
 	/**
-	 * @return array<string>
+	 * @return list<string>
 	 */
 	public static function text2Array(string $text): array
 	{
