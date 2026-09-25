@@ -6,6 +6,7 @@
 [![Total Downloads](https://poser.pugx.org/h4kuna/data-type/downloads?format=flat)](https://packagist.org/packages/h4kuna/data-type)
 [![License](https://poser.pugx.org/h4kuna/data-type/license?format=flat)](https://packagist.org/packages/h4kuna/data-type)
 
+Part of the [h4kuna PHP libraries](https://github.com/h4kuna/library), see the overview of all packages.
 
 Installation by composer
 -----------------------
