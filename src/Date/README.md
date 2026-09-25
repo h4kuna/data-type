@@ -1,6 +1,6 @@
 # Date
 
-- [Calendar](#calendar) (czech names)
+- [Calendar](#calendar) (Czech names)
 - [Easter](#easter)
 - [Parser](#parser)
 - [Time](#time)

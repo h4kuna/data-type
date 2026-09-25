@@ -11,7 +11,7 @@ Count events with an optional limit. The constructor parameter decides the limit
 
 - positive number: seconds, older ticks are garbage
 - `0` (`Counter::DISABLE_GARBAGE`, default): count forever
-- negative number: maximum count of ticks in the stack
+- negative number: maximum count of ticks in the stack, older ticks are garbage and `isFull()` is true once the count is exceeded
 
 ```php
 use h4kuna\DataType\Collection\Counter;
@@ -39,7 +39,7 @@ Retry with a limit of failures:
 ```php
 use h4kuna\DataType\Collection\Counter;
 
-$counter = new Counter(-3); // maximum 3 ticks
+$counter = new Counter(-3); // full after more than 3 ticks, the 4th failure is thrown
 
 while (true) {
     try {
@@ -89,7 +89,7 @@ Without a default, `get()` with an unknown key throws `LogicException`. The defa
 
 # StrictTypeArray
 
-Read `array<mixed>` with strict types, useful for decoded JSON or request data. Conversion uses `Basic\Strings`, `Basic\Integer`, `Basic\Floats` and `Basic\Bools`, so a value that cannot be converted throws `InvalidTypeException`. A missing key throws too, the `*Null` variants return `null` for a missing or `null` value.
+Read `array<mixed>` with strict types, useful for decoded JSON or request data. Conversion uses `Basic\Strings`, `Basic\Integer`, `Basic\Floats` and `Basic\Bools`, so a value that cannot be converted throws `InvalidTypeException`. A missing key throws too, except `bool()` which returns `false`. The `*Null` variants return `null` for a missing or `null` value.
 
 ```php
 use h4kuna\DataType\Collection\StrictTypeArray;

@@ -18,7 +18,7 @@ Requires PHP 8.2.
 
 - [Basic](src/Basic) - Arrays, BitwiseOperations, Bools, Floats, Integer, Lists, Set, Strings
 - [Collection](src/Collection) - Counter, LazyBuilder, StrictTypeArray, JsonToHtml
-- [Date](src/Date) - czech Calendar, Easter, Parser, Time, Convert, Interval, Sleep
+- [Date](src/Date) - Czech Calendar, Easter, Parser, Time, Convert, Interval, Sleep
 - [Iterators](src/Iterators) - TextIterator, CsvIterator, FlattenArrayRecursiveIterator, PeriodDayFactory, ActiveWait, ReverseIterator
 - [Location](src/Location) - Gps
 - [Number](src/Number) - Math, RomeNumber
