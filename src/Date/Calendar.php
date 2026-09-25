@@ -25,6 +25,16 @@ final class Calendar
 	 */
 	private static ?array $names = null;
 
+	/**
+	 * @var array<int, string>|null
+	 */
+	private static ?array $days = null;
+
+	/**
+	 * @var array<int, string>|null
+	 */
+	private static ?array $months = null;
+
 
 	private function __construct()
 	{
@@ -59,7 +69,7 @@ final class Calendar
 	 */
 	public static function getDays(): array
 	{
-		return [
+		return self::$days ??= [
 			1 => 'Pondělí',
 			'Úterý',
 			'Středa',
@@ -95,7 +105,7 @@ final class Calendar
 	 */
 	public static function getMonths(): array
 	{
-		return [
+		return self::$months ??= [
 			1 => 'Leden',
 			'Únor',
 			'Březen',
@@ -169,13 +179,18 @@ final class Calendar
 	 */
 	public static function names(): array
 	{
-		if (self::$names === null) {
-			/** @var array<int, array<int, string>> $names */
-			$names = require self::$namesFile;
-			self::$names = $names;
-		}
+		return self::$names ??= self::loadNames();
+	}
 
-		return self::$names;
+	/**
+	 * @return array<int, array<int, string>>
+	 */
+	private static function loadNames(): array
+	{
+		/** @var array<int, array<int, string>> $names */
+		$names = require self::$namesFile;
+
+		return $names;
 	}
 
 }
