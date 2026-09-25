@@ -42,7 +42,7 @@ final class TextIteratorTest extends \Tester\TestCase
 	{
 		$file = new SplFileObject(filepath());
 		$file->setFlags(SplFileObject::READ_CSV);
-		$file->setCsvControl(';');
+		$file->setCsvControl(';', '"', '');
 		$textIterator = new TextIterator($file);
 
 		toString($textIterator);
