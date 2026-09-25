@@ -6,14 +6,14 @@ use DateTimeImmutable;
 use DateTimeInterface;
 use h4kuna\DataType;
 use h4kuna\DataType\Exceptions\InvalidArgumentsException;
-use h4kuna\Memoize\MemoryStorageStatic;
+use h4kuna\Memoize\MemoizeStatic;
 use Nette\StaticClass;
 use Nette\Utils\Strings;
 
 final class Calendar
 {
 	use StaticClass;
-	use MemoryStorageStatic;
+	use MemoizeStatic;
 
 	public static string $namesFile = __DIR__ . '/names.php';
 
@@ -51,7 +51,7 @@ final class Calendar
 	 */
 	public static function getDays(): array
 	{
-		return self::memoize(__METHOD__, static function () {
+		return self::memoize(__METHOD__, static function (): array {
 			return [
 				1 => 'Pondělí',
 				'Úterý',
@@ -89,7 +89,7 @@ final class Calendar
 	 */
 	public static function getMonths(): array
 	{
-		return self::memoize(__METHOD__, static function () {
+		return self::memoize(__METHOD__, static function (): array {
 			return [
 				1 => 'Leden',
 				'Únor',
@@ -165,6 +165,11 @@ final class Calendar
 	 */
 	public static function names(): array
 	{
-		return self::memoize(__METHOD__, static fn () => require_once self::$namesFile);
+		return self::memoize(__METHOD__, static function (): array {
+			/** @var array<int, array<int, string>> $names */
+			$names = require self::$namesFile;
+
+			return $names;
+		});
 	}
 }

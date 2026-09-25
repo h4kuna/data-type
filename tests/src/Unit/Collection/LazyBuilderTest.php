@@ -2,6 +2,7 @@
 
 namespace h4kuna\DataType\Tests\Unit\Collection;
 
+use Closure;
 use h4kuna\DataType\Collection\LazyBuilder;
 use h4kuna\DataType\Exceptions\InvalidStateException;
 use Tester\Assert;
@@ -27,10 +28,12 @@ final class LazyBuilderTest extends TestCase
 
 	public function testFormats(): void
 	{
-		$lazyBuilder = new LazyBuilder([
+		/** @var array<string, string|Closure(): string> $factories */
+		$factories = [
 			'CZK' => 'Kč',
 			'EUR' => static fn (): string => '€',
-		]);
+		];
+		$lazyBuilder = new LazyBuilder($factories);
 		$lazyBuilder->add('GBP', '£');
 		$lazyBuilder->setDefault(static fn (string|int $key): string => "-$key-");
 

@@ -81,10 +81,7 @@ final class Parser
 	{
 		['hour' => $hour, 'minute' => $minute, 'second' => $second, 'modify' => $modify] = self::explodeTime($any);
 		if ($modify) {
-			$x = $date->modify(self::modifier($hour, $minute, $second));
-			assert($x !== false);
-
-			return $x;
+			return $date->modify(self::modifier($hour, $minute, $second));
 		}
 
 		return $date->setTime($hour, $minute, $second);

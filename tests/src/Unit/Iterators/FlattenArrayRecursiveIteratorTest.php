@@ -24,6 +24,7 @@ final class FlattenArrayRecursiveIteratorTest extends TestCase
 		$iterator = new FlattenArrayRecursiveIterator($input, $delimiter);
 		$output = [];
 		foreach ($iterator as $key => $item) {
+			assert(is_string($key) || is_int($key));
 			$output[$key] = $item;
 		}
 

@@ -4,6 +4,7 @@ namespace h4kuna\DataType\Date;
 
 use DateTime;
 use DateTimeImmutable;
+use DateTimeInterface;
 use Nette\StaticClass;
 
 final class Convert
@@ -27,13 +28,12 @@ final class Convert
 		DateTime|DateTimeImmutable $dateTime
 	): DateTime|DateTimeImmutable
 	{
-		/** @var class-string<DateTime|DateTimeImmutable> $sourceClass */
 		$sourceClass = $source::class;
 		if ($sourceClass === $dateTime::class) {
 			return $dateTime;
 		}
 
-		$result = $sourceClass::createFromFormat($dateTime::RFC3339_EXTENDED, $dateTime->format($dateTime::RFC3339_EXTENDED));
+		$result = $sourceClass::createFromFormat(DateTimeInterface::RFC3339_EXTENDED, $dateTime->format(DateTimeInterface::RFC3339_EXTENDED));
 		assert($result !== false);
 
 		return $result;

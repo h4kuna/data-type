@@ -13,6 +13,7 @@ final class PeriodDayFactory
 
 	/**
 	 * interval is (from, to> | exclude from, include to
+	 * @return DatePeriod<DateTimeImmutable, DateTimeImmutable, null>
 	 */
 	public static function createExFromInTo(
 		DateTimeImmutable|DateTime $start,
@@ -30,6 +31,7 @@ final class PeriodDayFactory
 
 	/**
 	 * interval is <from, to> | exclude from, include to
+	 * @return DatePeriod<DateTimeImmutable, DateTimeImmutable, null>
 	 */
 	public static function createInFromInTo(
 		DateTimeImmutable|DateTime $start,
@@ -46,6 +48,7 @@ final class PeriodDayFactory
 
 	/**
 	 * interval is (from, to) | exclude from, include to
+	 * @return DatePeriod<DateTimeImmutable, DateTimeImmutable, null>
 	 */
 	public static function createExFromExTo(
 		DateTimeImmutable|DateTime $start,
@@ -63,6 +66,7 @@ final class PeriodDayFactory
 
 	/**
 	 * interval is <from, to) | exclude from, include to
+	 * @return DatePeriod<DateTimeImmutable, DateTimeImmutable, null>
 	 */
 	public static function createInFromExTo(
 		DateTimeImmutable|DateTime $start,

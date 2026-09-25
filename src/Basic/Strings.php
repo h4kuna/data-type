@@ -105,6 +105,7 @@ final class Strings
 	/**
 	 * @deprecated use Arrays::explode()
 	 *
+	 * @param non-empty-string $delimiter
 	 * @return array<string>
 	 */
 	public static function split(string $value, string $delimiter = ', '): array

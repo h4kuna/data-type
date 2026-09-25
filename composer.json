@@ -32,8 +32,8 @@
   },
   "require-dev": {
     "nette/tester": "^2.4",
-    "phpstan/phpstan": "^1.8",
-    "phpstan/phpstan-strict-rules": "^1.4",
+    "phpstan/phpstan": "^2.0",
+    "phpstan/phpstan-strict-rules": "^2.0",
     "tracy/tracy": "^2.9"
   },
   "config": {
