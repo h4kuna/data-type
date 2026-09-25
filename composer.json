@@ -15,7 +15,7 @@
     "php": ">=8.2",
     "ext-mbstring": "*",
     "h4kuna/memoize": "^0.1.5",
-    "nette/utils": "^3.0.1 || ^4.0"
+    "nette/utils": "^3.2.8 || ^4.0"
   },
   "autoload": {
     "psr-4": {
