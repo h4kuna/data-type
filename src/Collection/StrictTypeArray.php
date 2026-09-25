@@ -11,7 +11,7 @@ use h4kuna\DataType\Exceptions\InvalidTypeException;
 final class StrictTypeArray
 {
 	/**
-	 * @param array<string, mixed> $data
+	 * @param array<array<mixed>|bool|float|int|string|null> $data
 	 */
 	public function __construct(private /* readonly */ array $data)
 	{
@@ -60,7 +60,7 @@ final class StrictTypeArray
 	}
 
 
-	public function bool(string|float|int $name): bool
+	public function bool(string|int $name): bool
 	{
 		if (isset($this->data[$name]) === false) {
 			return false;
@@ -71,7 +71,7 @@ final class StrictTypeArray
 
 
 	/**
-	 * @return array<string>|null
+	 * @return array<mixed>|null
 	 */
 	public function arrayNull(string $name): ?array
 	{
@@ -80,7 +80,7 @@ final class StrictTypeArray
 
 
 	/**
-	 * @return array<string>
+	 * @return array<mixed>
 	 */
 	public function array(string $name): array
 	{
