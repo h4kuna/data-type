@@ -4,5 +4,18 @@ parameters:
 		- src
 		- tests/src
 
+	exceptions:
+		check:
+			missingCheckedExceptionInThrows: true
+			tooWideThrowType: true
+		implicitThrows: false
+		checkedExceptionClasses:
+			- h4kuna\DataType\Exceptions\DataTypeException
+
+	ignoreErrors:
+		-
+			identifier: missingType.checkedException
+			path: tests/src/*
+
 includes:
 	- vendor/phpstan/phpstan-strict-rules/rules.neon
