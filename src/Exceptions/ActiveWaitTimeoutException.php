@@ -2,7 +2,7 @@
 
 namespace h4kuna\DataType\Exceptions;
 
-final class ActiveWaitTimeoutException extends \RuntimeException
+final class ActiveWaitTimeoutException extends DataTypeException
 {
 
 	public static function createAfterTimeout(float $timeoutSeconds): self

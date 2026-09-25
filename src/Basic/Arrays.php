@@ -2,7 +2,7 @@
 
 namespace h4kuna\DataType\Basic;
 
-use h4kuna\DataType;
+use h4kuna\DataType\Exceptions\LogicException;
 use Nette\StaticClass;
 use Nette\Utils\Strings;
 use h4kuna\DataType\Basic\Strings as MyStrings;
@@ -30,7 +30,7 @@ final class Arrays
 		if ($diff > 0) {
 			$values = array_merge($values, array_fill(0, $diff, $value));
 		} elseif ($diff < 0) {
-			throw new DataType\Exceptions\InvalidArgumentsException('Array of values can\'t be bigger than keys.');
+			throw new LogicException('Array of values can\'t be bigger than keys.');
 		}
 
 		return array_combine($keys, $values);

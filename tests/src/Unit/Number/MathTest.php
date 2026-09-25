@@ -2,6 +2,7 @@
 
 namespace h4kuna\DataType\Tests\Unit\Number;
 
+use h4kuna\DataType\Exceptions\LogicException;
 use DateTime;
 use h4kuna;
 use h4kuna\DataType\Number\Math;
@@ -42,12 +43,9 @@ final class MathTest extends Tester\TestCase
 		Assert::same($max, Math::interval(new DateTime('1986-12-31 00:00:01'), $max, new DateTime('1986-12-30 00:00:00')));
 	}
 
-	/**
-	 * @throws h4kuna\DataType\Exceptions\InvalidArgumentsException
-	 */
 	public function testIntervalFail(): void
 	{
-		Math::interval(2, 1, 3);
+		Assert::exception(static fn () => Math::interval(2, 1, 3), LogicException::class);
 	}
 
 	public function testRound5(): void
@@ -93,12 +91,9 @@ final class MathTest extends Tester\TestCase
 		Assert::same(120, Math::factorial(5));
 	}
 
-	/**
-	 * @throws \h4kuna\DataType\Exceptions\InvalidArgumentsException
-	 */
 	public function testFactorialFail(): void
 	{
-		Math::factorial(-1);
+		Assert::exception(static fn () => Math::factorial(-1), LogicException::class);
 	}
 }
 

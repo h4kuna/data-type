@@ -2,6 +2,7 @@
 
 namespace h4kuna\DataType\Tests\Unit\Basic;
 
+use h4kuna\DataType\Exceptions\InvalidTypeException;
 use h4kuna;
 use h4kuna\DataType\Basic\Floats;
 use Tester\Assert;
@@ -48,12 +49,9 @@ final class FloatsTest extends \Tester\TestCase
 	}
 
 
-	/**
-	 * @throws h4kuna\DataType\Exceptions\InvalidTypeException
-	 */
 	public function testExceptionFloatChar(): void
 	{
-		Assert::same(-1.0, Floats::from('-1,d0'));
+		Assert::exception(static fn () => Floats::from('-1,d0'), InvalidTypeException::class);
 	}
 
 

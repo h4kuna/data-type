@@ -26,6 +26,7 @@ final class Calendar
 
 	/**
 	 * @param null|int<0, 7>|string|DateTimeInterface $day
+	 * @throws InvalidArgumentsException
 	 */
 	public static function nameOfDay(null|int|string|DateTimeInterface $day = null): string
 	{
@@ -36,14 +37,14 @@ final class Calendar
 		} elseif (is_numeric($day)) {
 			$day = (int) $day;
 		} else {
-			throw new InvalidArgumentsException('Input is allowed DateTimeInterface or numeric.');
+			throw InvalidArgumentsException::createDayIsNotNumeric();
 		}
 
 		if ($day === 0) {
 			$day = 7;
 		}
 
-		return self::getDays()[$day] ?? throw new InvalidArgumentsException('Invalid number for day, interval is 0-6, 0 = Sunday');
+		return self::getDays()[$day] ?? throw InvalidArgumentsException::createDayOutOfRange($day);
 	}
 
 
@@ -66,6 +67,7 @@ final class Calendar
 
 	/**
 	 * @param null|int<1, 12>|string|DateTimeInterface $month
+	 * @throws InvalidArgumentsException
 	 */
 	public static function nameOfMonth(null|int|string|DateTimeInterface $month = null): string
 	{
@@ -76,10 +78,10 @@ final class Calendar
 		} elseif (is_numeric($month)) {
 			$month = (int) $month;
 		} else {
-			throw new InvalidArgumentsException('Input is allowed DateTimeInterface or numeric');
+			throw InvalidArgumentsException::createMonthIsNotNumeric();
 		}
 
-		return self::getMonths()[$month] ?? throw new InvalidArgumentsException('Invalid number for day, interval is 1-12.');
+		return self::getMonths()[$month] ?? throw InvalidArgumentsException::createMonthOutOfRange($month);
 	}
 
 
@@ -107,12 +109,13 @@ final class Calendar
 
 	/**
 	 * CZECH FORMAT DD.MM.YYYY[ HH:mm:SS]
+	 * @throws InvalidArgumentsException
 	 */
 	public static function czech2DateTime(string $date): DateTimeImmutable
 	{
 		$find = Strings::match(trim($date), '/^(?P<d>[0-3]?\d)\.(?P<m>[0-1]?\d)\.(?P<y>\d{4})(?: +(?P<h>[0-6]?\d):(?P<i>[0-6]?\d)(?::(?P<s>[0-6]?\d))?)?$/');
 		if ($find === null) {
-			throw new InvalidArgumentsException('Bad czech date format. ' . $date);
+			throw InvalidArgumentsException::createBadCzechDateFormat($date);
 		}
 
 		$find += ['h' => 0, 'i' => 0, 's' => 0];
@@ -144,6 +147,7 @@ final class Calendar
 
 	/**
 	 * Return czech name on name-day.
+	 * @throws InvalidArgumentsException
 	 */
 	public static function nameByDate(?DateTimeInterface $date = null): string
 	{
@@ -153,7 +157,7 @@ final class Calendar
 		$day = (int) $date->format('j');
 		$month = (int) $date->format('n');
 
-		return self::names()[$month][$day] ?? throw new InvalidArgumentsException(sprintf('Bad month "%s" or day "%s".', $month, $day));
+		return self::names()[$month][$day] ?? throw InvalidArgumentsException::createUnknownNameDay($month, $day);
 	}
 
 

@@ -2,6 +2,7 @@
 
 namespace h4kuna\DataType\Tests\Unit\Location;
 
+use h4kuna\DataType\Exceptions\InvalidArgumentsException;
 use h4kuna;
 use h4kuna\DataType;
 use h4kuna\DataType\Location\Gps;
@@ -43,21 +44,15 @@ final class GpsTest extends Tester\TestCase
 	}
 
 
-	/**
-	 * @throws h4kuna\DataType\Exceptions\InvalidArgumentsException
-	 */
 	public function testFromStringFail(): void
 	{
-		Gps::fromString('Hello fail');
+		Assert::exception(static fn () => Gps::fromString('Hello fail'), InvalidArgumentsException::class);
 	}
 
 
-	/**
-	 * @throws h4kuna\DataType\Exceptions\InvalidArgumentsException
-	 */
 	public function testPoleFail(): void
 	{
-		Gps::fromString('50.0835494A, 14.4341414W');
+		Assert::exception(static fn () => Gps::fromString('50.0835494A, 14.4341414W'), InvalidArgumentsException::class);
 	}
 
 

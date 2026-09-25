@@ -4,7 +4,7 @@ namespace h4kuna\DataType\Tests\Unit\Collection;
 
 use Closure;
 use h4kuna\DataType\Collection\LazyBuilder;
-use h4kuna\DataType\Exceptions\InvalidStateException;
+use h4kuna\DataType\Exceptions\LogicException;
 use Tester\Assert;
 use Tester\TestCase;
 
@@ -17,12 +17,12 @@ final class LazyBuilderTest extends TestCase
 {
 	public function testDefaultIsNotDefinedFailed(): void
 	{
-		Assert::throws(fn () => (new LazyBuilder())->get('any'), InvalidStateException::class);
-		Assert::throws(fn () => (new LazyBuilder())->setDefault('any'), InvalidStateException::class); // @phpstan-ignore-line
+		Assert::throws(fn () => (new LazyBuilder())->get('any'), LogicException::class);
+		Assert::throws(fn () => (new LazyBuilder())->setDefault('any'), LogicException::class); // @phpstan-ignore-line
 
 		$lazyBuilder = new LazyBuilder();
 		$lazyBuilder->setDefault(fn () => 'hello');;
-		Assert::throws(fn () => $lazyBuilder->setDefault(fn () => 'any'), InvalidStateException::class);
+		Assert::throws(fn () => $lazyBuilder->setDefault(fn () => 'any'), LogicException::class);
 	}
 
 

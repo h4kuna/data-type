@@ -2,6 +2,7 @@
 
 namespace h4kuna\DataType\Tests\Unit\Basic;
 
+use h4kuna\DataType\Exceptions\LogicException;
 use h4kuna;
 use h4kuna\DataType\Basic\Arrays;
 use Tester;
@@ -38,12 +39,9 @@ final class ArraysTest extends Tester\TestCase
 	}
 
 
-	/**
-	 * @throws h4kuna\DataType\Exceptions\InvalidArgumentsException
-	 */
 	public function testCombineFail(): void
 	{
-		Arrays::combine([1, 2, 3, 4], ['one', 'two', 'three', 'four', 'five']);
+		Assert::exception(static fn () => Arrays::combine([1, 2, 3, 4], ['one', 'two', 'three', 'four', 'five']), LogicException::class);
 	}
 
 

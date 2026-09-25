@@ -2,18 +2,44 @@
 
 namespace h4kuna\DataType\Exceptions;
 
+/**
+ * Value has not expected type.
+ */
 final class InvalidTypeException extends DataTypeException
 {
-
-	public function __construct(string $name, string $type)
+	public static function createInvalidInt(mixed $name): self
 	{
-		parent::__construct(sprintf('The value "%s" is not valid %s.', $name, $type));
+		return self::create($name, 'int');
 	}
 
 
-	public static function invalidInt(mixed $name): self
+	public static function createInvalidString(mixed $name): self
 	{
-		return new self(self::toString($name), 'int');
+		return self::create($name, 'string');
+	}
+
+
+	public static function createInvalidFloat(mixed $name): self
+	{
+		return self::create($name, 'float');
+	}
+
+
+	public static function createInvalidBool(mixed $name): self
+	{
+		return self::create($name, 'bool');
+	}
+
+
+	public static function createInvalidArray(mixed $name): self
+	{
+		return self::create($name, 'array');
+	}
+
+
+	private static function create(mixed $name, string $type): self
+	{
+		return new self(sprintf('The value "%s" is not valid %s.', self::toString($name), $type));
 	}
 
 
@@ -25,29 +51,4 @@ final class InvalidTypeException extends DataTypeException
 
 		return is_scalar($name) ? (string) $name : gettype($name);
 	}
-
-
-	public static function invalidString(mixed $name): self
-	{
-		return new self(self::toString($name), 'string');
-	}
-
-
-	public static function invalidFloat(mixed $name): self
-	{
-		return new self(self::toString($name), 'float');
-	}
-
-
-	public static function invalidBool(mixed $name): self
-	{
-		return new self(self::toString($name), 'bool');
-	}
-
-
-	public static function invalidArray(mixed $name): self
-	{
-		return new self(self::toString($name), 'array');
-	}
-
 }

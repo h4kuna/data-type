@@ -2,8 +2,13 @@
 
 namespace h4kuna\DataType\Exceptions;
 
-use Exception;
+use RuntimeException;
+use Throwable;
 
-abstract class DataTypeException extends Exception
+abstract class DataTypeException extends RuntimeException
 {
+	protected function __construct(string $message = '', ?Throwable $previous = null)
+	{
+		parent::__construct($message, $previous === null ? 0 : $previous->getCode(), $previous);
+	}
 }

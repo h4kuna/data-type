@@ -11,12 +11,18 @@ final class Floats
 {
 	use StaticClass;
 
+	/**
+	 * @throws InvalidTypeException
+	 */
 	public static function nullable(mixed $value): ?float
 	{
 		return $value === null ? null : self::from($value);
 	}
 
 
+	/**
+	 * @throws InvalidTypeException
+	 */
 	public static function from(
 		mixed $value,
 		string $decimalPoint = ',',
@@ -26,7 +32,7 @@ final class Floats
 		if (is_numeric($value) || $value === '' || is_bool($value) || $value === null) {
 			return (float) $value;
 		} elseif (is_array($value) || is_object($value)) {
-			throw InvalidTypeException::invalidFloat($value);
+			throw InvalidTypeException::createInvalidFloat($value);
 		}
 		assert(is_string($value));
 
@@ -39,12 +45,13 @@ final class Floats
 			return (float) $out;
 		}
 
-		throw InvalidTypeException::invalidFloat($value);
+		throw InvalidTypeException::createInvalidFloat($value);
 	}
 
 
 	/**
 	 * Format HH:MM or HH:MM:SS
+	 * @throws InvalidTypeException
 	 */
 	public static function fromHour(string $value): float
 	{

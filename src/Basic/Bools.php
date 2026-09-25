@@ -9,12 +9,18 @@ final class Bools
 {
 	use StaticClass;
 
+	/**
+	 * @throws InvalidTypeException
+	 */
 	public static function nullable(mixed $value): ?bool
 	{
 		return $value === null ? null : self::from($value);
 	}
 
 
+	/**
+	 * @throws InvalidTypeException
+	 */
 	public static function from(mixed $value): bool
 	{
 		if ($value === true) {
@@ -25,10 +31,10 @@ final class Bools
 			return match ((float) $value) {
 				1.0 => true,
 				0.0 => false,
-				default => throw InvalidTypeException::invalidBool($value),
+				default => throw InvalidTypeException::createInvalidBool($value),
 			};
 		}
-		throw InvalidTypeException::invalidBool($value);
+		throw InvalidTypeException::createInvalidBool($value);
 	}
 
 }

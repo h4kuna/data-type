@@ -18,48 +18,69 @@ final class StrictTypeArray
 	}
 
 
+	/**
+	 * @throws InvalidTypeException
+	 */
 	public function stringNull(string $name): ?string
 	{
 		return isset($this->data[$name]) ? Strings::from($this->data[$name]) : null;
 	}
 
 
+	/**
+	 * @throws InvalidTypeException
+	 */
 	public function string(string $name): string
 	{
-		array_key_exists($name, $this->data) || throw InvalidTypeException::invalidString($name);
+		array_key_exists($name, $this->data) || throw InvalidTypeException::createInvalidString($name);
 
 		return Strings::from($this->data[$name]);
 	}
 
 
+	/**
+	 * @throws InvalidTypeException
+	 */
 	public function float(string $name): float
 	{
-		array_key_exists($name, $this->data) || throw InvalidTypeException::invalidFloat($name);
+		array_key_exists($name, $this->data) || throw InvalidTypeException::createInvalidFloat($name);
 
 		return Floats::from($this->data[$name]);
 	}
 
 
+	/**
+	 * @throws InvalidTypeException
+	 */
 	public function floatNull(string $name): ?float
 	{
 		return isset($this->data[$name]) ? Floats::from($this->data[$name]) : null;
 	}
 
 
+	/**
+	 * @throws InvalidTypeException
+	 */
 	public function int(string $name): int
 	{
-		array_key_exists($name, $this->data) || throw InvalidTypeException::invalidInt($name);
+		array_key_exists($name, $this->data) || throw InvalidTypeException::createInvalidInt($name);
 
 		return Integer::from($this->data[$name]);
 	}
 
 
+	/**
+	 * @throws InvalidTypeException
+	 */
 	public function intNull(string $name): ?int
 	{
 		return isset($this->data[$name]) ? Integer::from($this->data[$name]) : null;
 	}
 
 
+	/**
+	 * @throws InvalidTypeException
+	 */
 	public function bool(string|int $name): bool
 	{
 		if (isset($this->data[$name]) === false) {
@@ -72,6 +93,7 @@ final class StrictTypeArray
 
 	/**
 	 * @return array<mixed>|null
+	 * @throws InvalidTypeException
 	 */
 	public function arrayNull(string $name): ?array
 	{
@@ -81,12 +103,13 @@ final class StrictTypeArray
 
 	/**
 	 * @return array<mixed>
+	 * @throws InvalidTypeException
 	 */
 	public function array(string $name): array
 	{
 		$value = $this->data[$name] ?? null;
 		if (is_array($value) === false) {
-			throw InvalidTypeException::invalidArray($name);
+			throw InvalidTypeException::createInvalidArray($name);
 		}
 
 		return $value;

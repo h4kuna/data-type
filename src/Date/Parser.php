@@ -23,6 +23,7 @@ final class Parser
 	 * @param string $any
 	 * @param DateTime|DateTimeImmutable|null $dateTime
 	 * @return ($dateTime is DateTime ? DateTime : DateTimeImmutable)
+	 * @throws InvalidArgumentsException
 	 */
 	public static function fromString(
 		string $any,
@@ -118,6 +119,7 @@ final class Parser
 
 	/**
 	 * @return ($isDateTime is true ? DateTime : DateTimeImmutable)
+	 * @throws InvalidArgumentsException
 	 */
 	private static function fromFormat(string $any, bool $isDateTime): DateTime|DateTimeImmutable
 	{
@@ -132,7 +134,7 @@ final class Parser
 			}
 		}
 
-		throw new InvalidArgumentsException(sprintf('Unknown option format date. "%s"', $any));
+		throw InvalidArgumentsException::createUnknownDateFormat($any);
 	}
 }
 

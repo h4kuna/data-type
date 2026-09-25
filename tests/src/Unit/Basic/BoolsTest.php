@@ -2,6 +2,7 @@
 
 namespace h4kuna\DataType\Tests\Unit\Basic;
 
+use h4kuna\DataType\Exceptions\InvalidTypeException;
 use h4kuna;
 use h4kuna\DataType\Basic\Bools;
 use Tester\Assert;
@@ -59,11 +60,10 @@ final class BoolsTest extends TestCase
 
 	/**
 	 * @dataProvider dataFromFailed
-	 * @throws h4kuna\DataType\Exceptions\InvalidTypeException
 	 */
 	public function testFromFailed(mixed $input): void
 	{
-		Bools::from($input);
+		Assert::exception(static fn () => Bools::from($input), InvalidTypeException::class);
 	}
 
 

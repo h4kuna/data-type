@@ -2,6 +2,7 @@
 
 namespace h4kuna\DataType\Tests\Unit\Basic;
 
+use h4kuna\DataType\Exceptions\InvalidTypeException;
 use h4kuna;
 use h4kuna\DataType\Basic\Integer;
 use Tester;
@@ -41,12 +42,9 @@ final class IntegerTest extends Tester\TestCase
 	}
 
 
-	/**
-	 * @throws h4kuna\DataType\Exceptions\InvalidTypeException
-	 */
 	public function testFailed(): void
 	{
-		Assert::same(1, Integer::from('1.1')); // not int
+		Assert::exception(static fn () => Integer::from('1.1'), InvalidTypeException::class); // not int
 	}
 
 

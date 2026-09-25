@@ -5,7 +5,7 @@ namespace h4kuna\DataType\Iterators;
 use Generator;
 use h4kuna\DataType\Basic\Arrays;
 use h4kuna\DataType\Basic\BitwiseOperations;
-use h4kuna\DataType\Exceptions\InvalidStateException;
+use h4kuna\DataType\Exceptions\LogicException;
 use IteratorAggregate;
 use SplFileObject;
 
@@ -49,7 +49,7 @@ class TextIterator implements IteratorAggregate
 
 		if ($this->data instanceof SplFileObject) {
 			if (BitwiseOperations::check($this->data->getFlags(), SplFileObject::READ_CSV)) {
-				throw new InvalidStateException('SplFileObject is in csv read mode. Let\'s disable it and use CsvIterator() instead.');
+				throw new LogicException('SplFileObject is in csv read mode. Disable it or use CsvIterator instead.');
 			}
 			$first = 0;
 		} else {

@@ -2,9 +2,11 @@
 
 namespace h4kuna\DataType\Tests\Unit\Iterators;
 
+use h4kuna\DataType\Exceptions\LogicException;
 use h4kuna;
 use h4kuna\DataType\Iterators\TextIterator;
 use SplFileObject;
+use Tester\Assert;
 
 require __DIR__ . '/bootstrap.php';
 
@@ -35,9 +37,6 @@ final class TextIteratorTest extends \Tester\TestCase
 	}
 
 
-	/**
-	 * @throws h4kuna\DataType\Exceptions\InvalidStateException
-	 */
 	public function testFileObjectAsCsv(): void
 	{
 		$file = new SplFileObject(filepath());
@@ -45,7 +44,7 @@ final class TextIteratorTest extends \Tester\TestCase
 		$file->setCsvControl(';', '"', '');
 		$textIterator = new TextIterator($file);
 
-		toString($textIterator);
+		Assert::exception(static fn () => toString($textIterator), LogicException::class);
 	}
 }
 

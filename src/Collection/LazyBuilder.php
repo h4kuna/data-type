@@ -3,7 +3,7 @@
 namespace h4kuna\DataType\Collection;
 
 use Closure;
-use h4kuna\DataType\Exceptions\InvalidStateException;
+use h4kuna\DataType\Exceptions\LogicException;
 
 /**
  * @template T
@@ -99,7 +99,7 @@ class LazyBuilder
 	public function setDefault($default): void
 	{
 		if ($this->default !== null) {
-			throw new InvalidStateException('Default format could be setup only onetime.');
+			throw new LogicException('Default format could be set up only once.');
 		} elseif (self::isCallable($default) === false) {
 			$default = $this->createDefaultCallback($default);
 		}
@@ -116,9 +116,9 @@ class LazyBuilder
 	{
 		if ($object === null) {
 			return static fn (string|int $key
-			) => throw new InvalidStateException(sprintf('Default format is not setup. Unknown key "%s".', $key));
+			) => throw new LogicException(sprintf('Default format is not set up. Unknown key "%s".', $key));
 		}
-		throw new InvalidStateException('Default format is not setup.');
+		throw new LogicException('Default format is not set up.');
 	}
 
 }

@@ -2,7 +2,7 @@
 
 namespace h4kuna\DataType\Basic;
 
-use h4kuna\DataType\Exceptions\InvalidStateException;
+use h4kuna\DataType\Exceptions\InvalidArgumentsException;
 use h4kuna\DataType\Exceptions\InvalidTypeException;
 use h4kuna\DataType\Location;
 use Nette\StaticClass;
@@ -11,6 +11,9 @@ final class Strings
 {
 	use StaticClass;
 
+	/**
+	 * @throws InvalidTypeException
+	 */
 	public static function nullable(mixed $value): ?string
 	{
 		return $value === null ? null : self::from($value);
@@ -29,6 +32,9 @@ final class Strings
 	}
 
 
+	/**
+	 * @throws InvalidTypeException
+	 */
 	public static function toFloat(string $value): float
 	{
 		return Floats::from($value);
@@ -46,18 +52,24 @@ final class Strings
 	}
 
 
+	/**
+	 * @throws InvalidTypeException
+	 */
 	public static function from(mixed $value): string
 	{
 		if (is_int($value) || is_float($value) || is_null($value)) {
 			return (string) $value;
 		} elseif (is_string($value) === false) {
-			throw InvalidTypeException::invalidString($value);
+			throw InvalidTypeException::createInvalidString($value);
 		}
 
 		return $value;
 	}
 
 
+	/**
+	 * @throws InvalidTypeException
+	 */
 	public static function toInt(string $value): int
 	{
 		return Integer::from($value);
@@ -66,6 +78,7 @@ final class Strings
 
 	/**
 	 * @return array{lat: float, long: float}
+	 * @throws InvalidArgumentsException
 	 */
 	public static function toGps(string $value): array
 	{

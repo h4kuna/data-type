@@ -4,7 +4,7 @@ namespace h4kuna\DataType\Number;
 
 use DateTimeInterface;
 use h4kuna\DataType;
-use h4kuna\DataType\Exceptions\InvalidArgumentsException;
+use h4kuna\DataType\Exceptions\LogicException;
 use Nette\StaticClass;
 
 final class Math
@@ -27,7 +27,7 @@ final class Math
 	): float|int|DateTimeInterface
 	{
 		if ($max !== null && $min !== null && $max < $min) {
-			throw new InvalidArgumentsException('Maximum is less than minimum.');
+			throw new LogicException('Maximum is less than minimum.');
 		}
 
 		if ($min === null && $max === null) {
@@ -84,7 +84,7 @@ final class Math
 			return 1;
 		}
 		if ($n < 0) {
-			throw new InvalidArgumentsException('The number can\'t negative number.');
+			throw new LogicException('Factorial is defined for non-negative numbers only.');
 		}
 
 		return $n * self::factorial($n - 1);
