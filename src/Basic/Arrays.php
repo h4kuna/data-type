@@ -91,7 +91,7 @@ final class Arrays
 
 		return $limit === null
 			? explode($delimiter, $value)
-			: explode($delimiter, $delimiter, $limit);
+			: explode($delimiter, $value, $limit);
 	}
 
 
