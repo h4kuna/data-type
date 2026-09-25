@@ -1,13 +1,17 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace h4kuna\DataType\Basic;
 
-use h4kuna\DataType;
 use h4kuna\DataType\Exceptions\InvalidTypeException;
 use Nette\StaticClass;
+use function floor;
+use function is_bool;
+use function is_int;
+use function is_numeric;
 
 final class Integer
 {
+
 	use StaticClass;
 
 	/**
@@ -17,7 +21,6 @@ final class Integer
 	{
 		return $value === null ? null : self::from($value);
 	}
-
 
 	/**
 	 * @throws InvalidTypeException

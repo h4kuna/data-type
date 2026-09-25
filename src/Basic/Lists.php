@@ -1,12 +1,15 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace h4kuna\DataType\Basic;
+
+use function strval;
 
 /**
  * These methods of class return list only
  */
 final class Lists
 {
+
 	/**
 	 * @param array<mixed> $array
 	 * @return list<string>
@@ -20,4 +23,5 @@ final class Lists
 
 		return $out;
 	}
+
 }

@@ -1,10 +1,12 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace h4kuna\DataType\Tests\Unit\Date;
 
 use h4kuna\DataType\Date\Sleep;
 use Tester\Assert;
 use Tester\TestCase;
+use function microtime;
+use function round;
 
 require __DIR__ . '/../../../bootstrap.php';
 
@@ -13,6 +15,7 @@ require __DIR__ . '/../../../bootstrap.php';
  */
 final class SleepTest extends TestCase
 {
+
 	/**
 	 * @return array<mixed>
 	 */
@@ -28,7 +31,6 @@ final class SleepTest extends TestCase
 		];
 	}
 
-
 	/**
 	 * @dataProvider dataSeconds
 	 */
@@ -39,9 +41,9 @@ final class SleepTest extends TestCase
 		Assert::same($sleep, round(microtime(true) - $start, 1));
 	}
 
-
 	/**
 	 * @param int<0, max> $sleep
+	 *
 	 * @dataProvider provideMilliseconds
 	 */
 	public function testMilliseconds(int $sleep): void
@@ -50,7 +52,6 @@ final class SleepTest extends TestCase
 		Sleep::milliseconds($sleep);
 		Assert::same($sleep / 1_000, round(microtime(true) - $start, 1));
 	}
-
 
 	/**
 	 * @return array<mixed>
@@ -62,6 +63,7 @@ final class SleepTest extends TestCase
 			[1100],
 		];
 	}
+
 }
 
 (new SleepTest())->run();

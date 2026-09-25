@@ -1,19 +1,19 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace h4kuna\DataType\Tests\Unit\Basic;
 
-use h4kuna\DataType\Exceptions\LogicException;
-use h4kuna;
 use h4kuna\DataType\Basic\Arrays;
-use Tester;
+use h4kuna\DataType\Exceptions\LogicException;
 use Tester\Assert;
+use Tester\TestCase;
+use function explode;
 
 require __DIR__ . '/../../../bootstrap.php';
 
 /**
  * @testCase
  */
-final class ArraysTest extends Tester\TestCase
+final class ArraysTest extends TestCase
 {
 
 	public function testCombine(): void
@@ -38,19 +38,16 @@ final class ArraysTest extends Tester\TestCase
 		], 'five'));
 	}
 
-
 	public function testCombineFail(): void
 	{
 		Assert::exception(static fn () => Arrays::combine([1, 2, 3, 4], ['one', 'two', 'three', 'four', 'five']), LogicException::class);
 	}
-
 
 	public function testConcatWs(): void
 	{
 		$array = [1 => 0, 2 => null, 3 => 'three', 4 => false, 5 => 'five', 6 => '', 7 => '0'];
 		Assert::same('0|three|five|0', Arrays::concatWs('|', $array));
 	}
-
 
 	public function testCoalesce(): void
 	{
@@ -59,13 +56,11 @@ final class ArraysTest extends Tester\TestCase
 		Assert::same(null, Arrays::coalesce([]));
 	}
 
-
 	public function testExplode(): void
 	{
 		Assert::same(['a', 'b'], Arrays::explode('a,b'));
 		Assert::same([], Arrays::explode(''));
 	}
-
 
 	public function testKeysUnset(): void
 	{
@@ -78,20 +73,17 @@ final class ArraysTest extends Tester\TestCase
 		Assert::same([], $newArray);
 	}
 
-
 	public function testIntersectKeys(): void
 	{
 		$array = [1 => 0, 2 => null, 3 => 'three', 4 => false, 5 => 'five', 6 => '', 7 => '0'];
 		Assert::same([2 => null, 3 => 'three', 5 => 'five'], Arrays::intersectKeys($array, [2, 3, 5]));
 	}
 
-
 	public function testGenerateNumbers(): void
 	{
 		Assert::same([10 => 10, 11 => 11, 12 => 12, 13 => 13, 14 => 14, 15 => 15], Arrays::generateNumbers(10, 15));
 		Assert::same([15 => 15, 14 => 14, 13 => 13, 12 => 12, 11 => 11, 10 => 10,], Arrays::generateNumbers(15, 10));
 	}
-
 
 	public function testMergeUnique(): void
 	{
@@ -102,7 +94,6 @@ final class ArraysTest extends Tester\TestCase
 		]));
 	}
 
-
 	public function testNativeExplode(): void
 	{
 		Assert::same([''], explode(',', ''));
@@ -110,7 +101,7 @@ final class ArraysTest extends Tester\TestCase
 		Assert::same(['a'], explode(',', 'a,b', -1));
 		Assert::same(['a,b'], explode(',', 'a,b', 0));
 		Assert::same(['a,b'], explode(',', 'a,b', 1));
-		Assert::same(['a','b'], explode(',', 'a,b', 2));
+		Assert::same(['a', 'b'], explode(',', 'a,b', 2));
 	}
 
 	/**
@@ -128,13 +119,16 @@ final class ArraysTest extends Tester\TestCase
 		];
 	}
 
-
 	/**
-	 * @dataProvider provideImplodeExplode
 	 * @param array<scalar|null> $input
 	 * @param array<mixed>|null $expected
+	 *
+	 * @dataProvider provideImplodeExplode
 	 */
-	public function testImplodeExplode(array $input, ?array $expected = null): void
+	public function testImplodeExplode(
+		array $input,
+		?array $expected = null,
+	): void
 	{
 		if ($expected === null) {
 			$expected = $input;

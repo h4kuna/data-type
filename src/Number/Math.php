@@ -1,29 +1,35 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace h4kuna\DataType\Number;
 
 use DateTimeInterface;
-use h4kuna\DataType;
 use h4kuna\DataType\Exceptions\LogicException;
 use Nette\StaticClass;
+use function abs;
+use function ceil;
+use function floor;
+use function max;
+use function min;
 
 final class Math
 {
+
 	use StaticClass;
 
 	/**
 	 * Allow number in interval and correct it.
-	 * @template T of float|int|DateTimeInterface
+	 *
 	 * @param T $number
 	 * @param T|null $max
 	 * @param T|null $min
-	 *
 	 * @return T
+	 *
+	 * @template T of float|int|DateTimeInterface
 	 */
 	public static function interval(
 		float|int|DateTimeInterface $number,
 		float|int|DateTimeInterface|null $max,
-		float|int|DateTimeInterface|null $min = 0
+		float|int|DateTimeInterface|null $min = 0,
 	): float|int|DateTimeInterface
 	{
 		if ($max !== null && $min !== null && $max < $min) {
@@ -41,9 +47,9 @@ final class Math
 		return max($min, min($max, $number));
 	}
 
-
 	/**
 	 * Round method to zero point five.
+	 *
 	 * @example 1.24 -> 1.0, 1.25 -> 1.5, 1.74 -> 1.5, 1.75 -> 2.0
 	 */
 	public static function round5(float|int $num): float
@@ -67,8 +73,10 @@ final class Math
 		return $floor + $i;
 	}
 
-
-	public static function safeDivision(float|int $up, float|int $down): ?float
+	public static function safeDivision(
+		float|int $up,
+		float|int $down,
+	): ?float
 	{
 		if ($down === 0 || $down === 0.) {
 			return null;
@@ -76,7 +84,6 @@ final class Math
 
 		return $up / $down;
 	}
-
 
 	public static function factorial(int $n): int
 	{

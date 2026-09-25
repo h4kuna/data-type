@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 use h4kuna\DataType\Iterators\CsvIterator;
 use h4kuna\DataType\Iterators\TextIterator;
@@ -52,4 +52,3 @@ function assertContent(string $filename, string $expected): void
 
 	Assert::same($expected, $source);
 }
-

@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace h4kuna\DataType\Tests\Unit\Date;
 
@@ -6,13 +6,14 @@ use DateTime;
 use DateTimeImmutable;
 use h4kuna\DataType\Date\Convert;
 use Tester\Assert;
+use Tester\TestCase;
 
 require __DIR__ . '/../../../bootstrap.php';
 
 /**
  * @testCase
  */
-final class ConvertTest extends \Tester\TestCase
+final class ConvertTest extends TestCase
 {
 
 	public function testDateTime(): void
@@ -27,7 +28,6 @@ final class ConvertTest extends \Tester\TestCase
 		Assert::type(DateTimeImmutable::class, $newDateTime);
 	}
 
-
 	public function testDateTimeImmutable(): void
 	{
 		$dateTime = new DateTimeImmutable();
@@ -39,7 +39,6 @@ final class ConvertTest extends \Tester\TestCase
 		Assert::type(DateTime::class, $newDateTime);
 	}
 
-
 	public function testBySource(): void
 	{
 		Assert::type(DateTime::class, Convert::bySource(new DateTime(), new DateTime()));
@@ -47,7 +46,6 @@ final class ConvertTest extends \Tester\TestCase
 		Assert::type(DateTimeImmutable::class, Convert::bySource(new DateTimeImmutable(), new DateTime()));
 		Assert::type(DateTimeImmutable::class, Convert::bySource(new DateTimeImmutable(), new DateTimeImmutable()));
 	}
-
 
 	public function testDateTimeImmutableMidnight(): void
 	{

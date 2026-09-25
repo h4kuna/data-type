@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace h4kuna\DataType\Iterators;
 
@@ -8,21 +8,31 @@ use h4kuna\DataType\Basic\BitwiseOperations;
 use h4kuna\DataType\Exceptions\LogicException;
 use IteratorAggregate;
 use SplFileObject;
+use function array_key_first;
+use function assert;
+use function is_array;
+use function is_string;
+use function trim;
 
 /**
  * Iterate via line
+ *
  * @template TValue of string|non-empty-string
  * @implements IteratorAggregate<int, TValue>
+ *
  * @phpstan-type VIterable array<scalar|null>|SplFileObject
  */
 class TextIterator implements IteratorAggregate
 {
+
 	public const NoSetup = 0;
 	public const KeepEmptyLine = 1;
 	public const SkipFirstLine = 2;
 	public const SkipTrimLine = 4;
 
-	/** @var VIterable */
+	/**
+	 * @var VIterable
+	 */
 	private array|SplFileObject $data;
 
 
@@ -32,12 +42,11 @@ class TextIterator implements IteratorAggregate
 	 */
 	public function __construct(
 		array|string|SplFileObject $text,
-		private int $flags = self::NoSetup
+		private int $flags = self::NoSetup,
 	)
 	{
 		$this->data = is_string($text) ? Arrays::text2Array($text) : $text;
 	}
-
 
 	/**
 	 * @return Generator<int, TValue>
@@ -76,4 +85,5 @@ class TextIterator implements IteratorAggregate
 			yield $key => $strRow;
 		}
 	}
+
 }

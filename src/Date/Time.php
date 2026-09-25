@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace h4kuna\DataType\Date;
 
@@ -7,16 +7,18 @@ use DateTimeImmutable;
 use DateTimeInterface;
 use h4kuna\DataType\Basic\Strings;
 use Nette\StaticClass;
+use function is_string;
+use function microtime;
 
 final class Time
 {
+
 	use StaticClass;
 
 	public static function micro(): float
 	{
 		return microtime(true);
 	}
-
 
 	/**
 	 * string format HH:MM[:SS]
@@ -39,7 +41,6 @@ final class Time
 			+ ((int) $second);
 	}
 
-
 	/**
 	 * @return ($dateTime is DateTime ? DateTime : DateTimeImmutable)
 	 */
@@ -59,7 +60,6 @@ final class Time
 		);
 	}
 
-
 	/**
 	 * @return ($dateTime is DateTime ? DateTime : DateTimeImmutable)
 	 */
@@ -76,4 +76,5 @@ final class Time
 			$day ?? (int) $dateTime->format('j'),
 		);
 	}
+
 }

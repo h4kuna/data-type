@@ -1,10 +1,12 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace h4kuna\DataType\Tests\Unit\Collection;
 
 use h4kuna\DataType\Collection\Counter;
 use Tester\Assert;
 use Tester\TestCase;
+use function assert;
+use function sleep;
 
 require __DIR__ . '/../../../bootstrap.php';
 
@@ -35,7 +37,6 @@ final class CounterTest extends TestCase
 		Assert::count(0, $counter);
 	}
 
-
 	public function testCountStack(): void
 	{
 		$counter = new Counter(-2);
@@ -58,7 +59,6 @@ final class CounterTest extends TestCase
 		assert($counter->last() !== null);
 		Assert::same('c', $counter->last()['message']);
 	}
-
 
 	private static function tick5(Counter $counter): void
 	{

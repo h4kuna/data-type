@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace h4kuna\DataType\Iterators;
 
@@ -13,6 +13,7 @@ final class PeriodDayFactory
 
 	/**
 	 * interval is (from, to> | exclude from, include to
+	 *
 	 * @return DatePeriod<DateTimeImmutable, DateTimeImmutable, null>
 	 */
 	public static function createExFromInTo(
@@ -24,13 +25,13 @@ final class PeriodDayFactory
 			Convert::toImmutableMidnight($start),
 			self::createDayInterval(),
 			Convert::toImmutable($end)->modify('+1 day, midnight'),
-			DatePeriod::EXCLUDE_START_DATE
+			DatePeriod::EXCLUDE_START_DATE,
 		);
 	}
 
-
 	/**
 	 * interval is <from, to> | exclude from, include to
+	 *
 	 * @return DatePeriod<DateTimeImmutable, DateTimeImmutable, null>
 	 */
 	public static function createInFromInTo(
@@ -41,13 +42,13 @@ final class PeriodDayFactory
 		return new DatePeriod(
 			Convert::toImmutableMidnight($start),
 			self::createDayInterval(),
-			Convert::toImmutable($end)->modify('+1 day, midnight')
+			Convert::toImmutable($end)->modify('+1 day, midnight'),
 		);
 	}
 
-
 	/**
 	 * interval is (from, to) | exclude from, include to
+	 *
 	 * @return DatePeriod<DateTimeImmutable, DateTimeImmutable, null>
 	 */
 	public static function createExFromExTo(
@@ -59,13 +60,13 @@ final class PeriodDayFactory
 			Convert::toImmutableMidnight($start),
 			self::createDayInterval(),
 			Convert::toImmutableMidnight($end),
-			DatePeriod::EXCLUDE_START_DATE
+			DatePeriod::EXCLUDE_START_DATE,
 		);
 	}
 
-
 	/**
 	 * interval is <from, to) | exclude from, include to
+	 *
 	 * @return DatePeriod<DateTimeImmutable, DateTimeImmutable, null>
 	 */
 	public static function createInFromExTo(
@@ -76,10 +77,9 @@ final class PeriodDayFactory
 		return new DatePeriod(
 			Convert::toImmutableMidnight($start),
 			self::createDayInterval(),
-			Convert::toImmutableMidnight($end)
+			Convert::toImmutableMidnight($end),
 		);
 	}
-
 
 	private static function createDayInterval(): DateInterval
 	{

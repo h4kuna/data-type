@@ -1,11 +1,14 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace h4kuna\DataType\Date;
 
 use Nette\StaticClass;
+use function sleep;
+use function usleep;
 
 final class Sleep
 {
+
 	use StaticClass;
 
 	/**
@@ -20,10 +23,9 @@ final class Sleep
 		if ($duration >= 1000) {
 			self::seconds($duration / 1_000.0);
 		} else {
-			self::sleep($duration);
+			self::microSleep($duration);
 		}
 	}
-
 
 	/**
 	 * @param float $duration like 0.5 as half second
@@ -37,13 +39,13 @@ final class Sleep
 
 		$milli = $duration - $seconds;
 		if ($milli > 0) {
-			self::sleep($milli * 1_000.0);
+			self::microSleep($milli * 1_000.0);
 		}
 	}
 
-
-	private static function sleep(int|float $milli): void
+	private static function microSleep(int|float $milli): void
 	{
 		usleep((int) ($milli * 1_000.0));
 	}
+
 }

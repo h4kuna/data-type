@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace h4kuna\DataType\Iterators;
 
@@ -13,7 +13,10 @@ class FlattenArrayRecursiveIterator extends RecursiveIteratorIterator
 	/**
 	 * @param array<mixed> $data
 	 */
-	public function __construct(array $data, string $delimiter = '-')
+	public function __construct(
+		array $data,
+		string $delimiter = '-',
+	)
 	{
 		parent::__construct(new FlattenArrayIterator($data, $delimiter));
 	}

@@ -1,10 +1,11 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace h4kuna\DataType\Tests\Unit\Date;
 
 use h4kuna\DataType\Date\Easter;
 use Tester\Assert;
 use Tester\TestCase;
+use function date;
 
 require __DIR__ . '/../../../bootstrap.php';
 
@@ -13,12 +14,12 @@ require __DIR__ . '/../../../bootstrap.php';
  */
 final class EasterTest extends TestCase
 {
-	protected function setUp()
+
+	protected function setUp(): void
 	{
 		Easter::$useNative = null;
 		parent::setUp();
 	}
-
 
 	public function testEaster(): void
 	{
@@ -29,13 +30,11 @@ final class EasterTest extends TestCase
 		Assert::same(date('Y'), Easter::monday()->format('Y'));
 	}
 
-
 	public function testCompareNativeAndCounted(): void
 	{
 		for ($i = 1970; $i <= 2037; ++$i) {
 			Easter::$useNative = true;
 			$native = Easter::sunday($i);
-
 
 			Easter::$useNative = false;
 			$counted = Easter::sunday($i);

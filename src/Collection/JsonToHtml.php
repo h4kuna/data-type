@@ -1,10 +1,11 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace h4kuna\DataType\Collection;
 
 use Nette\Utils\Html;
 use Nette\Utils\Json;
 use Stringable;
+use function get_object_vars;
 
 abstract class JsonToHtml implements Stringable
 {
@@ -13,12 +14,10 @@ abstract class JsonToHtml implements Stringable
 	{
 	}
 
-
 	public function __toString(): string
 	{
 		return (string) $this->render();
 	}
-
 
 	public function render(): ?Html
 	{

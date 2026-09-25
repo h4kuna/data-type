@@ -1,18 +1,22 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace h4kuna\DataType\Tests\Unit\Basic;
 
-use h4kuna\DataType;
 use h4kuna\DataType\Basic\Strings;
-use Tester;
 use Tester\Assert;
+use Tester\TestCase;
+use function array_walk;
+use function floatval;
+use function round;
+use const STR_PAD_BOTH;
+use const STR_PAD_RIGHT;
 
 require __DIR__ . '/../../../bootstrap.php';
 
 /**
  * @testCase
  */
-final class StringsTest extends Tester\TestCase
+final class StringsTest extends TestCase
 {
 
 	public function testToFloat(): void
@@ -20,12 +24,10 @@ final class StringsTest extends Tester\TestCase
 		Assert::same(1.1, Strings::toFloat('1.1'));
 	}
 
-
 	public function testToInt(): void
 	{
 		Assert::same(1, Strings::toInt('1'));
 	}
-
 
 	public function testStrokeToPoint(): void
 	{
@@ -34,7 +36,6 @@ final class StringsTest extends Tester\TestCase
 		Assert::same('1.1', Strings::strokeToPoint('1,1'));
 		Assert::same('1.1.1', Strings::strokeToPoint('1,1,1'));
 	}
-
 
 	public function testStartWith(): void
 	{
@@ -45,22 +46,19 @@ final class StringsTest extends Tester\TestCase
 		Assert::false(Strings::startWith('Unknown', 'L', 'I'));
 	}
 
-
 	public function testToGps(): void
 	{
 		$coordinate = Strings::toGps('51.1, 14.1');
-		array_walk($coordinate, function (&$v) {
+		array_walk($coordinate, static function (&$v): void {
 			$v = round(floatval($v), 1);
 		});
 		Assert::same([51.1, 14.1, 'lat' => 51.1, 'long' => 14.1], $coordinate);
 	}
 
-
 	public function testToSet(): void
 	{
 		Assert::same(['foo' => true, 'bar' => true], Strings::toSet('foo,bar'));
 	}
-
 
 	public function testToUnderscore(): void
 	{
@@ -80,7 +78,6 @@ final class StringsTest extends Tester\TestCase
 		}
 	}
 
-
 	public function testToCamel(): void
 	{
 		$tests = [
@@ -99,7 +96,6 @@ final class StringsTest extends Tester\TestCase
 		}
 	}
 
-
 	public function testToPascal(): void
 	{
 		$tests = [
@@ -116,7 +112,6 @@ final class StringsTest extends Tester\TestCase
 			Assert::same($expeted, Strings::toPascal($value));
 		}
 	}
-
 
 	/**
 	 * @return array<array<mixed>>
@@ -167,16 +162,18 @@ final class StringsTest extends Tester\TestCase
 		];
 	}
 
-
 	/**
-	 * @dataProvider providePadIfNeed
 	 * @param array{string: string, padString: string, padType: int} $input
+	 *
+	 * @dataProvider providePadIfNeed
 	 */
-	public function testPadIfNeed(string $expected, array $input): void
+	public function testPadIfNeed(
+		string $expected,
+		array $input,
+	): void
 	{
 		Assert::same($expected, Strings::padIfNeed(...$input));
 	}
-
 
 	/**
 	 * @return array<mixed>
@@ -195,27 +192,33 @@ final class StringsTest extends Tester\TestCase
 		];
 	}
 
-
 	/**
-	 * @dataProvider providerJoin
 	 * @param array<array<scalar|null>> $input
+	 *
+	 * @dataProvider providerJoin
 	 */
-	public function testJoin(array $input, string $expected): void
+	public function testJoin(
+		array $input,
+		string $expected,
+	): void
 	{
 		Assert::same($expected, Strings::join(...$input));
 	}
 
-
 	/**
 	 * @dataProvider provideReplaceStart
 	 */
-	public function testReplaceStart(string $expected, string $subject, string $search, bool $isReplaced): void
+	public function testReplaceStart(
+		string $expected,
+		string $subject,
+		string $search,
+		bool $isReplaced,
+	): void
 	{
 		$actual = Strings::replaceStart($subject, $search, '#');
 		Assert::same($expected, $actual);
 		Assert::same($isReplaced, $subject !== $actual);
 	}
-
 
 	/**
 	 * @return array<mixed>
@@ -229,17 +232,20 @@ final class StringsTest extends Tester\TestCase
 		];
 	}
 
-
 	/**
 	 * @dataProvider provideReplaceEnd
 	 */
-	public function testReplaceEnd(string $expected, string $subject, string $search, bool $isReplaced): void
+	public function testReplaceEnd(
+		string $expected,
+		string $subject,
+		string $search,
+		bool $isReplaced,
+	): void
 	{
 		$actual = Strings::replaceEnd($subject, $search, '#');
 		Assert::same($expected, $actual);
 		Assert::same($isReplaced, $subject !== $actual);
 	}
-
 
 	/**
 	 * @return array<mixed>
@@ -253,12 +259,12 @@ final class StringsTest extends Tester\TestCase
 		];
 	}
 
-
 	public function testNullable(): void
 	{
 		Assert::null(Strings::nullable(null));
 		Assert::same('null', Strings::nullable('null'));
 	}
+
 }
 
 (new StringsTest())->run();

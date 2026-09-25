@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace h4kuna\DataType\Basic;
 
@@ -6,27 +6,37 @@ use Nette\StaticClass;
 
 final class BitwiseOperations
 {
+
 	use StaticClass;
 
-	public static function check(int $number, int $flag): bool
+	public static function check(
+		int $number,
+		int $flag,
+	): bool
 	{
 		return ($number & $flag) !== 0;
 	}
 
-
-	public static function checkStrict(int $number, int $flag): bool
+	public static function checkStrict(
+		int $number,
+		int $flag,
+	): bool
 	{
 		return ($number & $flag) === $number;
 	}
 
-
-	public static function add(int &$number, int $flag): void
+	public static function add(
+		int &$number,
+		int $flag,
+	): void
 	{
 		$number |= $flag;
 	}
 
-
-	public static function remove(int &$number, int $flag): void
+	public static function remove(
+		int &$number,
+		int $flag,
+	): void
 	{
 		$number &= ~$flag;
 	}

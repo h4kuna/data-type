@@ -1,10 +1,13 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace h4kuna\DataType\Tests\Unit\Iterators;
 
 use h4kuna\DataType\Iterators\FlattenArrayRecursiveIterator;
 use Tester\Assert;
 use Tester\TestCase;
+use function assert;
+use function is_int;
+use function is_string;
 
 require __DIR__ . '/bootstrap.php';
 
@@ -17,9 +20,14 @@ final class FlattenArrayRecursiveIteratorTest extends TestCase
 	/**
 	 * @param array<string, scalar> $expected
 	 * @param array<string, mixed> $input
+	 *
 	 * @dataProvider sourceData
 	 */
-	public function testBasic(array $expected, array $input, string $delimiter): void
+	public function testBasic(
+		array $expected,
+		array $input,
+		string $delimiter,
+	): void
 	{
 		$iterator = new FlattenArrayRecursiveIterator($input, $delimiter);
 		$output = [];
@@ -31,7 +39,6 @@ final class FlattenArrayRecursiveIteratorTest extends TestCase
 		Assert::same($expected, $output);
 	}
 
-
 	/**
 	 * @return array<array<mixed>>
 	 */
@@ -40,7 +47,7 @@ final class FlattenArrayRecursiveIteratorTest extends TestCase
 		$input = [
 			'address' => [
 				'street' => 'foo',
-				'zip' => 29404,
+				'zip' => 29_404,
 				'c' => [
 					'p' => '5',
 					'e' => 10.6,
@@ -60,7 +67,7 @@ final class FlattenArrayRecursiveIteratorTest extends TestCase
 			[
 				'expected' => [
 					'address%street' => 'foo',
-					'address%zip' => 29404,
+					'address%zip' => 29_404,
 					'address%c%p' => '5',
 					'address%c%e' => 10.6,
 					'main%0' => 'a',
@@ -75,7 +82,7 @@ final class FlattenArrayRecursiveIteratorTest extends TestCase
 			[
 				'expected' => [
 					'address-street' => 'foo',
-					'address-zip' => 29404,
+					'address-zip' => 29_404,
 					'address-c-p' => '5',
 					'address-c-e' => 10.6,
 					'main-0' => 'a',

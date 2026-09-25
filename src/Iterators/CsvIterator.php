@@ -1,17 +1,21 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace h4kuna\DataType\Iterators;
 
 use Generator;
 use IteratorAggregate;
 use SplFileObject;
+use function str_getcsv;
 
 /**
  * @implements IteratorAggregate<int, array<string>>
  */
 class CsvIterator implements IteratorAggregate
 {
-	/** @var TextIterator<string|non-empty-string> */
+
+	/**
+	 * @var TextIterator<string|non-empty-string>
+	 */
 	private TextIterator $textIterator;
 
 
@@ -33,7 +37,6 @@ class CsvIterator implements IteratorAggregate
 		}
 	}
 
-
 	/**
 	 * @return Generator<int, array<string>>
 	 */
@@ -45,4 +48,5 @@ class CsvIterator implements IteratorAggregate
 			yield $k => $data;
 		}
 	}
+
 }

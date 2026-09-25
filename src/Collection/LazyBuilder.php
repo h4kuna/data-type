@@ -1,18 +1,23 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace h4kuna\DataType\Collection;
 
 use Closure;
 use h4kuna\DataType\Exceptions\LogicException;
+use function sprintf;
 
 /**
  * @template T
+ *
  * @phpstan-type formatCallback Closure(static $self): T
  * @phpstan-type defaultCallback Closure(string|int $key, static $self, mixed $options): T
  */
 class LazyBuilder
 {
-	/** @var ?defaultCallback */
+
+	/**
+	 * @var ?defaultCallback
+	 */
 	private ?Closure $default = null;
 
 	/**
@@ -30,11 +35,13 @@ class LazyBuilder
 	{
 	}
 
-
 	/**
 	 * @param formatCallback|T $setup
 	 */
-	public function add(string|int $key, $setup): void
+	public function add(
+		string|int $key,
+		$setup,
+	): void
 	{
 		if (self::isCallable($setup)) {
 			$this->factories[$key] = $setup;
@@ -44,7 +51,6 @@ class LazyBuilder
 		}
 	}
 
-
 	/**
 	 * @return ($object is Closure ? true : false)
 	 */
@@ -53,12 +59,10 @@ class LazyBuilder
 		return $object instanceof Closure; // keep Closure instead of is_callable, don't support class::__invoke()
 	}
 
-
 	public function has(string|int $key): bool
 	{
 		return isset($this->formats[$key]) || isset($this->factories[$key]);
 	}
-
 
 	/**
 	 * @return T
@@ -79,7 +83,6 @@ class LazyBuilder
 		return $this->formats[$key];
 	}
 
-
 	/**
 	 * @return defaultCallback
 	 */
@@ -91,7 +94,6 @@ class LazyBuilder
 
 		return $this->default;
 	}
-
 
 	/**
 	 * @param defaultCallback|T $default
@@ -107,7 +109,6 @@ class LazyBuilder
 		$this->default = $default;
 	}
 
-
 	/**
 	 * @param T|null $object
 	 * @return defaultCallback
@@ -115,7 +116,7 @@ class LazyBuilder
 	protected function createDefaultCallback($object = null): Closure
 	{
 		if ($object === null) {
-			return static fn (string|int $key
+			return static fn (string|int $key,
 			) => throw new LogicException(sprintf('Default format is not set up. Unknown key "%s".', $key));
 		}
 		throw new LogicException('Default format is not set up.');

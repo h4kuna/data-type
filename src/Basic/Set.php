@@ -1,13 +1,16 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace h4kuna\DataType\Basic;
 
-use h4kuna\DataType;
 use Nette\StaticClass;
+use function array_fill_keys;
+use function explode;
+use function implode;
 
 /**
  * Transform set from string to array and vice versa
  * MySQL data type SET to checkboxlist
+ *
  * @example
  * [
  *  foo => TRUE,
@@ -19,6 +22,7 @@ use Nette\StaticClass;
  */
 final class Set
 {
+
 	use StaticClass;
 
 	/**
@@ -28,7 +32,6 @@ final class Set
 	{
 		return array_fill_keys(explode(',', $value), true);
 	}
-
 
 	/**
 	 * @param array<string, bool|null> $set

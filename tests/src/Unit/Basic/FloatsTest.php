@@ -1,19 +1,21 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace h4kuna\DataType\Tests\Unit\Basic;
 
-use h4kuna\DataType\Exceptions\InvalidTypeException;
-use h4kuna;
 use h4kuna\DataType\Basic\Floats;
+use h4kuna\DataType\Exceptions\InvalidTypeException;
 use Tester\Assert;
+use Tester\TestCase;
+use function round;
 
 require __DIR__ . '/../../../bootstrap.php';
 
 /**
  * @testCase
  */
-final class FloatsTest extends \Tester\TestCase
+final class FloatsTest extends TestCase
 {
+
 	/**
 	 * @return array<array<mixed>>
 	 */
@@ -39,21 +41,21 @@ final class FloatsTest extends \Tester\TestCase
 		];
 	}
 
-
 	/**
 	 * @dataProvider dataFrom
 	 */
-	public function testFromString(mixed $input, float $expected): void
+	public function testFromString(
+		mixed $input,
+		float $expected,
+	): void
 	{
 		Assert::same($expected, Floats::from($input));
 	}
-
 
 	public function testExceptionFloatChar(): void
 	{
 		Assert::exception(static fn () => Floats::from('-1,d0'), InvalidTypeException::class);
 	}
-
 
 	public function testFromHour(): void
 	{
@@ -64,17 +66,18 @@ final class FloatsTest extends \Tester\TestCase
 		Assert::same(-3.5, Floats::fromHour('-3:30'));
 	}
 
-
 	public function testThousand(): void
 	{
 		Assert::same(3620.0, Floats::from('3.620,00', ',', '.'));
 	}
 
-
 	/**
 	 * @dataProvider dataFrom
 	 */
-	public function testNullable(mixed $input, float $expected): void
+	public function testNullable(
+		mixed $input,
+		float $expected,
+	): void
 	{
 		if ($input === null) {
 			$expected = null;

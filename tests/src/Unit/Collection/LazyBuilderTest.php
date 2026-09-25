@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace h4kuna\DataType\Tests\Unit\Collection;
 
@@ -15,16 +15,17 @@ require __DIR__ . '/../../../bootstrap.php';
  */
 final class LazyBuilderTest extends TestCase
 {
+
 	public function testDefaultIsNotDefinedFailed(): void
 	{
-		Assert::throws(fn () => (new LazyBuilder())->get('any'), LogicException::class);
-		Assert::throws(fn () => (new LazyBuilder())->setDefault('any'), LogicException::class); // @phpstan-ignore-line
+		Assert::throws(static fn () => (new LazyBuilder())->get('any'), LogicException::class);
+		Assert::throws(static fn () => (new LazyBuilder())->setDefault('any'), LogicException::class); // @phpstan-ignore-line
 
 		$lazyBuilder = new LazyBuilder();
-		$lazyBuilder->setDefault(fn () => 'hello');;
-		Assert::throws(fn () => $lazyBuilder->setDefault(fn () => 'any'), LogicException::class);
-	}
+		$lazyBuilder->setDefault(static fn () => 'hello');
 
+		Assert::throws(static fn () => $lazyBuilder->setDefault(static fn () => 'any'), LogicException::class);
+	}
 
 	public function testFormats(): void
 	{
@@ -49,6 +50,7 @@ final class LazyBuilderTest extends TestCase
 		$lazyBuilder->add('CZK', static fn (): string => 'Kčs');
 		Assert::same('Kčs', $lazyBuilder->get('CZK'));
 	}
+
 }
 
 (new LazyBuilderTest())->run();

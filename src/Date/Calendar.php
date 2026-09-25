@@ -1,21 +1,28 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace h4kuna\DataType\Date;
 
 use DateTimeImmutable;
 use DateTimeInterface;
-use h4kuna\DataType;
 use h4kuna\DataType\Exceptions\InvalidArgumentsException;
 use Nette\StaticClass;
 use Nette\Utils\Strings;
+use function checkdate;
+use function date;
+use function is_numeric;
+use function sprintf;
+use function trim;
 
 final class Calendar
 {
+
 	use StaticClass;
 
 	public static string $namesFile = __DIR__ . '/names.php';
 
-	/** @var array<int, array<int, string>>|null */
+	/**
+	 * @var array<int, array<int, string>>|null
+	 */
 	private static ?array $names = null;
 
 
@@ -23,12 +30,12 @@ final class Calendar
 	{
 	}
 
-
 	/**
-	 * @param null|int<0, 7>|string|DateTimeInterface $day
+	 * @param int<0, 7>|string|DateTimeInterface|null $day
+	 *
 	 * @throws InvalidArgumentsException
 	 */
-	public static function nameOfDay(null|int|string|DateTimeInterface $day = null): string
+	public static function nameOfDay(int|string|DateTimeInterface|null $day = null): string
 	{
 		if ($day === null) {
 			$day = (int) date('w');
@@ -47,7 +54,6 @@ final class Calendar
 		return self::getDays()[$day] ?? throw InvalidArgumentsException::createDayOutOfRange($day);
 	}
 
-
 	/**
 	 * @return array<string>
 	 */
@@ -64,12 +70,12 @@ final class Calendar
 		];
 	}
 
-
 	/**
-	 * @param null|int<1, 12>|string|DateTimeInterface $month
+	 * @param int<1, 12>|string|DateTimeInterface|null $month
+	 *
 	 * @throws InvalidArgumentsException
 	 */
-	public static function nameOfMonth(null|int|string|DateTimeInterface $month = null): string
+	public static function nameOfMonth(int|string|DateTimeInterface|null $month = null): string
 	{
 		if ($month === null) {
 			$month = (int) date('n');
@@ -83,7 +89,6 @@ final class Calendar
 
 		return self::getMonths()[$month] ?? throw InvalidArgumentsException::createMonthOutOfRange($month);
 	}
-
 
 	/**
 	 * @return array<string>
@@ -106,9 +111,9 @@ final class Calendar
 		];
 	}
 
-
 	/**
 	 * CZECH FORMAT DD.MM.YYYY[ HH:mm:SS]
+	 *
 	 * @throws InvalidArgumentsException
 	 */
 	public static function czech2DateTime(string $date): DateTimeImmutable
@@ -123,7 +128,6 @@ final class Calendar
 		return new DateTimeImmutable(sprintf('%s-%s-%s %s:%s:%s', $find['y'], $find['m'], $find['d'], $find['h'], $find['i'], $find['s']));
 	}
 
-
 	public static function februaryOfDay(int|DateTimeInterface $year): int
 	{
 		if ($year instanceof DateTimeInterface) {
@@ -133,9 +137,9 @@ final class Calendar
 		return checkdate(2, 29, $year) ? 29 : 28;
 	}
 
-
 	/**
 	 * @param ?int<1970, 2037> $year
+	 *
 	 * @see Easter::monday()
 	 * @deprecated see
 	 */
@@ -144,9 +148,9 @@ final class Calendar
 		return Easter::monday($year);
 	}
 
-
 	/**
 	 * Return czech name on name-day.
+	 *
 	 * @throws InvalidArgumentsException
 	 */
 	public static function nameByDate(?DateTimeInterface $date = null): string
@@ -159,7 +163,6 @@ final class Calendar
 
 		return self::names()[$month][$day] ?? throw InvalidArgumentsException::createUnknownNameDay($month, $day);
 	}
-
 
 	/**
 	 * @return array<int, array<int, string>>
@@ -174,4 +177,5 @@ final class Calendar
 
 		return self::$names;
 	}
+
 }

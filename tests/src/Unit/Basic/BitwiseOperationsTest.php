@@ -1,17 +1,17 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace h4kuna\DataType\Tests\Unit\Basic;
 
 use h4kuna\DataType\Basic\BitwiseOperations;
-use Tester;
 use Tester\Assert;
+use Tester\TestCase;
 
 require __DIR__ . '/../../../bootstrap.php';
 
 /**
  * @testCase
  */
-final class BitwiseOperationsTest extends Tester\TestCase
+final class BitwiseOperationsTest extends TestCase
 {
 
 	public function testCheck(): void
@@ -20,7 +20,6 @@ final class BitwiseOperationsTest extends Tester\TestCase
 		Assert::false(BitwiseOperations::check(3, 4));
 	}
 
-
 	public function testCheckStrict(): void
 	{
 		Assert::true(BitwiseOperations::checkStrict(2, 2));
@@ -28,14 +27,12 @@ final class BitwiseOperationsTest extends Tester\TestCase
 		Assert::false(BitwiseOperations::checkStrict(3, 4));
 	}
 
-
 	public function testAdd(): void
 	{
 		$x = 2;
 		BitwiseOperations::add($x, 4);
 		Assert::same(6, $x);
 	}
-
 
 	public function testRemove(): void
 	{

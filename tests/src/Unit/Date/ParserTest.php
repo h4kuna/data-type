@@ -1,12 +1,15 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace h4kuna\DataType\Tests\Unit\Date;
 
 use DateTime;
 use DateTimeImmutable;
-use h4kuna\DataType\Date;
+use DateTimeInterface;
+use h4kuna\DataType\Date\Parser;
+use h4kuna\DataType\Date\Time;
 use Tester\Assert;
 use Tester\TestCase;
+use function date;
 
 require_once __DIR__ . '/../../../bootstrap.php';
 
@@ -15,6 +18,7 @@ require_once __DIR__ . '/../../../bootstrap.php';
  */
 final class ParserTest extends TestCase
 {
+
 	/**
 	 * @return array<array<mixed>>
 	 */
@@ -47,35 +51,34 @@ final class ParserTest extends TestCase
 		];
 	}
 
-
 	/**
 	 * @dataProvider provideMakeFromString
 	 */
-	public function testMakeFromString(string $expected, string $input): void
+	public function testMakeFromString(
+		string $expected,
+		string $input,
+	): void
 	{
-		$dateTimeResult = Date\Parser::fromString($input, new DateTime('2023-06-11 07:00:00'));
+		$dateTimeResult = Parser::fromString($input, new DateTime('2023-06-11 07:00:00'));
 		Assert::same($expected, self::format($dateTimeResult));
 		Assert::type(DateTime::class, $dateTimeResult);
 
-		$dateTimeImmutableResult = Date\Parser::fromString($input, new DateTimeImmutable('2023-06-11 07:00:00'));
+		$dateTimeImmutableResult = Parser::fromString($input, new DateTimeImmutable('2023-06-11 07:00:00'));
 		Assert::type(DateTimeImmutable::class, $dateTimeImmutableResult);
 		Assert::same($expected, self::format($dateTimeImmutableResult));
 	}
 
-
 	public function testTime(): void
 	{
-		Assert::equal(Date\Time::time(new DateTimeImmutable(), microseconds: 0), Date\Time::time(Date\Parser::fromString(''), microseconds: 0));
+		Assert::equal(Time::time(new DateTimeImmutable(), microseconds: 0), Time::time(Parser::fromString(''), microseconds: 0));
 	}
-
 
 	public function testDate(): void
 	{
-		Assert::equal(Date\Time::date(new DateTimeImmutable())->format('Y-m-d'), Date\Time::date(Date\Parser::fromString(''))->format('Y-m-d'));
+		Assert::equal(Time::date(new DateTimeImmutable())->format('Y-m-d'), Time::date(Parser::fromString(''))->format('Y-m-d'));
 	}
 
-
-	private static function format(\DateTimeInterface $dateTime): string
+	private static function format(DateTimeInterface $dateTime): string
 	{
 		return $dateTime->format('Y-m-d H:i:s');
 	}

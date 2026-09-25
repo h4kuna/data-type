@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace h4kuna\DataType\Iterators;
 
@@ -12,7 +12,8 @@ final readonly class ActiveWait
 	public function __construct(
 		private float $sleep = 0.1,
 		private float $timeoutSeconds = 0.0,
-	) {
+	)
+	{
 	}
 
 	/**
@@ -24,17 +25,16 @@ final readonly class ActiveWait
 	{
 		$start = $this->timeoutSeconds > 0 ? Time::micro() : null;
 
-		run:
-		$return = ($callback)();
-		if ($return === false) {
+		while (($callback)() === false) {
 			Sleep::seconds($this->sleep);
-			if ($start !== null) {
-				$duration = Time::micro() - $start;
-				if ($duration > $this->timeoutSeconds) {
-					throw ActiveWaitTimeoutException::createAfterTimeout($duration);
-				}
+			if ($start === null) {
+				continue;
 			}
-			goto run;
+
+			$duration = Time::micro() - $start;
+			if ($duration > $this->timeoutSeconds) {
+				throw ActiveWaitTimeoutException::createAfterTimeout($duration);
+			}
 		}
 	}
 

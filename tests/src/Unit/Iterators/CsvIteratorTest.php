@@ -1,20 +1,23 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace h4kuna\DataType\Tests\Unit\Iterators;
 
 use h4kuna\DataType\Iterators\CsvIterator;
 use h4kuna\DataType\Iterators\TextIterator;
+use SplFileObject;
+use Tester\TestCase;
 
 require __DIR__ . '/bootstrap.php';
 
 /**
  * @testCase
  */
-final class CsvIteratorTest extends \Tester\TestCase
+final class CsvIteratorTest extends TestCase
 {
+
 	public function testFileObject(): void
 	{
-		$csvIterator = new CsvIterator(new \SplFileObject(filepath()));
+		$csvIterator = new CsvIterator(new SplFileObject(filepath()));
 		assertContent('fileObject', toString($csvIterator));
 	}
 
@@ -23,6 +26,7 @@ final class CsvIteratorTest extends \Tester\TestCase
 		$csvIterator = new CsvIterator(createTextIterator(TextIterator::NoSetup), ';');
 		assertContent('csvNoSetUp', toString($csvIterator));
 	}
+
 	public function testCsv(): void
 	{
 		$csvIterator = new CsvIterator(createTextIterator(TextIterator::SkipFirstLine), ';');
@@ -31,4 +35,4 @@ final class CsvIteratorTest extends \Tester\TestCase
 
 }
 
-(new CsvIteratorTest)->run();
+(new CsvIteratorTest())->run();

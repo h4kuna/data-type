@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace h4kuna\DataType\Collection;
 
@@ -7,16 +7,18 @@ use h4kuna\DataType\Basic\Floats;
 use h4kuna\DataType\Basic\Integer;
 use h4kuna\DataType\Basic\Strings;
 use h4kuna\DataType\Exceptions\InvalidTypeException;
+use function array_key_exists;
+use function is_array;
 
 final class StrictTypeArray
 {
+
 	/**
 	 * @param array<array<mixed>|bool|float|int|string|null> $data
 	 */
 	public function __construct(private /* readonly */ array $data)
 	{
 	}
-
 
 	/**
 	 * @throws InvalidTypeException
@@ -25,7 +27,6 @@ final class StrictTypeArray
 	{
 		return isset($this->data[$name]) ? Strings::from($this->data[$name]) : null;
 	}
-
 
 	/**
 	 * @throws InvalidTypeException
@@ -37,7 +38,6 @@ final class StrictTypeArray
 		return Strings::from($this->data[$name]);
 	}
 
-
 	/**
 	 * @throws InvalidTypeException
 	 */
@@ -48,7 +48,6 @@ final class StrictTypeArray
 		return Floats::from($this->data[$name]);
 	}
 
-
 	/**
 	 * @throws InvalidTypeException
 	 */
@@ -56,7 +55,6 @@ final class StrictTypeArray
 	{
 		return isset($this->data[$name]) ? Floats::from($this->data[$name]) : null;
 	}
-
 
 	/**
 	 * @throws InvalidTypeException
@@ -68,7 +66,6 @@ final class StrictTypeArray
 		return Integer::from($this->data[$name]);
 	}
 
-
 	/**
 	 * @throws InvalidTypeException
 	 */
@@ -76,7 +73,6 @@ final class StrictTypeArray
 	{
 		return isset($this->data[$name]) ? Integer::from($this->data[$name]) : null;
 	}
-
 
 	/**
 	 * @throws InvalidTypeException
@@ -90,9 +86,9 @@ final class StrictTypeArray
 		return Bools::from($this->data[$name]);
 	}
 
-
 	/**
 	 * @return array<mixed>|null
+	 *
 	 * @throws InvalidTypeException
 	 */
 	public function arrayNull(string $name): ?array
@@ -100,9 +96,9 @@ final class StrictTypeArray
 		return isset($this->data[$name]) ? $this->array($name) : null;
 	}
 
-
 	/**
 	 * @return array<mixed>
+	 *
 	 * @throws InvalidTypeException
 	 */
 	public function array(string $name): array

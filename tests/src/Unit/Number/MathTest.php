@@ -1,20 +1,19 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace h4kuna\DataType\Tests\Unit\Number;
 
-use h4kuna\DataType\Exceptions\LogicException;
 use DateTime;
-use h4kuna;
+use h4kuna\DataType\Exceptions\LogicException;
 use h4kuna\DataType\Number\Math;
-use Tester;
 use Tester\Assert;
+use Tester\TestCase;
 
 require __DIR__ . '/../../../bootstrap.php';
 
 /**
  * @testCase
  */
-final class MathTest extends Tester\TestCase
+final class MathTest extends TestCase
 {
 
 	public function testInterval(): void
@@ -95,6 +94,7 @@ final class MathTest extends Tester\TestCase
 	{
 		Assert::exception(static fn () => Math::factorial(-1), LogicException::class);
 	}
+
 }
 
 (new MathTest())->run();

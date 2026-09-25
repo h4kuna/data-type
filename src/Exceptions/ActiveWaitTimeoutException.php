@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace h4kuna\DataType\Exceptions;
 
@@ -9,4 +9,5 @@ final class ActiveWaitTimeoutException extends DataTypeException
 	{
 		return new self("Active Wait timeout expired after {$timeoutSeconds} seconds.");
 	}
+
 }

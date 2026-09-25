@@ -1,12 +1,21 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace h4kuna\DataType\Iterators;
 
 use RecursiveIterator;
+use function array_key_last;
+use function assert;
+use function current;
+use function implode;
+use function is_array;
+use function key;
+use function next;
+use function reset;
 
 /**
- * @example new \RecursiveIteratorIterator(new FlattenArrayIterator($data));
  * @implements RecursiveIterator<string, mixed>
+ *
+ * @example new \RecursiveIteratorIterator(new FlattenArrayIterator($data));
  * @phpstan-consistent-constructor
  */
 class FlattenArrayIterator implements RecursiveIterator
@@ -21,22 +30,22 @@ class FlattenArrayIterator implements RecursiveIterator
 	/**
 	 * @param array<mixed> $data
 	 */
-	public function __construct(private array $data, private string $delimiter = '-')
+	public function __construct(
+		private array $data,
+		private string $delimiter = '-',
+	)
 	{
 	}
-
 
 	public function next(): void
 	{
 		next($this->data);
 	}
 
-
 	public function key(): mixed
 	{
 		return implode($this->delimiter, $this->keys);
 	}
-
 
 	public function valid(): bool
 	{
@@ -50,25 +59,21 @@ class FlattenArrayIterator implements RecursiveIterator
 		return isset($this->data[$key]);
 	}
 
-
 	public function rewind(): void
 	{
 		reset($this->data);
 		$this->keys[] = '';
 	}
 
-
 	public function hasChildren(): bool
 	{
 		return is_array($this->current());
 	}
 
-
 	public function current(): mixed
 	{
 		return current($this->data);
 	}
-
 
 	/**
 	 * @return RecursiveIterator<string, mixed>
@@ -82,7 +87,6 @@ class FlattenArrayIterator implements RecursiveIterator
 
 		return $child;
 	}
-
 
 	/**
 	 * @param array<int|string> $keys

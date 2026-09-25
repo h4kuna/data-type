@@ -1,14 +1,25 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace h4kuna\DataType\Basic;
 
-use h4kuna\DataType;
 use h4kuna\DataType\Exceptions\InvalidTypeException;
 use Nette\StaticClass;
-use Nette\Utils;
+use Nette\Utils\Strings as NetteStrings;
+use function assert;
+use function explode;
+use function is_array;
+use function is_bool;
+use function is_numeric;
+use function is_object;
+use function is_string;
+use function pow;
+use function str_replace;
+use function str_starts_with;
+use function substr;
 
 final class Floats
 {
+
 	use StaticClass;
 
 	/**
@@ -19,14 +30,13 @@ final class Floats
 		return $value === null ? null : self::from($value);
 	}
 
-
 	/**
 	 * @throws InvalidTypeException
 	 */
 	public static function from(
 		mixed $value,
 		string $decimalPoint = ',',
-		string $thousandSeparator = ' '
+		string $thousandSeparator = ' ',
 	): float
 	{
 		if (is_numeric($value) || $value === '' || is_bool($value) || $value === null) {
@@ -36,7 +46,7 @@ final class Floats
 		}
 		assert(is_string($value));
 
-		if (Utils\Strings::match($value, '/^\d{1,2}:\d{1,2}(:\d{1,2})?$/') !== null) {
+		if (NetteStrings::match($value, '/^\d{1,2}:\d{1,2}(:\d{1,2})?$/') !== null) {
 			return self::fromHour($value);
 		}
 
@@ -48,9 +58,9 @@ final class Floats
 		throw InvalidTypeException::createInvalidFloat($value);
 	}
 
-
 	/**
 	 * Format HH:MM or HH:MM:SS
+	 *
 	 * @throws InvalidTypeException
 	 */
 	public static function fromHour(string $value): float

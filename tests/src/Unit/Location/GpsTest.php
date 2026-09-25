@@ -1,20 +1,20 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace h4kuna\DataType\Tests\Unit\Location;
 
 use h4kuna\DataType\Exceptions\InvalidArgumentsException;
-use h4kuna;
-use h4kuna\DataType;
 use h4kuna\DataType\Location\Gps;
-use Tester;
 use Tester\Assert;
+use Tester\TestCase;
+use function floatval;
+use function round;
 
 require __DIR__ . '/../../../bootstrap.php';
 
 /**
  * @testCase
  */
-final class GpsTest extends Tester\TestCase
+final class GpsTest extends TestCase
 {
 
 	public function testFromString(): void
@@ -43,18 +43,15 @@ final class GpsTest extends Tester\TestCase
 		Assert::same($expected, self::round7(Gps::fromString('50.0835494S, 14.4341414W')));
 	}
 
-
 	public function testFromStringFail(): void
 	{
 		Assert::exception(static fn () => Gps::fromString('Hello fail'), InvalidArgumentsException::class);
 	}
 
-
 	public function testPoleFail(): void
 	{
 		Assert::exception(static fn () => Gps::fromString('50.0835494A, 14.4341414W'), InvalidArgumentsException::class);
 	}
-
 
 	/**
 	 * @param array<int|float> $coordinate

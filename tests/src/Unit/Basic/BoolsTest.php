@@ -1,10 +1,9 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace h4kuna\DataType\Tests\Unit\Basic;
 
-use h4kuna\DataType\Exceptions\InvalidTypeException;
-use h4kuna;
 use h4kuna\DataType\Basic\Bools;
+use h4kuna\DataType\Exceptions\InvalidTypeException;
 use Tester\Assert;
 use Tester\TestCase;
 
@@ -35,15 +34,16 @@ final class BoolsTest extends TestCase
 		];
 	}
 
-
 	/**
 	 * @dataProvider dataFrom
 	 */
-	public function testFrom(mixed $input, bool $expected): void
+	public function testFrom(
+		mixed $input,
+		bool $expected,
+	): void
 	{
 		Assert::same($expected, Bools::from($input));
 	}
-
 
 	/**
 	 * @return array<array<mixed>>
@@ -57,7 +57,6 @@ final class BoolsTest extends TestCase
 		];
 	}
 
-
 	/**
 	 * @dataProvider dataFromFailed
 	 */
@@ -66,11 +65,13 @@ final class BoolsTest extends TestCase
 		Assert::exception(static fn () => Bools::from($input), InvalidTypeException::class);
 	}
 
-
 	/**
 	 * @dataProvider dataFrom
 	 */
-	public function testNullable(mixed $input, bool $expected): void
+	public function testNullable(
+		mixed $input,
+		bool $expected,
+	): void
 	{
 		if ($input === null) {
 			$expected = null;

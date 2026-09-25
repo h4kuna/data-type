@@ -1,16 +1,21 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace h4kuna\DataType\Collection;
 
 use Countable;
 use h4kuna\DataType\Date\Time;
+use function array_key_first;
+use function array_key_last;
+use function array_shift;
+use function count;
 
 /**
  * @phpstan-type Any mixed
- * @phpstan-type InfoType  array{time: float, message: Any}
+ * @phpstan-type InfoType array{time: float, message: Any}
  */
 class Counter implements Countable
 {
+
 	public const DISABLE_GARBAGE = 0;
 
 	/**
@@ -26,7 +31,6 @@ class Counter implements Countable
 	{
 	}
 
-
 	/**
 	 * @param Any $message
 	 */
@@ -34,7 +38,6 @@ class Counter implements Countable
 	{
 		$this->stack[] = ['message' => $message, 'time' => Time::micro()];
 	}
-
 
 	/**
 	 * @return InfoType|null
@@ -49,7 +52,6 @@ class Counter implements Countable
 		return $this->stack[$key];
 	}
 
-
 	public function isFull(): bool
 	{
 		if ($this->ttl === self::DISABLE_GARBAGE) {
@@ -61,7 +63,6 @@ class Counter implements Countable
 		return $this->isFullByCount($this->ttl * -1);
 	}
 
-
 	private function isFullByTime(float $ttl): bool
 	{
 		$key = array_key_first($this->stack);
@@ -72,20 +73,17 @@ class Counter implements Countable
 		return $this->stack[$key]['time'] < $ttl;
 	}
 
-
 	private function isFullByCount(int $maxCount): bool
 	{
 		$actualCount = count($this->stack);
 		return $maxCount < $actualCount;
 	}
 
-
 	public function count(): int
 	{
 		$this->garbage();
 		return count($this->stack);
 	}
-
 
 	private function garbage(): void
 	{
@@ -99,7 +97,6 @@ class Counter implements Countable
 		$this->garbageByCount($this->ttl * -1);
 	}
 
-
 	private function garbageByTime(float $ttl): void
 	{
 		foreach ($this->stack as $info) {
@@ -110,7 +107,6 @@ class Counter implements Countable
 			break;
 		}
 	}
-
 
 	private function garbageByCount(int $maxCount): void
 	{
@@ -125,9 +121,9 @@ class Counter implements Countable
 		}
 	}
 
-
 	public function reset(): void
 	{
 		$this->stack = [];
 	}
+
 }

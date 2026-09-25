@@ -1,19 +1,23 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace h4kuna\DataType\Tests\Unit\Date;
 
+use DateInterval;
+use DatePeriod;
 use DateTime;
 use DateTimeInterface;
 use h4kuna\DataType\Date\Calendar;
 use h4kuna\DataType\Exceptions\InvalidArgumentsException;
 use Tester\Assert;
+use Tester\TestCase;
+use function date;
 
 require __DIR__ . '/../../../bootstrap.php';
 
 /**
  * @testCase
  */
-final class CalendarTest extends \Tester\TestCase
+final class CalendarTest extends TestCase
 {
 
 	public function testGetDays(): void
@@ -21,12 +25,10 @@ final class CalendarTest extends \Tester\TestCase
 		Assert::same(Calendar::getDays(), Calendar::getDays());
 	}
 
-
 	public function testGetMonths(): void
 	{
 		Assert::same(Calendar::getMonths(), Calendar::getMonths());
 	}
-
 
 	/**
 	 * @return array<array<mixed>>
@@ -48,23 +50,25 @@ final class CalendarTest extends \Tester\TestCase
 		];
 	}
 
-
 	/**
+	 * @param int<0, 7>|string|DateTimeInterface|null $input
+	 *
 	 * @dataProvider provideNameOfDay
-	 * @param null|int<0, 7>|string|DateTimeInterface $input
 	 */
-	public function testNameOfDay(string $expected, null|int|string|DateTimeInterface $input): void
+	public function testNameOfDay(
+		string $expected,
+		int|string|DateTimeInterface|null $input,
+	): void
 	{
 		if ($expected === InvalidArgumentsException::class) {
 			Assert::exception(
 				static fn () => Calendar::nameOfDay($input),
-				$expected
+				$expected,
 			);
 			return;
 		}
 		Assert::same($expected, Calendar::nameOfDay($input));
 	}
-
 
 	/**
 	 * @return array<array<mixed>>
@@ -90,23 +94,25 @@ final class CalendarTest extends \Tester\TestCase
 		];
 	}
 
-
 	/**
+	 * @param int<1, 12>|string|DateTimeInterface|null $input
+	 *
 	 * @dataProvider provideNameOfMonth
-	 * @param null|int<1, 12>|string|DateTimeInterface $input
 	 */
-	public function testNameOfMonth(string $expected, null|int|string|DateTimeInterface $input): void
+	public function testNameOfMonth(
+		string $expected,
+		int|string|DateTimeInterface|null $input,
+	): void
 	{
 		if ($expected === InvalidArgumentsException::class) {
 			Assert::exception(
 				static fn () => Calendar::nameOfMonth($input),
-				$expected
+				$expected,
 			);
 			return;
 		}
 		Assert::same($expected, Calendar::nameOfMonth($input));
 	}
-
 
 	public function testCzech2DateTime(): void
 	{
@@ -142,7 +148,6 @@ final class CalendarTest extends \Tester\TestCase
 		Assert::exception(static fn () => Calendar::czech2DateTime('55646asd5464'), InvalidArgumentsException::class);
 	}
 
-
 	public function testFebruaryOfDay(): void
 	{
 		$years = [2012 => 29, 2013 => 28, 2014 => 28, 2015 => 28, 2016 => 29];
@@ -153,17 +158,15 @@ final class CalendarTest extends \Tester\TestCase
 		Assert::same(29, Calendar::februaryOfDay(new DateTime('2016-02-02')));
 	}
 
-
 	public function testGetName(): void
 	{
 		Assert::same('Milan', Calendar::nameByDate(new DateTime('2013-06-18')));
 		Assert::same(Calendar::nameByDate(), Calendar::nameByDate(new DateTime()));
 	}
 
-
 	public function testAllNames(): void
 	{
-		$interval = new \DatePeriod(new DateTime('01-01-2016'), new \DateInterval('P1D'), new DateTime('31-12-2016'));
+		$interval = new DatePeriod(new DateTime('01-01-2016'), new DateInterval('P1D'), new DateTime('31-12-2016'));
 		$i = 1;
 		foreach ($interval as $item) {
 			++$i;

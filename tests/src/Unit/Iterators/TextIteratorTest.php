@@ -1,19 +1,19 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace h4kuna\DataType\Tests\Unit\Iterators;
 
 use h4kuna\DataType\Exceptions\LogicException;
-use h4kuna;
 use h4kuna\DataType\Iterators\TextIterator;
 use SplFileObject;
 use Tester\Assert;
+use Tester\TestCase;
 
 require __DIR__ . '/bootstrap.php';
 
 /**
  * @testCase
  */
-final class TextIteratorTest extends \Tester\TestCase
+final class TextIteratorTest extends TestCase
 {
 
 	public function testNoSetup(): void
@@ -22,20 +22,17 @@ final class TextIteratorTest extends \Tester\TestCase
 		assertContent('noSetup', toString($compare));
 	}
 
-
 	public function testSkipEmpty(): void
 	{
 		$compare = createTextIterator(TextIterator::KeepEmptyLine);
 		assertContent('keepEmptyLine', toString($compare));
 	}
 
-
 	public function testSkipEmptyTrim(): void
 	{
 		$compare = createTextIterator(TextIterator::KeepEmptyLine | TextIterator::SkipTrimLine);
 		assertContent('keepEmptyLineAndSkipTrim', toString($compare));
 	}
-
 
 	public function testFileObjectAsCsv(): void
 	{
@@ -46,6 +43,7 @@ final class TextIteratorTest extends \Tester\TestCase
 
 		Assert::exception(static fn () => toString($textIterator), LogicException::class);
 	}
+
 }
 
-(new TextIteratorTest)->run();
+(new TextIteratorTest())->run();

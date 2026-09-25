@@ -1,14 +1,33 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace h4kuna\DataType\Basic;
 
 use h4kuna\DataType\Exceptions\InvalidArgumentsException;
 use h4kuna\DataType\Exceptions\InvalidTypeException;
-use h4kuna\DataType\Location;
+use h4kuna\DataType\Location\Gps;
 use Nette\StaticClass;
+use function is_float;
+use function is_int;
+use function is_null;
+use function is_string;
+use function mb_strlen;
+use function mb_substr;
+use function preg_quote;
+use function preg_replace;
+use function preg_replace_callback;
+use function sprintf;
+use function str_starts_with;
+use function strtolower;
+use function strtoupper;
+use function strtr;
+use function ucfirst;
+use const STR_PAD_BOTH;
+use const STR_PAD_LEFT;
+use const STR_PAD_RIGHT;
 
 final class Strings
 {
+
 	use StaticClass;
 
 	/**
@@ -19,18 +38,15 @@ final class Strings
 		return $value === null ? null : self::from($value);
 	}
 
-
 	public static function strokeToPoint(string $value): string
 	{
 		return strtr($value, ',', '.');
 	}
 
-
 	public static function key(string|int ...$values): string
 	{
 		return self::join($values, "\x00");
 	}
-
 
 	/**
 	 * @throws InvalidTypeException
@@ -40,7 +56,10 @@ final class Strings
 		return Floats::from($value);
 	}
 
-	public static function startWith(string $haystack, string ...$needle): bool
+	public static function startWith(
+		string $haystack,
+		string ...$needle,
+	): bool
 	{
 		foreach ($needle as $str) {
 			if (str_starts_with($haystack, $str)) {
@@ -50,7 +69,6 @@ final class Strings
 
 		return false;
 	}
-
 
 	/**
 	 * @throws InvalidTypeException
@@ -66,7 +84,6 @@ final class Strings
 		return $value;
 	}
 
-
 	/**
 	 * @throws InvalidTypeException
 	 */
@@ -75,16 +92,15 @@ final class Strings
 		return Integer::from($value);
 	}
 
-
 	/**
 	 * @return array{lat: float, long: float}
+	 *
 	 * @throws InvalidArgumentsException
 	 */
 	public static function toGps(string $value): array
 	{
-		return Location\Gps::fromString($value);
+		return Gps::fromString($value);
 	}
-
 
 	/**
 	 * @return array<string, true>
@@ -94,7 +110,6 @@ final class Strings
 		return Set::fromString($value);
 	}
 
-
 	/**
 	 * foo_bar => FooBar
 	 */
@@ -102,7 +117,6 @@ final class Strings
 	{
 		return ucfirst(self::toCamel($string));
 	}
-
 
 	/**
 	 * foo_bar => fooBar
@@ -114,29 +128,32 @@ final class Strings
 		}, $string);
 	}
 
-
 	/**
-	 * @deprecated use Arrays::explode()
-	 *
 	 * @param non-empty-string $delimiter
 	 * @return array<string>
+	 *
+	 * @deprecated use Arrays::explode()
 	 */
-	public static function split(string $value, string $delimiter = ', '): array
+	public static function split(
+		string $value,
+		string $delimiter = ', ',
+	): array
 	{
 		return Arrays::explode($value, $delimiter);
 	}
 
-
 	/**
-	 * @deprecated use Arrays::join()
-	 *
 	 * @param array<scalar|null> $array
+	 *
+	 * @deprecated use Arrays::join()
 	 */
-	public static function join(array $array, string $delimiter = ', '): string
+	public static function join(
+		array $array,
+		string $delimiter = ', ',
+	): string
 	{
 		return Arrays::join($array, $delimiter);
 	}
-
 
 	/**
 	 * FooBar => foo_bar
@@ -154,7 +171,6 @@ final class Strings
 		}, $string));
 	}
 
-
 	public static function replaceStart(
 		string $subject,
 		string $search,
@@ -163,7 +179,6 @@ final class Strings
 	{
 		return self::strictReplace($subject, $search, $replacement, '^%s', 1);
 	}
-
 
 	private static function strictReplace(
 		string $subject,
@@ -181,8 +196,11 @@ final class Strings
 		) ?? $search;
 	}
 
-
-	public static function padIfNeed(string $string, string $padString = '/', int $padType = STR_PAD_LEFT): string
+	public static function padIfNeed(
+		string $string,
+		string $padString = '/',
+		int $padType = STR_PAD_LEFT,
+	): string
 	{
 		$length = mb_strlen($padString);
 		$prefix = $suffix = '';
@@ -196,7 +214,6 @@ final class Strings
 
 		return "$prefix$string$suffix";
 	}
-
 
 	public static function replaceEnd(
 		string $subject,

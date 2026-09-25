@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace h4kuna\DataType\Date;
 
@@ -10,24 +10,30 @@ use h4kuna\DataType\Exceptions\InvalidArgumentsException;
 use Nette\StaticClass;
 use Nette\Utils\Strings as NetteStrings;
 use Nette\Utils\Validators;
+use function explode;
+use function ltrim;
+use function sprintf;
+use function substr;
 
 final class Parser
 {
+
 	use StaticClass;
 
-	/** @var array<string> */
+	/**
+	 * @var array<string>
+	 */
 	public static array $formats = ['d.m. H:i', 'm-d H:i', 'd.m.Y H:i', 'Y-m-d H:i', 'd.m.Y H:i:s', 'Y-m-d H:i:s'];
 
 
 	/**
-	 * @param string $any
-	 * @param DateTime|DateTimeImmutable|null $dateTime
 	 * @return ($dateTime is DateTime ? DateTime : DateTimeImmutable)
+	 *
 	 * @throws InvalidArgumentsException
 	 */
 	public static function fromString(
 		string $any,
-		DateTime|DateTimeImmutable|null $dateTime = null
+		DateTime|DateTimeImmutable|null $dateTime = null,
 	): DateTime|DateTimeImmutable
 	{
 		if ($dateTime === null) {
@@ -50,35 +56,37 @@ final class Parser
 		};
 	}
 
-
 	private static function isModification(string $string): bool
 	{
 		return Arrays::startWith($string, '+', '-');
 	}
-
 
 	private static function modifierFromFloat(float $value): string
 	{
 		return self::modifier(0, 0, (int) ($value * 3600));
 	}
 
-
-	private static function modifier(int $hour, int $minute, int $second = 0): string
+	private static function modifier(
+		int $hour,
+		int $minute,
+		int $second = 0,
+	): string
 	{
 		return sprintf('%s hour, %s minute, %s second', $hour, $minute, $second);
 	}
-
 
 	private static function isTimeFormat(string $any): bool
 	{
 		return NetteStrings::match($any, '/^[+-]?\d+:\d*(:\d*)?$/') !== null;
 	}
 
-
 	/**
 	 * @return ($date is DateTime ? DateTime : DateTimeImmutable)
 	 */
-	private static function fromTimeFormat(string $any, DateTime|DateTimeImmutable $date): DateTime|DateTimeImmutable
+	private static function fromTimeFormat(
+		string $any,
+		DateTime|DateTimeImmutable $date,
+	): DateTime|DateTimeImmutable
 	{
 		['hour' => $hour, 'minute' => $minute, 'second' => $second, 'modify' => $modify] = self::explodeTime($any);
 		if ($modify) {
@@ -87,7 +95,6 @@ final class Parser
 
 		return $date->setTime($hour, $minute, $second);
 	}
-
 
 	/**
 	 * @return array{hour: int, minute: int, second: int, modify: bool}
@@ -116,12 +123,15 @@ final class Parser
 		];
 	}
 
-
 	/**
 	 * @return ($isDateTime is true ? DateTime : DateTimeImmutable)
+	 *
 	 * @throws InvalidArgumentsException
 	 */
-	private static function fromFormat(string $any, bool $isDateTime): DateTime|DateTimeImmutable
+	private static function fromFormat(
+		string $any,
+		bool $isDateTime,
+	): DateTime|DateTimeImmutable
 	{
 		$callback = static fn (string $format, string $any) => $isDateTime
 			? DateTime::createFromFormat($format, $any)
@@ -136,8 +146,5 @@ final class Parser
 
 		throw InvalidArgumentsException::createUnknownDateFormat($any);
 	}
+
 }
-
-
-
-

@@ -1,8 +1,12 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace h4kuna\DataType\Number;
 
 use Nette\StaticClass;
+use function floor;
+use function str_repeat;
+use function str_split;
+use function strtoupper;
 
 /**
  * @example
@@ -12,6 +16,7 @@ use Nette\StaticClass;
  */
 class RomeNumber
 {
+
 	use StaticClass;
 
 	private const NUMBERS = [
@@ -44,7 +49,6 @@ class RomeNumber
 
 		return $return;
 	}
-
 
 	/**
 	 * Transform form rome to arabic

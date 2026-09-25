@@ -1,8 +1,12 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace h4kuna\DataType\Iterators;
 
 use Iterator;
+use function current;
+use function end;
+use function key;
+use function prev;
 
 /**
  * @template TKey=int|string
@@ -11,6 +15,7 @@ use Iterator;
  */
 class ReverseIterator implements Iterator
 {
+
 	/**
 	 * @var TKey
 	 */
@@ -26,7 +31,6 @@ class ReverseIterator implements Iterator
 	{
 	}
 
-
 	public function current(): mixed
 	{
 		/** @var TValue $value */
@@ -35,18 +39,15 @@ class ReverseIterator implements Iterator
 		return $value;
 	}
 
-
 	public function next(): void
 	{
 		prev($this->array);
 	}
 
-
 	public function key(): mixed
 	{
 		return $this->key;
 	}
-
 
 	public function valid(): bool
 	{
@@ -55,9 +56,9 @@ class ReverseIterator implements Iterator
 		return $this->key !== null;
 	}
 
-
 	public function rewind(): void
 	{
 		end($this->array);
 	}
+
 }

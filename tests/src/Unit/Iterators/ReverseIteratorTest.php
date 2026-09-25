@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace h4kuna\DataType\Tests\Unit\Iterators;
 
@@ -13,6 +13,7 @@ require_once __DIR__ . '/bootstrap.php';
  */
 final class ReverseIteratorTest extends TestCase
 {
+
 	/**
 	 * @return array<mixed>
 	 */
@@ -34,15 +35,18 @@ final class ReverseIteratorTest extends TestCase
 		];
 	}
 
-
 	/**
-	 * @dataProvider basicProvider
 	 * @param array<mixed> $source
 	 * @param array<mixed> $expected
+	 *
+	 * @dataProvider basicProvider
 	 */
-	public function testBasic(array $source, array $expected): void
+	public function testBasic(
+		array $source,
+		array $expected,
+	): void
 	{
-		$x = new \h4kuna\DataType\Iterators\ReverseIterator([]); // deprecated
+		$x = new ReverseIterator([]); // deprecated
 		Assert::type(ReverseIterator::class, $x);
 
 		$actual = [];
@@ -51,6 +55,7 @@ final class ReverseIteratorTest extends TestCase
 		}
 		Assert::same($expected, $actual);
 	}
+
 }
 
 (new ReverseIteratorTest())->run();

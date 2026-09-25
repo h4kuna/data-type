@@ -1,20 +1,20 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace h4kuna\DataType\Tests\Unit\Basic;
 
-use h4kuna\DataType\Exceptions\InvalidTypeException;
-use h4kuna;
 use h4kuna\DataType\Basic\Integer;
-use Tester;
+use h4kuna\DataType\Exceptions\InvalidTypeException;
 use Tester\Assert;
+use Tester\TestCase;
 
 require __DIR__ . '/../../../bootstrap.php';
 
 /**
  * @testCase
  */
-final class IntegerTest extends Tester\TestCase
+final class IntegerTest extends TestCase
 {
+
 	/**
 	 * @return array<array<mixed>>
 	 */
@@ -32,26 +32,29 @@ final class IntegerTest extends Tester\TestCase
 		];
 	}
 
-
 	/**
 	 * @dataProvider dataFrom
 	 */
-	public function testFromString(mixed $input, int $expected): void
+	public function testFromString(
+		mixed $input,
+		int $expected,
+	): void
 	{
 		Assert::same($expected, Integer::from($input));
 	}
-
 
 	public function testFailed(): void
 	{
 		Assert::exception(static fn () => Integer::from('1.1'), InvalidTypeException::class); // not int
 	}
 
-
 	/**
 	 * @dataProvider dataFrom
 	 */
-	public function testNullable(mixed $input, int $expected): void
+	public function testNullable(
+		mixed $input,
+		int $expected,
+	): void
 	{
 		if ($input === null) {
 			$expected = null;

@@ -1,12 +1,14 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace h4kuna\DataType\Basic;
 
 use h4kuna\DataType\Exceptions\InvalidTypeException;
 use Nette\StaticClass;
+use function is_numeric;
 
 final class Bools
 {
+
 	use StaticClass;
 
 	/**
@@ -16,7 +18,6 @@ final class Bools
 	{
 		return $value === null ? null : self::from($value);
 	}
-
 
 	/**
 	 * @throws InvalidTypeException

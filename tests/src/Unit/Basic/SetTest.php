@@ -1,16 +1,19 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace h4kuna\DataType\Tests\Unit\Basic;
 
 use h4kuna\DataType\Basic\Set;
 use Tester\Assert;
+use Tester\TestCase;
+use function array_keys;
+use function implode;
 
 require __DIR__ . '/../../../bootstrap.php';
 
 /**
  * @testCase
  */
-final class SetTest extends \Tester\TestCase
+final class SetTest extends TestCase
 {
 
 	public function testFromString(): void
