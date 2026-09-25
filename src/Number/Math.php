@@ -46,7 +46,7 @@ final class Math
 	 * Round method to zero point five.
 	 * @example 1.24 -> 1.0, 1.25 -> 1.5, 1.74 -> 1.5, 1.75 -> 2.0
 	 */
-	public static function round5(float|int $num): float|int
+	public static function round5(float|int $num): float
 	{
 		if ($num < 0) {
 			$floor = ceil($num);
@@ -70,7 +70,7 @@ final class Math
 
 	public static function safeDivision(float|int $up, float|int $down): ?float
 	{
-		if ($down == 0) {
+		if ($down === 0 || $down === 0.) {
 			return null;
 		}
 
@@ -80,7 +80,7 @@ final class Math
 
 	public static function factorial(int $n): int
 	{
-		if ($n == 0) {
+		if ($n === 0) {
 			return 1;
 		}
 		if ($n < 0) {
