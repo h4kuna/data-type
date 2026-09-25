@@ -3,13 +3,11 @@
 namespace h4kuna\DataType\Date;
 
 use DateTimeImmutable;
-use h4kuna\Memoize\MemoizeStatic;
 use Nette\StaticClass;
 
 final class Easter
 {
 	use StaticClass;
-	use MemoizeStatic;
 
 	public static ?bool $useNative = null;
 
@@ -36,8 +34,9 @@ final class Easter
 			$year = (int) date('Y');
 		}
 
-		return self::memoize([__METHOD__, $year], static fn (
-		): DateTimeImmutable => self::$useNative === true ? Convert::timestampToImmutable(self::native($year))->modify('today') : Convert::timestampToImmutable(self::counted($year)));
+		return self::$useNative
+			? Convert::timestampToImmutable(self::native($year))->modify('today')
+			: Convert::timestampToImmutable(self::counted($year));
 	}
 
 

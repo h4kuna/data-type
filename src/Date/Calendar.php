@@ -6,16 +6,17 @@ use DateTimeImmutable;
 use DateTimeInterface;
 use h4kuna\DataType;
 use h4kuna\DataType\Exceptions\InvalidArgumentsException;
-use h4kuna\Memoize\MemoizeStatic;
 use Nette\StaticClass;
 use Nette\Utils\Strings;
 
 final class Calendar
 {
 	use StaticClass;
-	use MemoizeStatic;
 
 	public static string $namesFile = __DIR__ . '/names.php';
+
+	/** @var array<int, array<int, string>>|null */
+	private static ?array $names = null;
 
 
 	private function __construct()
@@ -51,17 +52,15 @@ final class Calendar
 	 */
 	public static function getDays(): array
 	{
-		return self::memoize(__METHOD__, static function (): array {
-			return [
-				1 => 'Pondělí',
-				'Úterý',
-				'Středa',
-				'Čtvrtek',
-				'Pátek',
-				'Sobota',
-				'Neděle',
-			];
-		});
+		return [
+			1 => 'Pondělí',
+			'Úterý',
+			'Středa',
+			'Čtvrtek',
+			'Pátek',
+			'Sobota',
+			'Neděle',
+		];
 	}
 
 
@@ -89,22 +88,20 @@ final class Calendar
 	 */
 	public static function getMonths(): array
 	{
-		return self::memoize(__METHOD__, static function (): array {
-			return [
-				1 => 'Leden',
-				'Únor',
-				'Březen',
-				'Duben',
-				'Květen',
-				'Červen',
-				'Červenec',
-				'Srpen',
-				'Září',
-				'Říjen',
-				'Listopad',
-				'Prosinec',
-			];
-		});
+		return [
+			1 => 'Leden',
+			'Únor',
+			'Březen',
+			'Duben',
+			'Květen',
+			'Červen',
+			'Červenec',
+			'Srpen',
+			'Září',
+			'Říjen',
+			'Listopad',
+			'Prosinec',
+		];
 	}
 
 
@@ -165,11 +162,12 @@ final class Calendar
 	 */
 	public static function names(): array
 	{
-		return self::memoize(__METHOD__, static function (): array {
+		if (self::$names === null) {
 			/** @var array<int, array<int, string>> $names */
 			$names = require self::$namesFile;
+			self::$names = $names;
+		}
 
-			return $names;
-		});
+		return self::$names;
 	}
 }

@@ -3,7 +3,6 @@
 namespace h4kuna\DataType\Tests\Unit\Date;
 
 use h4kuna\DataType\Date\Easter;
-use h4kuna\Memoize;
 use Tester\Assert;
 use Tester\TestCase;
 
@@ -47,5 +46,4 @@ final class EasterTest extends TestCase
 
 }
 
-Memoize\Helper::bypassMemoize();
 (new EasterTest())->run();
