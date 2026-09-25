@@ -22,7 +22,7 @@ class CsvIterator implements IteratorAggregate
 		array|string|SplFileObject|TextIterator $text,
 		private string $delimiter = ',',
 		private string $enclosure = '"',
-		private string $escape = '\\',
+		private string $escape = '',
 		int $flags = TextIterator::NoSetup,
 	)
 	{
