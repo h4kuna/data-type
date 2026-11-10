@@ -17,7 +17,7 @@ $ composer require h4kuna/data-type
 Requires PHP 8.2.
 
 - [Basic](src/Basic) - Arrays, BitwiseOperations, Bools, Floats, Integer, Lists, Set, Strings
-- [Collection](src/Collection) - Counter, LazyBuilder, StrictTypeArray, JsonToHtml
+- [Collection](src/Collection) - Counter, LazyBuilder, StrictTypeArray, JsonToHtml, FibonacciSequence
 - [Date](src/Date) - Czech Calendar, Easter, Parser, Time, Convert, Interval, Sleep
 - [Iterators](src/Iterators) - TextIterator, CsvIterator, FlattenArrayRecursiveIterator, PeriodDayFactory, ActiveWait, ReverseIterator
 - [Location](src/Location) - Gps

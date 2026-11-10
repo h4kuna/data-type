@@ -4,6 +4,7 @@
 - [LazyBuilder](#lazybuilder)
 - [StrictTypeArray](#stricttypearray)
 - [JsonToHtml](#jsontohtml)
+- [FibonacciSequence](#fibonaccisequence)
 
 # Counter
 
@@ -161,3 +162,23 @@ export function loadConfig<T>(id: string): T {
 
 console.log(loadConfig('my-config'));
 ```
+
+# FibonacciSequence
+
+Calculate Fibonacci numbers, the result is `list<int>`. The first parameter is the count of numbers (default `10`), the second is the number where the sequence starts (default `1`).
+
+```php
+use h4kuna\DataType\Collection\FibonacciSequence;
+
+FibonacciSequence::calculate(); // [1, 2, 3, 5, 8, 13, 21, 34, 55, 89]
+FibonacciSequence::calculate(count: 5, min: 5); // [5, 8, 13, 21, 34]
+```
+
+The first item is always `min`. The item before it is the highest Fibonacci number lower than `min`, so `4` and `5` both follow `3`:
+
+```php
+FibonacciSequence::calculate(count: 4, min: 4); // [4, 7, 11, 18]
+FibonacciSequence::calculate(count: 4, min: 5); // [5, 8, 13, 21]
+```
+
+The numbers fit into `int` up to the 91st item, then the sum overflows.
