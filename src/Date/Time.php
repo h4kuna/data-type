@@ -5,7 +5,7 @@ namespace h4kuna\DataType\Date;
 use DateTime;
 use DateTimeImmutable;
 use DateTimeInterface;
-use h4kuna\DataType\Basic\Strings;
+use h4kuna\DataType\Basic\Arrays;
 use Nette\StaticClass;
 use function is_string;
 use function microtime;
@@ -26,7 +26,7 @@ final class Time
 	public static function only(string|DateTimeInterface $dateTime): int
 	{
 		if (is_string($dateTime)) {
-			$time = Strings::split($dateTime, ':');
+			$time = Arrays::explode($dateTime, ':');
 			$hour = $time[0] ?? 0;
 			$minute = $time[1] ?? 0;
 			$second = $time[2] ?? 0;
