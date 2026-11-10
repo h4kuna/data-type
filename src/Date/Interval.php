@@ -5,7 +5,6 @@ namespace h4kuna\DataType\Date;
 use DateInterval;
 use DateTimeInterface;
 use h4kuna\DataType\Number\Math;
-use Nette\Utils\DateTime;
 use function round;
 
 final class Interval
@@ -19,15 +18,15 @@ final class Interval
 	public static function toSecondsMilli(DateInterval $dateInterval): float
 	{
 		if ($dateInterval->days === false) {
-			$days = $dateInterval->y * DateTime::YEAR
-				+ $dateInterval->m * DateTime::MONTH
-				+ $dateInterval->d * DateTime::DAY;
+			$days = $dateInterval->y * Duration::Year
+				+ $dateInterval->m * Duration::Month
+				+ $dateInterval->d * Duration::Day;
 		} else {
-			$days = $dateInterval->days * DateTime::DAY;
+			$days = $dateInterval->days * Duration::Day;
 		}
 
-		$days += $dateInterval->h * DateTime::HOUR
-			+ $dateInterval->i * DateTime::MINUTE
+		$days += $dateInterval->h * Duration::Hour
+			+ $dateInterval->i * Duration::Minute
 			+ $dateInterval->s
 			+ $dateInterval->f;
 

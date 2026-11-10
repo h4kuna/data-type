@@ -2,6 +2,7 @@
 
 namespace h4kuna\DataType\Basic;
 
+use h4kuna\DataType\Date\Duration;
 use h4kuna\DataType\Exceptions\InvalidTypeException;
 use Nette\StaticClass;
 use Nette\Utils\Strings as NetteStrings;
@@ -72,7 +73,7 @@ final class Floats
 		}
 		$out = 0.0;
 		foreach (explode(':', $value) as $i => $v) {
-			$out += (Integer::from($v) / pow(60, $i));
+			$out += (Integer::from($v) / pow(Duration::Minute, $i));
 		}
 
 		return $minus ? $out * -1 : $out;

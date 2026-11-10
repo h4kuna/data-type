@@ -63,7 +63,7 @@ final class Parser
 
 	private static function modifierFromFloat(float $value): string
 	{
-		return self::modifier(0, 0, (int) ($value * 3600));
+		return self::modifier(0, 0, (int) ($value * Duration::Hour));
 	}
 
 	private static function modifier(

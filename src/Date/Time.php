@@ -36,8 +36,8 @@ final class Time
 			$second = $dateTime->format('s');
 		}
 
-		return ((int) $hour) * 3600
-			+ ((int) $minute) * 60
+		return ((int) $hour) * Duration::Hour
+			+ ((int) $minute) * Duration::Minute
 			+ ((int) $second);
 	}
 

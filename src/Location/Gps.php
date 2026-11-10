@@ -2,6 +2,7 @@
 
 namespace h4kuna\DataType\Location;
 
+use h4kuna\DataType\Date\Duration;
 use h4kuna\DataType\Exceptions\InvalidArgumentsException;
 use Nette\StaticClass;
 use Nette\Utils\Strings;
@@ -114,7 +115,7 @@ final class Gps
 		int|float $seconds = 0.0,
 	): float
 	{
-		return (float) ($degrees + $minutes / 60 + $seconds / 3600);
+		return (float) ($degrees + $minutes / Duration::Minute + $seconds / Duration::Hour);
 	}
 
 }
