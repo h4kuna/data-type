@@ -26,7 +26,7 @@ final class FibonacciSequence
 		$numbers = [$min];
 		[$previous, $current] = [$min, $previous + $min];
 
-		for ($step = 1; $step < $count; $step++) {
+		for ($step = 1; $step < $count; ++$step) {
 			$numbers[] = $current;
 			[$previous, $current] = [$current, $previous + $current];
 		}
